@@ -2,15 +2,14 @@
 
 ## Repository layout
 
-Codex Meter is a **monorepo** with native clients and no backend:
+Codex Meter is an **Android phone app** with no backend:
 
 | Path | Stack | Package / product |
 |------|--------|-------------------|
 | Repository root | Shared docs, license, changelog, CI entrypoints | — |
-| `android/` | Android (Gradle `:app`, `:shared`, `:wear`) | `dev.bennett.codexmeter` (+ Wear companion) |
-| `ios/` | SwiftUI / WidgetKit (Xcode) | `CodexMeter` app + widgets + `CodexMeterCore` package |
+| `android/` | Android (Gradle `:app`, `:shared`) | `dev.bennett.codexmeter` |
 
-Clients talk directly to OpenAI/ChatGPT remote endpoints. Tokens stay on-device (Android Keystore / iOS Keychain).
+The app talks directly to OpenAI/ChatGPT remote endpoints. Tokens stay on-device in Android Keystore.
 
 ## Release channels & etiquette (Android)
 
@@ -26,7 +25,7 @@ Rules for agents:
 - **Never bump `versionCode`/`versionName` on your own.** Version bumps are release preparation and happen only when the user asks to cut a release.
 - Preparing an **alpha release** (`X.Y.Z-alpha.N`): bump `versionName` only; `versionCode` must stay **equal to** the newest stable release's versionCode. CI rejects the tag otherwise — this invariant is what keeps in-app channel switching (including "Return to stable") an in-place install with no uninstall. `X.Y.Z` must be the **next** stable version, not the shipped one (after stable `2.7.0`, cut `2.8.0-alpha.1` — never `2.7.0-alpha.1`, which SemVer orders below `2.7.0` so the in-app updater would never offer it).
 - Preparing a **stable release** (promotion): merge `alpha` into `main`, drop the suffix, bump `versionCode` by exactly one, and consolidate the alpha changelog sections under the stable version.
-- Any release prep must update every synced version touchpoint together, or `run-tests.sh` fails: `android/app/build.gradle.kts`, `android/wear/build.gradle.kts`, `AppConstants.java` (`VERSION_NAME`, `VERSION_CODE`, and the literal user-agent string), `android/build.sh`, the version guards in `android/run-tests.sh`, and a matching `## <version>` section in root `CHANGELOG.md` (the release job fails when notes are missing).
+- Any release prep must update every synced version touchpoint together, or `run-tests.sh` fails: `android/app/build.gradle.kts`, `AppConstants.java` (`VERSION_NAME`, `VERSION_CODE`, and the literal user-agent string), `android/build.sh`, the version guards in `android/run-tests.sh`, and a matching `## <version>` section in root `CHANGELOG.md` (the release job fails when notes are missing).
 - Merging `main` into `alpha` to keep it fresh is fine; never force-push either branch, and never delete or recreate `alpha` on your own.
 
 Convenience wrappers at the repo root forward into the Android project:
@@ -34,8 +33,6 @@ Convenience wrappers at the repo root forward into the Android project:
 - `./run-tests.sh` → `android/run-tests.sh`
 - `./build.sh` → `android/build.sh`
 - `./lint.sh` → `android/lint.sh`
-
-iOS build instructions are in `ios/README.md`.
 
 ## Cursor Cloud specific instructions (Android)
 
@@ -47,16 +44,8 @@ iOS build instructions are in `ios/README.md`.
   `export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ANDROID_SDK_ROOT=$HOME/android-sdk ANDROID_HOME=$HOME/android-sdk`.
 
 ### One UI / SESL dependency resolution
-`android/build.sh` (`:app:assembleRelease` + `:wear:assembleRelease`) and `android/lint.sh` (`:app:lintRelease` + `:wear:lintRelease`) resolve `io.github.tribalfs:oneui-design` and its transitive **SESL** dependencies. GitHub Packages Maven **always requires authentication, even for public packages**, so without credentials live SESL downloads return `401 Unauthorized`. `android/vendor/m2` caches the top-level `oneui-design` AAR **and** the SESL transitive artifacts, so phone + Wear release builds work offline without `GH_USERNAME` / `GH_ACCESS_TOKEN`. Those env vars remain optional for refreshing deps from GitHub Packages; `android/settings.gradle.kts` still reads them when present.
+`android/build.sh` (`:app:assembleRelease`) and `android/lint.sh` (`:app:lintRelease`) resolve `io.github.tribalfs:oneui-design` and its transitive **SESL** dependencies. GitHub Packages Maven **always requires authentication, even for public packages**, so without credentials live SESL downloads return `401 Unauthorized`. `android/vendor/m2` caches the top-level `oneui-design` AAR **and** the SESL transitive artifacts, so phone release builds work offline without `GH_USERNAME` / `GH_ACCESS_TOKEN`. Those env vars remain optional for refreshing deps from GitHub Packages; `android/settings.gradle.kts` still reads them when present.
 
 ### Running / testing (Android)
 - `./run-tests.sh` (or `android/run-tests.sh`) compiles and runs the pure-Java core self-tests (usage-response parsing, PKCE/OAuth, JWT claims, widget options) — no Android SDK or GitHub creds required. Use this as the fast correctness check.
-- There is no Android emulator/GUI in this VM, and an APK cannot be installed/launched headlessly here. Validate changes with `run-tests.sh` and a successful `build.sh`/`lint.sh`. Signed phone + Wear APKs land in `android/dist/` and are the product artifacts.
-
-## iOS notes for agents
-
-- Work under `ios/`. Keep Android changes under `android/`. Do not flatten either tree into the repo root.
-- Prefer native SwiftUI / WidgetKit patterns; do not port Samsung One UI or Android update installers.
-- Core pure logic for the iOS app lives in `ios/CodexMeterCore`.
-- Fast checks: `swift test --package-path ios/CodexMeterCore` (from repo root) or from `ios/` as documented in `ios/README.md`.
-- Full Xcode builds need a macOS host; Linux cloud VMs typically cannot build the iOS target.
+- There is no Android emulator/GUI in this VM, and an APK cannot be installed/launched headlessly here. Validate changes with `run-tests.sh` and a successful `build.sh`/`lint.sh`. The signed phone APK lands in `android/dist/` and is the product artifact.

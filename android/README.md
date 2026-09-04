@@ -1,16 +1,14 @@
 # Codex Meter for Android
 
-Native Android + Wear OS client for viewing the Codex allowance attached to a
-signed-in ChatGPT account. This directory is the **Android** Gradle project of
-the Codex Meter monorepo. The iOS client lives under [`../ios/`](../ios/).
+Native Android phone client for viewing the Codex allowance attached to a
+signed-in ChatGPT account. This directory contains the Android Gradle project.
 
 ## Layout
 
 | Path | Role |
 |------|------|
 | `app/` | Phone app (`dev.bennett.codexmeter`) |
-| `wear/` | Wear OS companion |
-| `shared/` | Shared phone↔watch contracts |
+| `shared/` | Pure-Java usage models and core logic |
 | `tests/` | Pure-Java self-tests used by `./run-tests.sh` |
 | `vendor/m2/` | Cached One UI / SESL Maven artifacts |
 | `ci/` | Encrypted release keystore material for GitHub Actions |
@@ -29,7 +27,7 @@ Requirements: JDK 17+, Android SDK Platform 36, Build Tools 36.x, and
 `ANDROID_SDK_ROOT` / `ANDROID_HOME`. `vendor/m2` covers SESL deps offline;
 optional `GH_USERNAME` / `GH_ACCESS_TOKEN` refresh GitHub Packages.
 
-Signed local APKs land in `android/dist/`. See the repository root
+The signed local APK lands in `android/dist/`. See the repository root
 [`README.md`](../README.md) for product notes and release tagging.
 
 ## New Codex model alerts
@@ -52,4 +50,4 @@ usage refresh. This detects availability for the account, not global release dat
 The authenticated `backend-api/codex/models` route, `visibility: list` filter, and
 `client_version=0.153.3` follow the [Codex catalog protocol](https://github.com/openai/codex/blob/rust-v0.153.3/codex-rs/codex-api/src/endpoint/models.rs).
 The private endpoint/client compatibility version may need updating when Codex
-changes; keep it aligned with the iOS client.
+changes.

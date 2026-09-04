@@ -2,7 +2,6 @@ package dev.bennett.codexmeter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import dev.bennett.codexmeter.wear.PhoneWearSync;
 
 /** User controls for usage-life estimates and accelerated-consumption warnings. */
 public final class UsagePacePreferences {
@@ -23,7 +22,6 @@ public final class UsagePacePreferences {
 
     public static void setEnabled(Context context, boolean enabled) {
         prefs(context).edit().putBoolean(KEY_ENABLED, enabled).apply();
-        PhoneWearSync.pushSettings(context);
     }
 
     public static String getSensitivity(Context context) {
@@ -34,7 +32,6 @@ public final class UsagePacePreferences {
     public static void setSensitivity(Context context, String sensitivity) {
         prefs(context).edit().putString(KEY_SENSITIVITY,
                 UsagePace.normalizeSensitivity(sensitivity)).apply();
-        PhoneWearSync.pushSettings(context);
     }
 
     /** Estimates may still show when this is false; only accelerated warnings are suppressed. */

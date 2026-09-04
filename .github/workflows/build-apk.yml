@@ -41,7 +41,7 @@ jobs:
             android/**/*.gradle*
             android/**/gradle-wrapper.properties
 
-      - name: Install Android phone and Wear toolchains
+      - name: Install Android toolchain
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
@@ -53,7 +53,6 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" \
             "platforms;android-36" \
-            "platforms;android-37.0" \
             "build-tools;36.0.0"
 
       - name: Validate version
@@ -158,7 +157,10 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: codex-meter-${{ steps.version.outputs.name }}-ci
-          path: android/dist/
+          path: |
+            android/dist/CodexMeter-${{ steps.version.outputs.name }}.apk
+            android/dist/SHA256SUMS.txt
+            android/dist/build.log
           if-no-files-found: error
           retention-days: 3
 
@@ -230,7 +232,6 @@ jobs:
           fi
           gh release upload "$GITHUB_REF_NAME" \
             "release-dist/CodexMeter-$VERSION_NAME.apk#Codex Meter $VERSION_NAME APK" \
-            "release-dist/CodexMeter-Wear-$VERSION_NAME.apk#Codex Meter Wear OS $VERSION_NAME APK" \
             "release-dist/SHA256SUMS.txt#SHA-256 checksums" \
             --clobber
           if [[ "$PRERELEASE" == "true" ]]; then

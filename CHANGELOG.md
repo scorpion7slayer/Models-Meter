@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Add account-specific notifications when new Codex models appear.
+- Focus the project on Android phones: remove the iOS client, Wear OS companion, phone-to-watch synchronization, and their build jobs.
+- Build and publish only the phone APK and its checksum.
+
 ## 2.8.0 — 2026-08-14
 
 ### Added

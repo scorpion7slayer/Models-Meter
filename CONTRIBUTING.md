@@ -5,10 +5,9 @@ This repository is a monorepo:
 - Shared docs and release notes live at the repository root (`README.md`,
   `CHANGELOG.md`, `LICENSE`, `AGENTS.md`).
 - **Android** lives under [`android/`](android/) (Gradle, `app/`, `shared/`,
-  `wear/`, `tests/`).
-- **iOS** lives under [`ios/`](ios/).
+  `tests/`).
 
-Keep platform-specific changes in the matching tree. Prefer focused commits and
+Keep Android source changes under `android/`. Prefer focused commits and
 update tests with behavior changes. Do not commit credentials, tokens, or
 generated build artifacts.
 
@@ -61,23 +60,10 @@ Versioning rules (enforced by CI on tags):
 
 Cutting an alpha: branch work off `alpha`, set `versionName` to the next stable
 version plus the alpha suffix (for example, `2.8.0-alpha.1` while stable is
-`2.7.0`) in `android/app/build.gradle.kts`, `android/wear/build.gradle.kts`,
+`2.7.0`) in `android/app/build.gradle.kts`,
 `AppConstants.java`, `android/build.sh`, and the guards in `android/run-tests.sh`,
 add a `## 2.8.0-alpha.1` section to `CHANGELOG.md`, then tag `v2.8.0-alpha.1`.
 
 Promoting to stable: merge `alpha` into `main`, drop the suffix, bump
 `versionCode`, consolidate the alpha changelog sections under the stable version,
 then tag as usual.
-
-## iOS local setup
-
-Install Xcode 26 or newer. From `ios/`:
-
-```bash
-swift test --package-path CodexMeterCore
-xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
-  -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
-```
-
-See [`ios/README.md`](ios/README.md) for device signing, App Groups, and release
-checklist notes.

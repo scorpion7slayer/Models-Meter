@@ -5,7 +5,7 @@
     <PreferenceCategory android:title="Log tracing">
         <SwitchPreferenceCompat
             android:key="diagnostic_logging_enabled"
-            android:summary="Record detailed app, refresh, scheduler, Wear, and network events"
+            android:summary="Record detailed app, refresh, scheduler, and network events"
             android:title="Save diagnostic logs"
             app:iconSpaceReserved="false" />
         <Preference

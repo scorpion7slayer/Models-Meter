@@ -1,22 +1,17 @@
 # Codex Meter
 
-Codex Meter is an unofficial open-source client for viewing the Codex allowance
-attached to a signed-in ChatGPT account. This repository is a **monorepo**:
+Codex Meter is an unofficial open-source Android phone app for viewing the Codex
+allowance attached to a signed-in ChatGPT account.
 
-| Path | Platform | Notes |
-|------|----------|--------|
-| Repository root | Shared | Docs, license, changelog, CI, convenience script wrappers |
-| [`android/`](android/) | **Android** | Phone app + Wear companion: One UI dashboard, home widgets, Samsung lock/AOD, notifications, optional live usage monitor |
-| [`ios/`](ios/) | **iPhone / iPad** | Native SwiftUI + WidgetKit client with portable 2.8.0 behavior (meters, monthly Free-tier windows, history analytics, diagnostics, widgets) |
-
-There is no shared backend. Each platform talks to ChatGPT/Codex endpoints
-directly and stores credentials only on-device.
+The application lives in [`android/`](android/): `app/` contains the native UI,
+widgets, notifications, and networking; `shared/` contains the pure-Java usage
+logic. Documentation, release notes, and CI entrypoints live at the repository root.
+The app talks directly to ChatGPT/Codex endpoints and stores credentials only
+on-device in Android Keystore. There is no backend.
 
 ## Android — Version 2.8.0
 
 Version 2.8.0 adapts to Free-tier monthly Codex limits when a paid plan expires, adds opt-in diagnostic log tracing/export, and declutters usage-history analytics with customizable highlights. This stable release consolidates the 2.8.0-alpha.1 channel build; alpha remains opt-in under Settings → Updates → Update channel.
-
-On compatible Galaxy Watches, those five standard AndroidX Tiles also advertise Samsung's private modular-card hints: the overview requests a 2×2 footprint and the focused usage, reset, and monitor Tiles request 2×1 footprints. Their diagonal One UI gradient cards use the same rounded 228-degree usage-dial geometry and One UI Sans typography as the phone's battery-style widgets. Other Wear OS tile hosts ignore the sizing hints and keep the normal full-screen carousel presentation. Samsung does not document third-party eligibility for modular placement, so final grid behavior remains firmware-dependent.
 
 ### Live countdowns
 
@@ -29,6 +24,12 @@ Settings includes an optional, user-started live usage monitor that runs only un
 ### Reset alerts
 
 Users can choose silent, notification-sound, or alarm-sound alerts for the five-hour limit, weekly limit, or both. Alerts can be conditional on the most recently observed allowance being below a selected threshold. Android schedules the notification for the cached reset time and performs a normal background refresh after the alert fires.
+
+### New model alerts
+
+Settings → Notifications → **New Codex model alerts** announces newly available
+models for the connected account, with the same alert style as resets. The first
+successful catalog check is silent; later checks deduplicate by model ID.
 
 ### Widget surfaces
 
@@ -53,9 +54,9 @@ The app includes:
 
 ## Compatibility
 
-- Phone minimum Android 8.0 (API 26); Wear companion minimum API 30
-- Phone compile SDK Android 16 (API 36); Wear compile SDK Android 17 (API 37.0)
-- Phone and Wear target Android 16 (API 36)
+- Minimum Android 8.0 (API 26)
+- Compile SDK Android 16 (API 36)
+- Target Android 16 (API 36)
 - Universal DEX APK with no native ABI libraries
 - Standard Android home-screen widgets
 - Private Samsung One UI lock/AOD integration on compatible Galaxy firmware
@@ -69,7 +70,7 @@ See [`android/README.md`](android/README.md). The Android project uses Gradle wi
 Requirements:
 
 - JDK 17 or newer
-- Android SDK Platforms 36 and 37.0
+- Android SDK Platform 36
 - Android Build Tools 36.x
 - `ANDROID_SDK_ROOT` or `ANDROID_HOME` configured
 - A GitHub Packages token in `GH_ACCESS_TOKEN` (with `read:packages`) and your username in `GH_USERNAME` when the OneUI-Design dependencies are not already cached
@@ -81,25 +82,11 @@ From the repository root:
 ./build.sh
 ```
 
-Or from `android/` directly. `build.sh` assembles the release APKs with Gradle and signs them with a local development key under `android/.local-signing/`. Those locally signed APKs will not install over the distributed release build. Artifacts land in `android/dist/`.
-
-### iOS
-
-See [`ios/README.md`](ios/README.md). Requires Xcode 26+ and iOS/iPadOS 26+.
-The iOS client now carries portable Android 2.8.0 behavior: Free-tier monthly
-windows, scrubbable usage-history analytics with customize, and opt-in
-diagnostic log export.
-
-```bash
-cd ios
-swift test --package-path CodexMeterCore
-xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
-  -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
-```
+Or from `android/` directly. `build.sh` assembles the release APK with Gradle and signs it with a local development key under `android/.local-signing/`. This locally signed APK will not install over the distributed release build. Artifacts land in `android/dist/`.
 
 ## Releases
 
-Creating a `v*` tag that matches the Gradle `versionName` in `android/app/build.gradle.kts` (for example `v2.6.5`) runs the full CI pipeline and publishes the signed phone APK, signed Wear OS APK, and their SHA-256 checksums to GitHub Releases. CI authenticates and decrypts the persistent PKCS#12 release keystore `android/ci/release-keystore.p12.enc` (alias `codexmeter`) using the `ANDROID_SIGNING_PASSWORD` repository Actions secret, so every release is signed with the same certificate and installs in place over previous releases. Release notes are taken from the root `CHANGELOG.md`.
+Creating a `v*` tag that matches the Gradle `versionName` in `android/app/build.gradle.kts` (for example `v2.6.5`) runs the full CI pipeline and publishes the signed phone APK and its SHA-256 checksum to GitHub Releases. CI authenticates and decrypts the persistent PKCS#12 release keystore `android/ci/release-keystore.p12.enc` (alias `codexmeter`) using the `ANDROID_SIGNING_PASSWORD` repository Actions secret, so every release is signed with the same certificate and installs in place over previous releases. Release notes are taken from the root `CHANGELOG.md`.
 
 ## Platform stability
 

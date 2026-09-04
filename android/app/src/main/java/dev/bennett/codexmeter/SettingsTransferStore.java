@@ -2,7 +2,6 @@ package dev.bennett.codexmeter;
 
 import android.content.Context;
 import android.net.Uri;
-import dev.bennett.codexmeter.wear.PhoneWearSync;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -145,7 +144,6 @@ public final class SettingsTransferStore {
             NowBarManager.onPaceSettingsChanged(app);
         }
         WidgetRenderer.updateAll(app);
-        PhoneWearSync.pushSettings(app);
 
         if (authImported) {
             new Thread(() -> {
