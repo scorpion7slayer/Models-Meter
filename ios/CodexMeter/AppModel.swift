@@ -320,6 +320,7 @@ final class AppModel {
         signInTask = nil
         DiagnosticLog.info("process", "sign_out")
         await activeService.signOut()
+        await notificationCoordinator.clearModelDiscovery()
         await notificationCoordinator.clearAll()
         backgroundRefreshCoordinator.cancel()
         try? await usageHistoryStore.clear()
@@ -597,6 +598,19 @@ final class AppModel {
             settings: settings
         )
         scheduleBackgroundRefresh()
+        if mode == .live {
+            do {
+                if let catalog = try await liveService.refreshModels(), mode == .live {
+                    await notificationCoordinator.processModels(
+                        catalog.models, accountID: catalog.accountID, settings: settings
+                    )
+                }
+            } catch is CancellationError {
+                return
+            } catch {
+                DiagnosticLog.error("models", "catalog_refresh_failed", error: error)
+            }
+        }
     }
 
     private func apply(

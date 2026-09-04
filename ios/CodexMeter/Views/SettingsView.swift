@@ -107,6 +107,7 @@ struct SettingsView: View {
                     }
                 }
 
+                Toggle("New Codex model alerts", isOn: $model.settings.newModelAlertsEnabled)
                 Toggle("New reset-credit alerts", isOn: $model.settings.creditIncreaseAlertsEnabled)
                 Toggle("Unexpected refill alerts", isOn: $model.settings.unexpectedRefillAlertsEnabled)
                 Toggle("Reset-credit expiry reminders", isOn: $model.settings.creditExpiryRemindersEnabled)

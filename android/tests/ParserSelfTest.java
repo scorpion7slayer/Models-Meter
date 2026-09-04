@@ -12,7 +12,39 @@ import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 public final class ParserSelfTest {
+    private static void testModelCatalog() throws Exception {
+        List<CodexModelCatalog.Model> models = CodexModelCatalog.parse("""
+                {"models":[
+                  {"slug":"a","display_name":"Model A","visibility":"list"},
+                  {"slug":"a","visibility":"list"},
+                  {"slug":"hidden","visibility":"hide"},
+                  {"slug":"disabled","visibility":"none"},
+                  {"slug":" ","visibility":"list"},
+                  {"slug":"b","display_name":" ","visibility":"list"}
+                ]}
+                """);
+        assert models.size() == 2;
+        assert models.get(0).name.equals("Model A");
+        assert models.get(1).name.equals("b");
+        java.util.Set<String> known = new java.util.HashSet<>();
+        assert CodexModelCatalog.additions(known, models).isEmpty();
+        known.add("a");
+        assert CodexModelCatalog.additions(known, models).size() == 1;
+        assert CodexModelCatalog.additions(known, models).get(0).id.equals("b");
+        known.add("b");
+        assert CodexModelCatalog.additions(known, java.util.Collections.emptyList()).isEmpty();
+        assert CodexModelCatalog.additions(known, models).isEmpty();
+        for (String input : new String[]{"{}", "not json", "{\"models\":null}",
+                "{\"models\":[{\"slug\":\"a\"}]}"}) {
+            boolean rejected = false;
+            try { CodexModelCatalog.parse(input); }
+            catch (org.json.JSONException expected) { rejected = true; }
+            assert rejected : "Malformed catalog must not replace discovery history";
+        }
+    }
+
     public static void main(String[] args) throws Exception {
+        testModelCatalog();
         testStandardUsage();
         testMonthlyWindow();
         testWindowIdentification();

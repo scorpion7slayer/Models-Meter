@@ -40,6 +40,10 @@
             android:summary="An allowance reaches 100% before its scheduled reset"
             android:title="Surprise limit refills" />
         <SwitchPreferenceCompat
+            android:key="new_models_ui"
+            android:title="New Codex model alerts"
+            android:summary="Notify when a new model becomes available in your Codex model picker" />
+        <SwitchPreferenceCompat
             android:key="reset_credit_increases_ui"
             android:summary="The available reset-credit count increases"
             android:title="New reset credits" />

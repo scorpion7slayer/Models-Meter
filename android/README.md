@@ -31,3 +31,25 @@ optional `GH_USERNAME` / `GH_ACCESS_TOKEN` refresh GitHub Packages.
 
 Signed local APKs land in `android/dist/`. See the repository root
 [`README.md`](../README.md) for product notes and release tagging.
+
+## New Codex model alerts
+
+Settings → Notifications → **New Codex model alerts** announces newly visible
+models in the connected account's Codex picker using the selected alert style.
+Master alerts and Android notification permission must be enabled. The first
+nonempty catalog is a silent baseline; later additions are announced once per ID.
+History persists separately per account until sign-out. Renames and model
+reappearances do not alert again. While alerts are off, successful checks still
+advance the baseline without notifications. The toggle is included in settings
+export/import.
+
+The catalog is checked alongside successful usage refreshes (including background
+workers), no more than once per 15 minutes while the process runs. Delivery depends
+on the existing refresh schedule and Android background restrictions. Empty or
+invalid responses and network failures preserve the baseline and never fail the
+usage refresh. This detects availability for the account, not global release dates.
+
+The authenticated `backend-api/codex/models` route, `visibility: list` filter, and
+`client_version=0.153.3` follow the [Codex catalog protocol](https://github.com/openai/codex/blob/rust-v0.153.3/codex-rs/codex-api/src/endpoint/models.rs).
+The private endpoint/client compatibility version may need updating when Codex
+changes; keep it aligned with the iOS client.

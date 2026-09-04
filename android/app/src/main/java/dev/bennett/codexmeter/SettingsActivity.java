@@ -830,6 +830,14 @@ public final class SettingsActivity extends AppCompatActivity {
                 return true;
             });
 
+            SwitchPreferenceCompat newModels = findPreference("new_models_ui");
+            newModels.setPersistent(false);
+            newModels.setChecked(ResetAlertPreferences.newModelsEnabled(requireContext()));
+            newModels.setOnPreferenceChangeListener((preference, value) -> {
+                ResetAlertPreferences.setNewModelsEnabled(requireContext(), (Boolean) value);
+                return true;
+            });
+
             SwitchPreferenceCompat resetCreditIncreases = findPreference("reset_credit_increases_ui");
             resetCreditIncreases.setPersistent(false);
             resetCreditIncreases.setChecked(ResetAlertPreferences.resetCreditIncreasesEnabled(requireContext()));

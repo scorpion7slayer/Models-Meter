@@ -77,6 +77,30 @@ public final class ResetNotificationManager {
         }
     }
 
+    public static void onModelsUpdated(Context context, String accountId,
+            java.util.List<CodexModelCatalog.Model> models) {
+        if (models.isEmpty() || accountId.isEmpty()) return;
+        // Per-account, cumulative history avoids alerts when models disappear/reappear.
+        String key = "known_models." + accountId;
+        SharedPreferences preferences = state(context);
+        Set<String> known = new HashSet<>(preferences.getStringSet(key,
+                java.util.Collections.emptySet()));
+        java.util.List<CodexModelCatalog.Model> added = CodexModelCatalog.additions(known, models);
+        if (ResetAlertPreferences.enabled(context)
+                && ResetAlertPreferences.newModelsEnabled(context) && !added.isEmpty()) {
+            java.util.List<String> names = new java.util.ArrayList<>();
+            for (CodexModelCatalog.Model model : added) names.add(model.name);
+            String text = String.join(", ", names)
+                    + (added.size() == 1 ? " is" : " are")
+                    + " now available in your Codex model picker.";
+            if (!post(context, 74515,
+                    added.size() == 1 ? "New Codex model available" : "New Codex models available",
+                    text, 74515)) return;
+        }
+        for (CodexModelCatalog.Model model : models) known.add(model.id);
+        preferences.edit().putStringSet(key, known).apply();
+    }
+
     public static void onResetCreditsUpdated(Context context, ResetCreditsSnapshot snapshot) {
         if (context == null || snapshot == null) return;
         onResetCreditCountUpdated(context, snapshot.availableCount);

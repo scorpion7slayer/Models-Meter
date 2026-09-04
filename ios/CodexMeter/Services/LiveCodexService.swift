@@ -16,6 +16,13 @@ nonisolated public struct CodexBackendConfiguration: Sendable, Equatable {
         self.originator = originator
     }
 
+    // Catalog protocol verified against openai/codex rust-v0.153.3. This is a
+    // Codex client compatibility version, independent of the Meter app version.
+    var modelsURL: URL {
+        baseURL.deletingLastPathComponent().appendingPathComponent("codex/models")
+            .appending(queryItems: [URLQueryItem(name: "client_version", value: "0.153.3")])
+    }
+
     var usageURL: URL { baseURL.appendingPathComponent("usage") }
     var creditsURL: URL { baseURL.appendingPathComponent("rate-limit-reset-credits") }
     var consumeURL: URL { creditsURL.appendingPathComponent("consume") }
@@ -30,6 +37,10 @@ public actor LiveCodexService: CodexService {
     private let appCache: AppCacheStore
     private let widgetCache: WidgetSnapshotCache
     private let now: @Sendable () -> Date
+    private var nextModelCheck = Date.distantPast
+    private var modelCheckAccount: String?
+    private var modelCheckInFlight = false
+    private var sessionGeneration = 0
     private var activeRefresh: Task<CodexRefreshSnapshot, Error>?
 
     public init(
@@ -207,11 +218,33 @@ public actor LiveCodexService: CodexService {
         )
     }
 
+    /// A catalog failure is independent of usage/reset refresh success.
+    public func refreshModels() async throws -> (accountID: String, models: [CodexModel])? {
+        let tokens = try await authSession.validTokens()
+        guard !tokens.accountID.isEmpty, !modelCheckInFlight else { return nil }
+        if modelCheckAccount == tokens.accountID, now() < nextModelCheck { return nil }
+        modelCheckAccount = tokens.accountID
+        nextModelCheck = now().addingTimeInterval(15 * 60)
+        modelCheckInFlight = true
+        let generation = sessionGeneration
+        defer { modelCheckInFlight = false }
+        let payload = try await authenticatedRequest(method: "GET", url: backend.modelsURL)
+        let data = try ensureBackendSuccess(payload, operation: "Could not load Codex models")
+        let models = try CodexModelCatalog.parse(data)
+        try Task.checkCancellation()
+        guard generation == sessionGeneration,
+              try await authSession.currentTokens()?.accountID == tokens.accountID else { return nil }
+        return (tokens.accountID, models)
+    }
+
     public func currentTokens() async throws -> AuthTokens? {
         try await authSession.currentTokens()
     }
 
     public func signOut() async {
+        sessionGeneration += 1
+        modelCheckAccount = nil
+        nextModelCheck = .distantPast
         activeRefresh?.cancel()
         activeRefresh = nil
         await authSession.signOut()

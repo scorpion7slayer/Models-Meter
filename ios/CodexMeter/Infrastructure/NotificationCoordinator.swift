@@ -124,6 +124,48 @@ public actor NotificationCoordinator {
         return try await center.requestAuthorization(options: [.alert, .badge, .sound])
     }
 
+    private static let modelDiscoveryKey = "codex-meter.notification.model-discovery"
+    private var processingModels = false
+    private var modelDiscoveryGeneration = 0
+
+    public func processModels(_ models: [CodexModel], accountID: String, settings: AppSettings) async {
+        guard !models.isEmpty, !accountID.isEmpty, !processingModels else { return }
+        processingModels = true
+        let generation = modelDiscoveryGeneration
+        defer { processingModels = false }
+        // Separate baselines for account switches; never persist credentials.
+        var states = defaults.data(forKey: Self.modelDiscoveryKey).flatMap {
+            try? JSONDecoder().decode([String: CodexModelDiscoveryState].self, from: $0)
+        } ?? [:]
+        var state = states[accountID] ?? CodexModelDiscoveryState()
+        let added = state.additions(in: models)
+        if settings.notificationsEnabled && settings.newModelAlertsEnabled && !added.isEmpty {
+            let permission = await permissionState()
+            guard generation == modelDiscoveryGeneration,
+                  [.authorized, .provisional, .ephemeral].contains(permission) else { return }
+            let content = UNMutableNotificationContent()
+            content.title = added.count == 1 ? "New Codex model available" : "New Codex models available"
+            content.body = added.map(\.name).joined(separator: ", ") + (added.count == 1 ? " is" : " are")
+                + " now available in your Codex model picker."
+            content.sound = .default
+            do {
+                try await center.add(UNNotificationRequest(
+                    identifier: "codex-meter.new-models", content: content, trigger: nil
+                ))
+            } catch { return } // Retry on a later catalog refresh if delivery failed.
+            guard generation == modelDiscoveryGeneration else {
+                center.removeDeliveredNotifications(withIdentifiers: ["codex-meter.new-models"])
+                center.removePendingNotificationRequests(withIdentifiers: ["codex-meter.new-models"])
+                return
+            }
+        }
+        state.record(models)
+        states[accountID] = state
+        if let data = try? JSONEncoder().encode(states) {
+            defaults.set(data, forKey: Self.modelDiscoveryKey)
+        }
+    }
+
     public func process(
         usage: UsageSnapshot,
         previousUsage: UsageSnapshot? = nil,
@@ -234,6 +276,11 @@ public actor NotificationCoordinator {
             )
         )
         return true
+    }
+
+    public func clearModelDiscovery() {
+        modelDiscoveryGeneration += 1
+        defaults.removeObject(forKey: Self.modelDiscoveryKey)
     }
 
     public func clearAll() async {
