@@ -238,7 +238,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
         RoundedLinearLayout card = Ui.seslRowCard(this, this.dark);
         RadioItemViewGroup group = new RadioItemViewGroup(this);
         group.setOrientation(LinearLayout.VERTICAL);
-        group.addView(radioRow(this.tapOpenId, "Open Codex Meter", false));
+        group.addView(radioRow(this.tapOpenId, "Open Models Meter", false));
         group.addView(radioRow(this.tapRefreshId, "Refresh usage", true));
         group.addView(radioRow(this.tapResetId, "Use reset if available", true));
         card.addView(group);
@@ -649,7 +649,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
                         Gravity.CENTER);
                 this.previewContainer.removeAllViews();
                 ImageView backdrop = new ImageView(this);
-                backdrop.setImageResource(R.drawable.codex_meter_icon_bg);
+                backdrop.setImageResource(R.drawable.ic_launcher_background);
                 backdrop.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 backdrop.setContentDescription(null);
                 this.previewContainer.addView(backdrop, new FrameLayout.LayoutParams(-1, -1));

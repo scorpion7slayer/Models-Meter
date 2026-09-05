@@ -208,7 +208,7 @@ final class SamsungLockWidgetSupport {
                     : monthlyFallback ? "monthly" : "weekly";
             single.setContentDescription(R.id.lock_graphic_root, zIsSignedIn
                     ? "Codex " + metricName + " " + value(value) + " remaining"
-                    : "Codex Meter, sign in required");
+                    : "Models Meter, sign in required");
             applyOpenIntent(context, single, R.id.lock_graphic_root, i, shape, style,
                     lockWidgetOptionsLoadLockWidgetOptions, zIsSignedIn, i3);
             return single;
@@ -548,9 +548,9 @@ final class SamsungLockWidgetSupport {
         String target = z2 ? "reset" : "open";
         Intent intentAddFlags = new Intent(context,
                 (Class<?>) (z2 ? ResetCreditActivity.class : MainActivity.class))
-                .setAction("dev.bennett.codexmeter.action.LOCK_WIDGET_"
+                .setAction("dev.scorpion7slayer.modelsmeter.action.LOCK_WIDGET_"
                         + target.toUpperCase(Locale.US))
-                .setData(Uri.parse("codexmeter://widget/lock/v" + AppConstants.VERSION_CODE + "/"
+                .setData(Uri.parse("modelsmeter://widget/lock/v" + AppConstants.VERSION_CODE + "/"
                         + i2 + "/"
                         + shape.name().toLowerCase(Locale.US) + "/"
                         + style.name().toLowerCase(Locale.US)
@@ -599,7 +599,7 @@ final class SamsungLockWidgetSupport {
     private static String contentDescription(boolean z, LockMeterBinding binding, Style style,
             LockWidgetOptions lockWidgetOptions, int i3) {
         if (!z) {
-            return "Codex Meter, sign in required";
+            return "Models Meter, sign in required";
         }
         StringBuilder sbAppend = new StringBuilder("Codex ").append(styleLabel(style).toLowerCase()).append(", ");
         if (binding.showPrimary) {

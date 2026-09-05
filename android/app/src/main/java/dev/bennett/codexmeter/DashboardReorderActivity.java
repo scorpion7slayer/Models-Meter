@@ -118,6 +118,9 @@ public final class DashboardReorderActivity extends AppCompatActivity {
             } else if (DashboardSections.RESET_CREDITS.equals(key)) {
                 items.add(new SectionItem(key, "Reset credits",
                         "Hidden automatically when no resets are available"));
+            } else if (DashboardSections.LATEST_MODELS.equals(key)) {
+                items.add(new SectionItem(key, "Latest models",
+                        "Available Codex models · new discoveries first"));
             } else {
                 UsageLimit match = null;
                 for (UsageLimit limit : limits) {

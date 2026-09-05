@@ -2,12 +2,12 @@
 
 ## Repository layout
 
-Codex Meter is an **Android phone app** with no backend:
+Models Meter is an **Android phone app** with no backend:
 
 | Path | Stack | Package / product |
 |------|--------|-------------------|
 | Repository root | Shared docs, license, changelog, CI entrypoints | — |
-| `android/` | Android (Gradle `:app`, `:shared`) | `dev.bennett.codexmeter` |
+| `android/` | Android (Gradle `:app`, `:shared`) | `dev.scorpion7slayer.modelsmeter` |
 
 The app talks directly to OpenAI/ChatGPT remote endpoints. Tokens stay on-device in Android Keystore.
 

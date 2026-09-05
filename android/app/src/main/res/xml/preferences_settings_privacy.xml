@@ -10,7 +10,7 @@
             app:iconSpaceReserved="false"
             app:selectable="false" />
         <Preference
-            android:summary="Codex Meter connects directly to OpenAI for authentication and to ChatGPT and Codex endpoints for usage data. There is no Codex Meter backend."
+            android:summary="Models Meter connects directly to OpenAI for authentication and to ChatGPT and Codex endpoints for usage data. There is no Models Meter backend."
             android:title="Direct network access"
             app:iconSpaceReserved="false"
             app:selectable="false" />

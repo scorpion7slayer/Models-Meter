@@ -21,6 +21,7 @@ public final class DashboardSections {
     public static final String USAGE_CREDITS = "usage_credits";
     public static final String USAGE_HISTORY = "usage_history";
     public static final String RESET_CREDITS = "reset_credits";
+    public static final String LATEST_MODELS = "latest_models";
     private static final String LIMIT_PREFIX = "limit:";
 
     private DashboardSections() {
@@ -51,6 +52,7 @@ public final class DashboardSections {
      */
     public static List<String> defaultOrder(List<UsageLimit> additionalLimits) {
         List<String> order = new ArrayList<>();
+        order.add(LATEST_MODELS);
         order.add(FIVE_HOUR);
         order.add(WEEKLY);
         order.add(MONTHLY);
@@ -64,6 +66,7 @@ public final class DashboardSections {
         order.add(USAGE_CREDITS);
         order.add(USAGE_HISTORY);
         order.add(RESET_CREDITS);
+
         return order;
     }
 

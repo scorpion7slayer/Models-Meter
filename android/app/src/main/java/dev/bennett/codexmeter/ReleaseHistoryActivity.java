@@ -77,7 +77,7 @@ public final class ReleaseHistoryActivity extends AppCompatActivity {
                 Ui.mainText(dark));
         current.setTypeface(Ui.mediumTypeface(this));
         notice.addView(current);
-        String note = "Newer and matching releases from Codex Meter "
+        String note = "Newer and matching releases from Models Meter "
                 + ReleaseUpdatePolicy.FIRST_IN_APP_UPDATE_VERSION
                 + " onward are checksum- and signature-verified in the app. Releases before "
                 + ReleaseUpdatePolicy.FIRST_IN_APP_UPDATE_VERSION

@@ -74,7 +74,7 @@ public final class OnboardingActivity extends AppCompatActivity {
             return;
         }
         this.dark = Ui.isDark(this);
-        this.page = Ui.installPage(this, "Codex Meter", false);
+        this.page = Ui.installPage(this, "Models Meter", false);
         this.content = this.page.content;
         findViewById(R.id.dashboard_refresh).setEnabled(false);
         boolean oauthReturn = getIntent().getBooleanExtra(EXTRA_AUTH_RETURN, false);
@@ -165,7 +165,7 @@ public final class OnboardingActivity extends AppCompatActivity {
     private void render() {
         if (this.content == null) return;
         this.content.removeAllViews();
-        this.page.toolbar.setTitle("Codex Meter");
+        this.page.toolbar.setTitle("Models Meter");
         this.page.toolbar.setShowNavigationButtonAsBack(this.step > OnboardingFlow.STEP_WELCOME);
 
         addProgress();
@@ -199,7 +199,7 @@ public final class OnboardingActivity extends AppCompatActivity {
     }
 
     private void buildWelcome() {
-        addIntro("Meet Codex Meter",
+        addIntro("Meet Models Meter",
                 "Your ChatGPT Codex allowance, reset timing, and available reset credits in one "
                         + "quick One UI view.",
                 R.drawable.ic_oui_battery);
@@ -248,7 +248,7 @@ public final class OnboardingActivity extends AppCompatActivity {
 
     private void buildAccount() {
         addIntro("Connect your ChatGPT account",
-                "Use OpenAI’s secure browser flow to sign up or sign in. Codex Meter never sees "
+                "Use OpenAI’s secure browser flow to sign up or sign in. Models Meter never sees "
                         + "your password.",
                 R.drawable.ic_oui_samsung_account);
 
@@ -260,7 +260,7 @@ public final class OnboardingActivity extends AppCompatActivity {
         encrypted.setShowBottomDivider(true);
         privacy.addView(encrypted);
         privacy.addView(Ui.actionRow(this, "No analytics SDK",
-                "Your account and usage are not sent through a Codex Meter server",
+                "Your account and usage are not sent through a Models Meter server",
                 R.drawable.ic_oui_contact_outline, null));
         this.content.addView(privacy);
 
@@ -288,9 +288,9 @@ public final class OnboardingActivity extends AppCompatActivity {
         boolean signedIn = SecureTokenStore.isSignedIn(this);
         addIntro(signedIn ? "You’re all set" : "Setup complete",
                 signedIn
-                        ? "Your ChatGPT account is connected. Codex Meter will load your latest "
+                        ? "Your ChatGPT account is connected. Models Meter will load your latest "
                             + "allowance as the app opens."
-                        : "You can connect ChatGPT later from the Codex Meter dashboard.",
+                        : "You can connect ChatGPT later from the Models Meter dashboard.",
                 signedIn ? R.drawable.ic_oui_samsung_account : R.drawable.ic_oui_info_outline);
 
         Ui.addSpacer(this.content, 20);
@@ -304,7 +304,7 @@ public final class OnboardingActivity extends AppCompatActivity {
                 signedIn ? R.drawable.ic_oui_contact_outline : R.drawable.ic_oui_privacy,
                 null));
         this.content.addView(account);
-        addPrimaryAction("Open Codex Meter", this::completeAndOpenMain);
+        addPrimaryAction("Open Models Meter", this::completeAndOpenMain);
     }
 
     private void addIntro(String titleText, String bodyText, int iconResource) {

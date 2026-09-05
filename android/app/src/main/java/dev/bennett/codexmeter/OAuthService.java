@@ -123,7 +123,7 @@ public final class OAuthService extends Service {
                 if (!secureEquals(pkce.state, callback.parameters.get("state"))) {
                     DiagnosticLog.warn(this, "auth", "oauth_callback_state_mismatch");
                     writeBrowser(browser, 400,
-                            "The sign-in state did not match. Return to Codex Meter and try again.", false);
+                            "The sign-in state did not match. Return to Models Meter and try again.", false);
                     closeQuietly(browser);
                     browser = null;
                     continue;
@@ -158,7 +158,7 @@ public final class OAuthService extends Service {
                 // exchange into a misleading browser error page.
                 try {
                     writeBrowser(browser, 200,
-                            "Your ChatGPT account is connected. Returning to Codex Meter…", true);
+                            "Your ChatGPT account is connected. Returning to Models Meter…", true);
                 } catch (Exception ignored) {
                     // The user may have closed the browser after authorization. Authentication
                     // remains valid and the application still receives the result broadcast.
@@ -388,7 +388,7 @@ public final class OAuthService extends Service {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         return new Notification.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_oui_notification)
-                .setContentTitle("Codex Meter sign-in")
+                .setContentTitle("Models Meter sign-in")
                 .setContentText(text)
                 .setContentIntent(open)
                 .addAction(new Notification.Action.Builder(

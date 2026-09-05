@@ -1,4 +1,4 @@
-# Codex Meter for Android
+# Models Meter for Android
 
 Native Android phone client for viewing the Codex allowance attached to a
 signed-in ChatGPT account. This directory contains the Android Gradle project.
@@ -7,7 +7,7 @@ signed-in ChatGPT account. This directory contains the Android Gradle project.
 
 | Path | Role |
 |------|------|
-| `app/` | Phone app (`dev.bennett.codexmeter`) |
+| `app/` | Phone app (`dev.scorpion7slayer.modelsmeter`) |
 | `shared/` | Pure-Java usage models and core logic |
 | `tests/` | Pure-Java self-tests used by `./run-tests.sh` |
 | `vendor/m2/` | Cached One UI / SESL Maven artifacts |

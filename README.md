@@ -1,6 +1,11 @@
-# Codex Meter
+# Models Meter
 
-Codex Meter is an unofficial open-source Android phone app for viewing the Codex
+Models Meter is an independent Android fork of [Codex Meter](https://github.com/BenItBuhner/Codex-Meter), maintained by [Theo (scorpion7slayer)](https://github.com/scorpion7slayer). BenIt Buhner and That Josh Guy are the developers of the original project.
+
+[Models Meter source](https://github.com/scorpion7slayer/Models-Meter) · [Build downloads](https://github.com/scorpion7slayer/Models-Meter/actions/workflows/build-apk.yml)
+
+
+Models Meter is an unofficial open-source Android phone app for viewing the Codex
 allowance attached to a signed-in ChatGPT account.
 
 The application lives in [`android/`](android/): `app/` contains the native UI,
@@ -9,9 +14,9 @@ logic. Documentation, release notes, and CI entrypoints live at the repository r
 The app talks directly to ChatGPT/Codex endpoints and stores credentials only
 on-device in Android Keystore. There is no backend.
 
-## Android — Version 2.8.0
+## Android — Version 1.0.0
 
-Version 2.8.0 adapts to Free-tier monthly Codex limits when a paid plan expires, adds opt-in diagnostic log tracing/export, and declutters usage-history analytics with customizable highlights. This stable release consolidates the 2.8.0-alpha.1 channel build; alpha remains opt-in under Settings → Updates → Update channel.
+Version 1.0.0 introduces the Models Meter identity, account-specific model discovery alerts, a Latest models dashboard card and widget, and updates from this fork. It retains the original project’s quota, reset-credit, and usage-history features.
 
 ### Live countdowns
 
@@ -86,7 +91,11 @@ Or from `android/` directly. `build.sh` assembles the release APK with Gradle an
 
 ## Releases
 
-Creating a `v*` tag that matches the Gradle `versionName` in `android/app/build.gradle.kts` (for example `v2.6.5`) runs the full CI pipeline and publishes the signed phone APK and its SHA-256 checksum to GitHub Releases. CI authenticates and decrypts the persistent PKCS#12 release keystore `android/ci/release-keystore.p12.enc` (alias `codexmeter`) using the `ANDROID_SIGNING_PASSWORD` repository Actions secret, so every release is signed with the same certificate and installs in place over previous releases. Release notes are taken from the root `CHANGELOG.md`.
+Manually dispatched builds use the fork's persistent signing key from the private Actions secrets `MODELS_METER_KEYSTORE_BASE64` and `MODELS_METER_SIGNING_PASSWORD`. The `ModelsMeter-1.0.0.apk` artifact and `SHA256SUMS.txt` are retained for 30 days. Pull-request builds use a disposable test key and are not an update channel. Explicitly requested `v*` tags matching the Gradle version also publish a release, using notes from `CHANGELOG.md`. The updater reads only [this fork's releases](https://github.com/scorpion7slayer/Models-Meter/releases).
+
+The application ID is `dev.scorpion7slayer.modelsmeter`. Models Meter installs alongside Codex Meter; sign in again on the first install. Future Models Meter APKs must use the same signing key. Back up `android/.local-signing/models-meter-release.p12` and `models-meter-password` securely; never commit them. Google Play Protect can request a scan of an APK distributed outside Google Play; a valid signature does not guarantee a warning-free install.
+
+The **Latest models** dashboard card and home-screen widget use the account's Codex catalog. Newly discovered model IDs appear first. Discovery dates are local first-seen dates, not official release dates. An initial catalog establishes a silent notification baseline. Cached names and the last successful check remain visible offline, and sign-out clears them. Long-press the home screen → Widgets → Models Meter → Latest models, or use **Add models widget** on the dashboard. Both the icon and widget have light/dark variants following the system theme; the app icon inside Models Meter follows its selected appearance.
 
 ## Platform stability
 

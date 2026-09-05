@@ -1,10 +1,15 @@
 # Changelog
 
-## Unreleased
+## 1.0.0
 
-- Add account-specific notifications when new Codex models appear.
-- Focus the project on Android phones: remove the iOS client, Wear OS companion, phone-to-watch synchronization, and their build jobs.
-- Build and publish only the phone APK and its checksum.
+- Launch Models Meter as an Android phone fork of Codex Meter, maintained by Theo (scorpion7slayer). Credit BenIt Buhner and That Josh Guy as the original project developers.
+- Add new light/dark vector icons and a separate Android application ID.
+- Show available Codex model names, with new discoveries first, on the dashboard and in a dedicated home-screen widget. Preserve a private account-scoped cache and clear it on sign-out.
+- Detect new models with notifications alongside the existing reset alerts.
+- Point GitHub links and update checks to scorpion7slayer/Models-Meter. Use a persistent fork signing key for distributed CI builds.
+- Remove iOS and Wear OS targets.
+
+Earlier entries below describe the original Codex Meter project.
 
 ## 2.8.0 — 2026-08-14
 

@@ -7,7 +7,7 @@ package dev.bennett.codexmeter;
  */
 public final class ReleaseUpdatePolicy {
     /** First release with a working in-app updater against the canonical repository. */
-    public static final String FIRST_IN_APP_UPDATE_VERSION = "2.3.0";
+    public static final String FIRST_IN_APP_UPDATE_VERSION = "1.0.0";
 
     private ReleaseUpdatePolicy() {
     }
@@ -24,7 +24,7 @@ public final class ReleaseUpdatePolicy {
     }
 
     public static String irreversibleDetail() {
-        return "Builds before Codex Meter " + FIRST_IN_APP_UPDATE_VERSION
+        return "Builds before Models Meter " + FIRST_IN_APP_UPDATE_VERSION
                 + " lack working in-app updates against the canonical repository. Install or "
                 + "recover from this release only via its GitHub release page; the app cannot "
                 + "upgrade you back afterward.";

@@ -38,6 +38,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /* JADX INFO: loaded from: classes.dex */
 public final class MainActivity extends AppCompatActivity {
+    static final String EXTRA_OPEN_MODELS = "open_models";
     private static final int MENU_SETTINGS = 8101;
     private static final int MENU_REORDER = 8102;
     private String appliedTheme;
@@ -92,7 +93,7 @@ public final class MainActivity extends AppCompatActivity {
             return;
         }
         this.dark = Ui.isDark(this);
-        Ui.Page page = Ui.installPage(this, "Codex Meter", false);
+        Ui.Page page = Ui.installPage(this, "Models Meter", false);
         this.content = page.content;
         this.swipeRefresh = findViewById(R.id.dashboard_refresh);
         int refreshAccent = Ui.accent(this, this.dark);
@@ -172,9 +173,9 @@ public final class MainActivity extends AppCompatActivity {
         intentFilter.addAction(AppConstants.ACTION_RELEASES_UPDATED);
         try {
             if (Build.VERSION.SDK_INT >= 33) {
-                registerReceiver(this.authReceiver, intentFilter, "dev.bennett.codexmeter.permission.INTERNAL", null, 4);
+                registerReceiver(this.authReceiver, intentFilter, "dev.scorpion7slayer.modelsmeter.permission.INTERNAL", null, 4);
             } else {
-                registerReceiver(this.authReceiver, intentFilter, "dev.bennett.codexmeter.permission.INTERNAL", null);
+                registerReceiver(this.authReceiver, intentFilter, "dev.scorpion7slayer.modelsmeter.permission.INTERNAL", null);
             }
             this.receiverRegistered = true;
         } catch (RuntimeException e) {
@@ -219,12 +220,16 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void handleLaunchIntent(Intent intent) {
+        if (intent != null && intent.getBooleanExtra(EXTRA_OPEN_MODELS, false)) {
+            intent.removeExtra(EXTRA_OPEN_MODELS);
+            if (content != null) content.post(this::showAllModels);
+        }
         if (intent != null && intent.getBooleanExtra("start_sign_in", false)) {
             this.launchSignInRequested = true;
             intent.removeExtra("start_sign_in");
         }
         Uri data = intent == null ? null : intent.getData();
-        if (data != null && "codexmeter".equals(data.getScheme()) && "auth".equals(data.getHost())) {
+        if (data != null && "modelsmeter".equals(data.getScheme()) && "auth".equals(data.getHost())) {
             if (SecureTokenStore.isSignedIn(this)) {
                 AppPreferences.setOAuthPending(this, false, "");
                 RefreshScheduler.scheduleImmediate(this);
@@ -263,7 +268,7 @@ public final class MainActivity extends AppCompatActivity {
     private static boolean isOAuthReturnIntent(Intent intent) {
         Uri data = intent == null ? null : intent.getData();
         return data != null
-                && "codexmeter".equals(data.getScheme())
+                && "modelsmeter".equals(data.getScheme())
                 && "auth".equals(data.getHost())
                 && data.getPath() != null
                 && data.getPath().startsWith("/complete");
@@ -306,8 +311,8 @@ public final class MainActivity extends AppCompatActivity {
                 UpdatePreferences.installedVersion(this));
         LinearLayout card = Ui.card(this, this.dark);
         TextView title = Ui.text(this, returnToStable
-                        ? "Return to Codex Meter " + release.version
-                        : "Codex Meter " + release.version + " is ready", 18,
+                        ? "Return to Models Meter " + release.version
+                        : "Models Meter " + release.version + " is ready", 18,
                 Ui.mainText(this.dark));
         title.setTypeface(Ui.mediumTypeface(this));
         card.addView(title);
@@ -348,6 +353,9 @@ public final class MainActivity extends AppCompatActivity {
         }
         Map<String, List<UsageLimit>> limitsByKey = new LinkedHashMap<>();
         List<String> available = new ArrayList<>();
+        if (!AppPreferences.isDashboardSectionHidden(this, DashboardSections.LATEST_MODELS)) {
+            available.add(DashboardSections.LATEST_MODELS);
+        }
         if (snapshot != null) {
             for (UsageLimit limit : snapshot.additionalLimits) {
                 String key = DashboardSections.limitKey(limit);
@@ -394,7 +402,9 @@ public final class MainActivity extends AppCompatActivity {
         boolean inverted = false;
         for (String key : DashboardSections.resolveOrder(
                 AppPreferences.getDashboardOrder(this), available)) {
-            if (DashboardSections.FIVE_HOUR.equals(key)) {
+            if (DashboardSections.LATEST_MODELS.equals(key)) {
+                addDashboardCard(column, buildLatestModelsCard());
+            } else if (DashboardSections.FIVE_HOUR.equals(key)) {
                 addDashboardCard(column, buildMetricCard(
                         "5-hour", snapshot, snapshot.fiveHour, inverted));
                 inverted = !inverted;
@@ -531,6 +541,69 @@ public final class MainActivity extends AppCompatActivity {
         openParams.setMargins(Ui.dp(this, 10), Ui.dp(this, 4), Ui.dp(this, 10), 0);
         card.addView(open, openParams);
         return card;
+    }
+
+    private LinearLayout buildLatestModelsCard() {
+        LinearLayout card = Ui.card(this, dark);
+        TextView title = Ui.text(this, getString(R.string.latest_models_title), 18, Ui.mainText(dark));
+        title.setTypeface(Ui.mediumTypeface(this));
+        card.addView(title);
+        ModelCatalogSnapshot catalog = ModelCatalogStore.load(this);
+        if (catalog == null || catalog.models.isEmpty()) {
+            card.addView(Ui.text(this, getString(catalog == null
+                    ? R.string.latest_models_waiting : R.string.latest_models_empty),
+                    14, Ui.secondaryText(dark)));
+        } else {
+            for (int i = 0; i < Math.min(3, catalog.models.size()); i++) {
+                CodexModelCatalog.Model model = catalog.models.get(i);
+                long discoveredAt = catalog.discoveredAt(model);
+                String detail = discoveredAt == 0 ? "Available on your account"
+                        : "Discovered " + android.text.format.DateUtils.getRelativeTimeSpanString(
+                                discoveredAt, System.currentTimeMillis(),
+                                android.text.format.DateUtils.MINUTE_IN_MILLIS);
+                card.addView(buildIconDetailRow(R.drawable.ic_models_meter, model.name, detail));
+            }
+            TextView checked = Ui.text(this, getString(R.string.latest_models_checked,
+                    android.text.format.DateUtils.getRelativeTimeSpanString(catalog.checkedAt,
+                            System.currentTimeMillis(), android.text.format.DateUtils.MINUTE_IN_MILLIS)),
+                    12, Ui.secondaryText(dark));
+            checked.setPadding(0, Ui.dp(this, 14), 0, Ui.dp(this, 4));
+            card.addView(checked);
+            Button all = Ui.button(this, "View all models (" + catalog.models.size() + ")", false, dark);
+            all.setOnClickListener(view -> showAllModels());
+            card.addView(all, new LinearLayout.LayoutParams(-1, Ui.dp(this, 52)));
+        }
+        Button pin = Ui.button(this, "Add models widget", false, dark);
+        pin.setOnClickListener(view -> {
+            AppWidgetManager manager = AppWidgetManager.getInstance(this);
+            if (manager.isRequestPinAppWidgetSupported()) {
+                manager.requestPinAppWidget(new ComponentName(this, LatestModelsWidget.class), null, null);
+            } else {
+                Toast.makeText(this, "Long-press your home screen, open Widgets, then choose Models Meter → Latest models.",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+        card.addView(pin, new LinearLayout.LayoutParams(-1, Ui.dp(this, 52)));
+        return card;
+    }
+
+    private void showAllModels() {
+        if (isFinishing()) return;
+        ModelCatalogSnapshot catalog = ModelCatalogStore.load(this);
+        StringBuilder message = new StringBuilder();
+        if (catalog == null || catalog.models.isEmpty()) {
+            message.append(getString(catalog == null
+                    ? R.string.latest_models_waiting : R.string.latest_models_empty));
+        } else {
+            message.append("Available on your account. New discoveries appear first; discovery dates are local to this installation.\n");
+            for (CodexModelCatalog.Model model : catalog.models) {
+                message.append("\n").append(model.name);
+                if (!model.name.equals(model.id)) message.append("\n").append(model.id);
+                message.append("\n");
+            }
+        }
+        new AlertDialog.Builder(this).setTitle(R.string.latest_models_title)
+                .setMessage(message.toString()).setPositiveButton("Done", null).show();
     }
 
     private LinearLayout buildUsageCreditsCard(UsageCredits credits) {
@@ -802,7 +875,7 @@ public final class MainActivity extends AppCompatActivity {
         LinearLayout linearLayoutCard = Ui.card(this, this.dark);
         int length = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, (Class<?>) CodexUsageWidget.class)).length + SamsungLockWidgetSupport.countAll(this);
         if (length == 0) {
-            str = "Add Codex Meter widgets";
+            str = "Add Models Meter widgets";
         } else {
             str = length + " widget" + (length == 1 ? "" : "s") + " active";
         }
@@ -998,7 +1071,7 @@ public final class MainActivity extends AppCompatActivity {
             appWidgetManager.requestPinAppWidget(componentName, null, null);
             Toast.makeText(this, "Choose a size and place the widget on your home screen.", 1).show();
         } else {
-            AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Add from your launcher").setMessage("Long-press an empty area of the home screen, open Widgets, then choose Codex Meter.").setPositiveButton("OK", (DialogInterface.OnClickListener) null).create();
+            AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Add from your launcher").setMessage("Long-press an empty area of the home screen, open Widgets, then choose Models Meter.").setPositiveButton("OK", (DialogInterface.OnClickListener) null).create();
             dialog.show();
         }
     }

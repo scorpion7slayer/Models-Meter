@@ -39,8 +39,43 @@ public final class ParserSelfTest {
         }
     }
 
+    private static void testModelDiscoveryHistory() throws Exception {
+        CodexModelCatalog.Model a = new CodexModelCatalog.Model("a", "Model A");
+        CodexModelCatalog.Model b = new CodexModelCatalog.Model("b", "Model B");
+        CodexModelCatalog.Model c = new CodexModelCatalog.Model("c", "Model C");
+        ModelCatalogSnapshot baseline = ModelCatalogSnapshot.update(null, "account-a",
+                Arrays.asList(a, b), 1000);
+        check(baseline.discoveredAt(a) == 0, "initial catalog has no invented release dates");
+        ModelCatalogSnapshot added = ModelCatalogSnapshot.update(baseline, "account-a",
+                Arrays.asList(a, b, c, c), 2000);
+        check(added.models.size() == 3 && added.models.get(0).id.equals("c"),
+                "new model is first, duplicate IDs are removed");
+        check(added.discoveredAt(c) == 2000, "new model keeps its local discovery time");
+        ModelCatalogSnapshot restored = ModelCatalogSnapshot.fromJson(added.toJson());
+        check(restored.models.get(0).name.equals("Model C") && restored.discoveredAt(c) == 2000,
+                "names and discovery order survive a process restart");
+        ModelCatalogSnapshot removed = ModelCatalogSnapshot.update(restored, "account-a",
+                Arrays.asList(a), 3000);
+        check(removed.models.size() == 1, "unavailable models leave the visible catalog");
+        ModelCatalogSnapshot returned = ModelCatalogSnapshot.update(removed, "account-a",
+                Arrays.asList(a, b, new CodexModelCatalog.Model("c", "Renamed C")), 4000);
+        check(returned.discoveredAt(c) == 2000 && returned.models.get(0).name.equals("Renamed C"),
+                "reappearing IDs preserve discovery dates and refresh their names");
+        ModelCatalogSnapshot switched = ModelCatalogSnapshot.update(returned, "account-b",
+                Arrays.asList(a, c), 5000);
+        check(switched.discoveredAt(c) == 0 && switched.models.get(0).id.equals("a"),
+                "another account establishes its own baseline");
+        ModelCatalogSnapshot empty = ModelCatalogSnapshot.update(null, "account-a",
+                java.util.Collections.emptyList(), 1000);
+        check(ModelCatalogSnapshot.update(empty, "account-a", Arrays.asList(a), 6000)
+                .discoveredAt(a) == 0, "empty initial responses do not create false discoveries");
+        check(added.models.size() == 3, "updates leave earlier immutable snapshots intact");
+        System.out.println("Model catalog: discovery order, restart, renames, removals, and account isolation passed.");
+    }
+
     public static void main(String[] args) throws Exception {
         testModelCatalog();
+        testModelDiscoveryHistory();
         testStandardUsage();
         testMonthlyWindow();
         testWindowIdentification();
@@ -792,7 +827,7 @@ public final class ParserSelfTest {
                         new UsageWindow(1, 18000L, 0L, 2_000_000_000L), null))),
                 "limit key falls back to the display name");
         List<String> defaults = DashboardSections.defaultOrder(Arrays.asList(spark));
-        check(defaults.equals(Arrays.asList(
+        check(defaults.equals(Arrays.asList(DashboardSections.LATEST_MODELS,
                         DashboardSections.FIVE_HOUR, DashboardSections.WEEKLY,
                         DashboardSections.MONTHLY, sparkKey,
                         DashboardSections.USAGE_CREDITS, DashboardSections.USAGE_HISTORY,
@@ -804,7 +839,7 @@ public final class ParserSelfTest {
                 "no saved order keeps the defaults");
         List<String> saved = DashboardSections.resolveOrder(
                 "usage_credits, limit:codex-spark ,five_hour,weekly", defaults);
-        check(saved.equals(Arrays.asList(DashboardSections.USAGE_CREDITS, sparkKey,
+        check(saved.equals(Arrays.asList(DashboardSections.LATEST_MODELS, DashboardSections.USAGE_CREDITS, sparkKey,
                         DashboardSections.FIVE_HOUR, DashboardSections.WEEKLY,
                         DashboardSections.MONTHLY,
                         DashboardSections.USAGE_HISTORY, DashboardSections.RESET_CREDITS)),
@@ -813,7 +848,7 @@ public final class ParserSelfTest {
         List<String> withoutSpark = DashboardSections.resolveOrder(
                 "weekly,five_hour,usage_credits",
                 DashboardSections.defaultOrder(Arrays.asList(spark)));
-        check(withoutSpark.equals(Arrays.asList(DashboardSections.WEEKLY,
+        check(withoutSpark.equals(Arrays.asList(DashboardSections.LATEST_MODELS, DashboardSections.WEEKLY,
                         DashboardSections.FIVE_HOUR, DashboardSections.MONTHLY, sparkKey,
                         DashboardSections.USAGE_CREDITS,
                         DashboardSections.USAGE_HISTORY, DashboardSections.RESET_CREDITS)),
@@ -825,7 +860,7 @@ public final class ParserSelfTest {
                         DashboardSections.FIVE_HOUR)),
                 "keys for limits no longer reported are dropped");
         check(DashboardSections.serialize(saved)
-                        .equals("usage_credits,limit:codex-spark,five_hour,weekly,monthly,"
+                        .equals("latest_models,usage_credits,limit:codex-spark,five_hour,weekly,monthly,"
                                 + "usage_history,reset_credits"),
                 "order round-trips through the stored CSV form");
         check(DashboardSections.resolveOrder(null,
@@ -1471,9 +1506,9 @@ public final class ParserSelfTest {
 
     private static void testOAuthBrowserPage() {
         String success = OAuthBrowserPage.render(
-                "Connected <securely> & ready.", true, "codexmeter://auth/complete");
+                "Connected <securely> & ready.", true, "modelsmeter://auth/complete");
         check(success.contains("You’re connected"), "browser success title");
-        check(success.contains("Codex Meter</a>"), "browser app return action");
+        check(success.contains("Models Meter</a>"), "browser app return action");
         check(success.contains("prefers-color-scheme:dark"), "browser One UI light and dark themes");
         check(success.contains("border-radius:28px"), "browser One UI rounded card");
         check(success.contains("Connected &lt;securely&gt; &amp; ready."),
@@ -1481,9 +1516,9 @@ public final class ParserSelfTest {
         check(success.contains("setTimeout"), "successful browser page automatically returns");
 
         String failure = OAuthBrowserPage.render(
-                "Denied", false, "codexmeter://auth/complete");
+                "Denied", false, "modelsmeter://auth/complete");
         check(failure.contains("Let’s try that again"), "browser failure title");
-        check(failure.contains("Back to Codex Meter"), "browser failure return action");
+        check(failure.contains("Back to Models Meter"), "browser failure return action");
         check(!failure.contains("setTimeout"), "failure page waits for user");
 
         String escapedScript = OAuthBrowserPage.javascriptString("x'\\\n\u2028");
@@ -1504,10 +1539,10 @@ public final class ParserSelfTest {
     }
 
     private static void testGitHubReleases() throws Exception {
-        check("https://github.com/BenItBuhner/Codex-Meter".equals( // pragma: allowlist secret
+        check("https://github.com/scorpion7slayer/Models-Meter".equals( // pragma: allowlist secret
                         GitHubReleaseSource.REPOSITORY_URL),
                 "canonical release repository");
-        check("https://api.github.com/repos/BenItBuhner/Codex-Meter/releases?per_page=30" // pragma: allowlist secret
+        check("https://api.github.com/repos/scorpion7slayer/Models-Meter/releases?per_page=30" // pragma: allowlist secret
                         .equals(GitHubReleaseSource.RELEASES_API_URL),
                 "canonical release API endpoint");
         String json = "["
@@ -1604,11 +1639,11 @@ public final class ParserSelfTest {
         String normalized = tag.startsWith("v") ? tag.substring(1) : tag;
         StringBuilder assets = new StringBuilder();
         if (apk) {
-            assets.append("{\"name\":\"CodexMeter-").append(normalized)
+            assets.append("{\"name\":\"ModelsMeter-").append(normalized)
                     .append(".apk\",\"size\":123,\"browser_download_url\":")
                     .append("\"").append(GitHubReleaseSource.REPOSITORY_URL)
                     .append("/releases/download/")
-                    .append(tag).append("/CodexMeter-").append(normalized).append(".apk\"}");
+                    .append(tag).append("/ModelsMeter-").append(normalized).append(".apk\"}");
         }
         if (checksum) {
             if (assets.length() > 0) assets.append(',');
@@ -1618,7 +1653,7 @@ public final class ParserSelfTest {
                     .append("/releases/download/")
                     .append(tag).append("/SHA256SUMS.txt\"}");
         }
-        return "{\"tag_name\":\"" + tag + "\",\"name\":\"Codex Meter " + normalized
+        return "{\"tag_name\":\"" + tag + "\",\"name\":\"Models Meter " + normalized
                 + "\",\"body\":\"Changes\",\"published_at\":\"2026-07-13T00:00:00Z\","
                 + "\"html_url\":\"" + GitHubReleaseSource.REPOSITORY_URL + "/releases/tag/"
                 + tag + "\",\"draft\":" + draft + ",\"prerelease\":" + prerelease
@@ -1627,18 +1662,18 @@ public final class ParserSelfTest {
 
     private static void testReleaseChecksums() {
         String digest = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
-        String checksums = digest + "  CodexMeter-2.2.0.apk\n"
+        String checksums = digest + "  ModelsMeter-2.2.0.apk\n"
                 + "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                 + "  other.apk\n";
         check(digest.equals(ReleaseIntegrity.expectedSha256(
-                        checksums, "CodexMeter-2.2.0.apk")),
+                        checksums, "ModelsMeter-2.2.0.apk")),
                 "matching APK checksum selected");
         check(ReleaseIntegrity.expectedSha256(checksums, "../other.apk").isEmpty(),
                 "unsafe checksum filename rejected");
         check(ReleaseIntegrity.expectedSha256("not-a-checksum", "app.apk").isEmpty(),
                 "malformed checksum rejected");
         check(ReleaseIntegrity.expectedSha256(checksums + digest
-                        + "  CodexMeter-2.2.0.apk\n", "CodexMeter-2.2.0.apk").isEmpty(),
+                        + "  ModelsMeter-2.2.0.apk\n", "ModelsMeter-2.2.0.apk").isEmpty(),
                 "duplicate APK checksum rejected");
     }
 
@@ -1689,15 +1724,15 @@ public final class ParserSelfTest {
     }
 
     private static void testReleaseUpdatePolicy() {
-        check(ReleaseUpdatePolicy.isIrreversible("2.2.0"),
-                "pre-2.3.0 release is irreversible");
-        check(ReleaseUpdatePolicy.isIrreversible("v2.1.0"),
-                "tagged pre-2.3.0 release is irreversible");
-        check(ReleaseUpdatePolicy.isIrreversible("2.2.9"),
+        check(ReleaseUpdatePolicy.isIrreversible("0.9.0"),
+                "pre-1.0.0 release is irreversible");
+        check(ReleaseUpdatePolicy.isIrreversible("v0.8.0"),
+                "tagged pre-1.0.0 release is irreversible");
+        check(ReleaseUpdatePolicy.isIrreversible("0.9.9"),
                 "latest pre-threshold release is irreversible");
-        check(!ReleaseUpdatePolicy.isIrreversible("2.3.0"),
+        check(!ReleaseUpdatePolicy.isIrreversible("1.0.0"),
                 "first in-app update release is reversible");
-        check(!ReleaseUpdatePolicy.isIrreversible("2.3.1"),
+        check(!ReleaseUpdatePolicy.isIrreversible("1.0.1"),
                 "post-threshold release is reversible");
         check(!ReleaseUpdatePolicy.isIrreversible("not-a-version"),
                 "invalid versions are not flagged irreversible");

@@ -910,7 +910,7 @@ public final class SettingsActivity extends AppCompatActivity {
                     .setNegativeButton("Done", null);
             if (leadTimes.isEmpty()) {
                 builder.setMessage("No reminder times are configured. Add one to choose how "
-                        + "long before expiry Codex Meter should notify you.");
+                        + "long before expiry Models Meter should notify you.");
             } else {
                 String[] labels = new String[leadTimes.size()];
                 for (int i = 0; i < leadTimes.size(); i++) {
@@ -1226,7 +1226,7 @@ public final class SettingsActivity extends AppCompatActivity {
                             + "region, and firmware build even when Android and One UI versions "
                             + "match.\n\n"
                             + "If both modes remain ordinary notifications, that firmware or "
-                            + "device does not expose a third-party Now Bar surface. Codex Meter "
+                            + "device does not expose a third-party Now Bar surface. Models Meter "
                             + "cannot override Samsung’s system allowlist.")
                     .setNeutralButton("Developer options", (dialog, which) -> {
                         try {
@@ -1480,7 +1480,7 @@ public final class SettingsActivity extends AppCompatActivity {
             new AlertDialog.Builder(requireContext())
                     .setTitle("Authentication will be included")
                     .setMessage(SettingsTransfer.SECURITY_WARNING
-                            + "\n\nOnly continue if you are moving Codex Meter to another device "
+                            + "\n\nOnly continue if you are moving Models Meter to another device "
                             + "you control.")
                     .setNegativeButton("Cancel", null)
                     .setPositiveButton("Export anyway", (dialog, which) ->

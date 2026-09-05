@@ -48,6 +48,7 @@ public final class WidgetRenderer {
                     update(context, appWidgetManager, appWidgetIds[i]);
                 }
                 SamsungLockWidgetSupport.updateAll(context);
+                LatestModelsWidget.updateAll(context);
                 DiagnosticLog.info(context, "widget", "update_all_finished");
             } catch (RuntimeException e) {
                 DiagnosticLog.error(context, "widget", "update_all_failed", e);
@@ -183,7 +184,7 @@ public final class WidgetRenderer {
         WidgetOptions widgetOptionsDefaults = WidgetOptions.defaults();
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_compact);
         boolean zChooseDark = chooseDark(context, widgetOptionsDefaults);
-        WidgetState widgetStateError = WidgetState.error("Open Codex Meter to recover");
+        WidgetState widgetStateError = WidgetState.error("Open Models Meter to recover");
         applyRootAndHeader(context, remoteViews, i, widgetOptionsDefaults, zChooseDark, widgetStateError);
         renderMinimal(context, remoteViews, widgetOptionsDefaults, zChooseDark, widgetStateError,
                 java.util.Collections.emptyList());
@@ -290,14 +291,14 @@ public final class WidgetRenderer {
         } else if (WidgetOptions.TAP_USE_RESET.equals(tapAction)) {
             rootAction = PendingIntent.getActivity(context, 74000 + i,
                     new Intent(context, (Class<?>) ResetCreditActivity.class)
-                            .setAction("dev.bennett.codexmeter.action.WIDGET_RESET")
+                            .setAction("dev.scorpion7slayer.modelsmeter.action.WIDGET_RESET")
                             .setData(widgetUri(i, "root-reset"))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP),
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         } else {
             rootAction = PendingIntent.getActivity(context, 74000 + i,
                     new Intent(context, (Class<?>) MainActivity.class)
-                            .setAction("dev.bennett.codexmeter.action.WIDGET_OPEN")
+                            .setAction("dev.scorpion7slayer.modelsmeter.action.WIDGET_OPEN")
                             .setData(widgetUri(i, "root-open"))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP),
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -313,7 +314,7 @@ public final class WidgetRenderer {
         remoteViews.setOnClickPendingIntent(R.id.reset_credit_button,
                 PendingIntent.getActivity(context, 76000 + i,
                         new Intent(context, (Class<?>) ResetCreditActivity.class)
-                                .setAction("dev.bennett.codexmeter.action.WIDGET_RESET")
+                                .setAction("dev.scorpion7slayer.modelsmeter.action.WIDGET_RESET")
                                 .setData(widgetUri(i, "reset"))
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                                         | Intent.FLAG_ACTIVITY_CLEAR_TOP),
@@ -321,7 +322,7 @@ public final class WidgetRenderer {
     }
 
     private static Uri widgetUri(int appWidgetId, String action) {
-        return Uri.parse("codexmeter://widget/home/v" + AppConstants.VERSION_CODE + "/"
+        return Uri.parse("modelsmeter://widget/home/v" + AppConstants.VERSION_CODE + "/"
                 + appWidgetId + "/" + action);
     }
 

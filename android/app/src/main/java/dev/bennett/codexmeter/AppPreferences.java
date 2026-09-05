@@ -81,6 +81,7 @@ public final class AppPreferences {
         NowBarManager.stop(context);
         NowBarPreferences.clearSuppression(context);
         ResetNotificationManager.clearState(context);
+        ModelCatalogStore.clear(context);
         ResetCreditExpiryScheduler.cancelAll(context);
     }
 

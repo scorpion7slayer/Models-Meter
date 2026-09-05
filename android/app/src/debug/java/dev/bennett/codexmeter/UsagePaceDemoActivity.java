@@ -81,6 +81,13 @@ public final class UsagePaceDemoActivity extends Activity {
             SecureTokenStore.save(this, new AuthTokens(
                     "debug-demo-access", "debug-demo-refresh", "", Long.MAX_VALUE,
                     "debug-demo-account", "demo@codexmeter.local"));
+            ModelCatalogStore.save(this, "debug-demo-account", Arrays.asList(
+                    new CodexModelCatalog.Model("demo-model-a", "Demo Model A"),
+                    new CodexModelCatalog.Model("demo-model-b", "Demo Model B")), now - TimeUnit.DAYS.toMillis(2));
+            ModelCatalogStore.save(this, "debug-demo-account", Arrays.asList(
+                    new CodexModelCatalog.Model("demo-model-a", "Demo Model A"),
+                    new CodexModelCatalog.Model("demo-model-b", "Demo Model B"),
+                    new CodexModelCatalog.Model("demo-model-new", "Demo New Model")), now);
             AppPreferences.saveSnapshot(this, snapshot);
             seedHistory(now, fiveHourReset, weeklyReset);
             AppPreferences.saveResetCredits(this, new ResetCreditsSnapshot(3, Arrays.asList(

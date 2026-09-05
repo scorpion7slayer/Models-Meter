@@ -11,7 +11,7 @@ public final class OAuthBrowserPage {
         String scriptLink = javascriptString(appLink);
         String title = success ? "You’re connected" : "Let’s try that again";
         String eyebrow = success ? "SIGN-IN COMPLETE" : "SIGN-IN NEEDS ATTENTION";
-        String action = success ? "Open Codex Meter" : "Back to Codex Meter";
+        String action = success ? "Open Models Meter" : "Back to Models Meter";
         String symbol = success ? "&#10003;" : "!";
         String autoReturn = success
                 ? "<script>setTimeout(function(){window.location.href='" + scriptLink
@@ -19,7 +19,7 @@ public final class OAuthBrowserPage {
                 : "";
         return "<!doctype html><html lang=\"en\"><head>"
                 + "<meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
-                + "<meta name=\"color-scheme\" content=\"light dark\"><title>Codex Meter</title>"
+                + "<meta name=\"color-scheme\" content=\"light dark\"><title>Models Meter</title>"
                 + "<style>"
                 + ":root{color-scheme:light dark;--bg:#f1f1f3;--card:#fcfcff;--text:#000;--sub:#747477;"
                 + "--accent:#0381fe;--on:#fff;--soft:#e8efff;--ring:#d9d9de}"

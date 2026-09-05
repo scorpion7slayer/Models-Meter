@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 108 108" role="img" aria-label="Models Meter dark icon">
+<rect width="108" height="108" rx="26" fill="#0D1622"/>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M32.08,75.92 A31,31 0,1 1,75.92 75.92" stroke="#293747" stroke-width="5"/>
+<path d="M32.08,75.92 A31,31 0,1 1,85 54" stroke="#5EE9CD" stroke-width="5"/>
+<path d="M40,66 L40,44 L54,58 L68,44 L68,66" stroke="#F1F7FF" stroke-width="7"/>
+</g></svg>

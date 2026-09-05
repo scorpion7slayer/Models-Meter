@@ -11,10 +11,15 @@ final class CodexModelsApi {
     // Codex protocol compatibility version (openai/codex rust-v0.153.3), not Meter's version.
     private static final String URL =
             "https://chatgpt.com/backend-api/codex/models?client_version=0.153.3";
-    private static String lastAccount;
-    private static long nextCheck;
+    private static volatile String lastAccount;
+    private static volatile long nextCheck;
 
     private CodexModelsApi() { }
+
+    static void clearThrottle() {
+        lastAccount = null;
+        nextCheck = 0;
+    }
 
     static void refreshLocked(Context context, AuthTokens tokens) throws Exception {
         if (tokens.accountId.isEmpty()) return;
@@ -35,6 +40,8 @@ final class CodexModelsApi {
             // A sign-out may have happened while the request was in flight.
             AuthTokens current = SecureTokenStore.load(context);
             if (current == null || !tokens.accountId.equals(current.accountId)) return;
+            ModelCatalogStore.save(context, tokens.accountId, models, System.currentTimeMillis());
+            LatestModelsWidget.updateAll(context);
             ResetNotificationManager.onModelsUpdated(context, tokens.accountId, models);
         } finally {
             connection.disconnect();

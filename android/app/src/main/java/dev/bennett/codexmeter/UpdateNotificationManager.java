@@ -24,7 +24,7 @@ public final class UpdateNotificationManager {
         }
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                 "App updates", NotificationManager.IMPORTANCE_DEFAULT);
-        channel.setDescription("Alerts when a signed Codex Meter release is available");
+        channel.setDescription("Alerts when a signed Models Meter release is available");
         channel.enableVibration(true);
         manager.createNotificationChannel(channel);
     }
@@ -73,8 +73,8 @@ public final class UpdateNotificationManager {
         boolean returnToStable = UpdateChannel.isReturnToStable(release,
                 UpdatePreferences.installedVersion(context));
         String title = returnToStable
-                ? "Return to Codex Meter " + release.version
-                : "Codex Meter " + release.version + " is available";
+                ? "Return to Models Meter " + release.version
+                : "Models Meter " + release.version + " is available";
         String text = returnToStable
                 ? "The stable release installs in place over this alpha build."
                 : release.prerelease

@@ -137,9 +137,9 @@ public final class UpdateActivity extends AppCompatActivity {
         boolean returnToStable = UpdateChannel.isReturnToStable(release, installedVersion);
         LinearLayout card = Ui.card(this, dark);
         TextView title = Ui.text(this,
-                comparison > 0 ? "Codex Meter " + release.version + " is available"
-                        : comparison == 0 ? "Codex Meter " + release.version
-                        : returnToStable ? "Return to Codex Meter " + release.version
+                comparison > 0 ? "Models Meter " + release.version + " is available"
+                        : comparison == 0 ? "Models Meter " + release.version
+                        : returnToStable ? "Return to Models Meter " + release.version
                         : "Older release " + release.version,
                 20, Ui.mainText(dark));
         title.setTypeface(Ui.mediumTypeface(this));
@@ -269,7 +269,7 @@ public final class UpdateActivity extends AppCompatActivity {
             waitingForInstallPermission = true;
             new AlertDialog.Builder(this)
                     .setTitle("Allow app installs")
-                    .setMessage("Android requires permission for Codex Meter to hand its verified "
+                    .setMessage("Android requires permission for Models Meter to hand its verified "
                             + "GitHub APK to the system installer. You still approve every update.")
                     .setNegativeButton("Cancel", (dialog, which) ->
                             waitingForInstallPermission = false)
@@ -345,7 +345,7 @@ public final class UpdateActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Downgrade requires uninstalling")
                 .setMessage("Android blocks in-place downgrades for ordinary apps. Uninstalling "
-                        + "Codex Meter removes its account, settings, cached usage, and widgets. "
+                        + "Models Meter removes its account, settings, cached usage, and widgets. "
                         + "The older APK will open in your browser so it remains available after "
                         + "uninstalling.")
                 .setNegativeButton("Cancel", null)

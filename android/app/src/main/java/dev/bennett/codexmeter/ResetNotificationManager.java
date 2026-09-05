@@ -235,7 +235,7 @@ public final class ResetNotificationManager {
         if (context == null || !ResetAlertPreferences.enabled(context)) {
             return false;
         }
-        return post(context, NOTIFICATION_TEST, "Codex Meter notifications are working",
+        return post(context, NOTIFICATION_TEST, "Models Meter notifications are working",
                 "Low usage, scheduled resets, surprise refills, and reset-credit alerts are ready.",
                 NOTIFICATION_TEST);
     }
@@ -431,7 +431,7 @@ public final class ResetNotificationManager {
         PendingIntent details = PendingIntent.getActivity(context, id, detailsIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Intent useIntent = new Intent(context, ResetCreditActivity.class)
-                .setAction("dev.bennett.codexmeter.action.USE_RESET_FROM_NOTIFICATION")
+                .setAction("dev.scorpion7slayer.modelsmeter.action.USE_RESET_FROM_NOTIFICATION")
                 .putExtra(AppConstants.EXTRA_PROMPT_USE_RESET, true)
                 .putExtra(AppConstants.EXTRA_NOTIFICATION_ID, id)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

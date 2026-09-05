@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/latest_models_widget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="18dp"
+    android:background="@drawable/latest_models_widget_background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:gravity="center_vertical" android:orientation="horizontal">
+        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_models_meter" android:importantForAccessibility="no" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:layout_marginStart="8dp"
+            android:text="@string/latest_models_title" android:textSize="14sp"
+            android:textStyle="bold" android:textColor="@color/models_widget_foreground" />
+    </LinearLayout>
+    <TextView android:id="@+id/latest_model_one" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="12dp"
+        android:textSize="20sp" android:textStyle="bold" android:maxLines="1"
+        android:ellipsize="end" android:textColor="@color/models_widget_foreground"
+        android:visibility="gone" />
+    <TextView android:id="@+id/latest_model_two" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="4dp"
+        android:textSize="15sp" android:maxLines="1" android:ellipsize="end"
+        android:textColor="@color/models_widget_foreground" android:visibility="gone" />
+    <TextView android:id="@+id/latest_model_three" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="4dp"
+        android:textSize="15sp" android:maxLines="1" android:ellipsize="end"
+        android:textColor="@color/models_widget_foreground" android:visibility="gone" />
+    <TextView android:id="@+id/latest_models_summary" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="8dp"
+        android:text="@string/latest_models_waiting" android:textSize="12sp"
+        android:textColor="@color/models_widget_secondary" />
+    <TextView android:id="@+id/latest_models_checked" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="6dp"
+        android:text="@string/app_name" android:textSize="11sp"
+        android:textColor="@color/models_widget_secondary" />
+</LinearLayout>

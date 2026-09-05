@@ -44,6 +44,7 @@ javac -encoding UTF-8 -cp "$JSON_JAR" -d "$OUT" \
   "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarPercentMode.java" \
   "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarCopy.java" \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/CodexModelCatalog.java" \
+  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ModelCatalogSnapshot.java" \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageParser.java" \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/CelebrationDetector.java" \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/RateLimitResetCredit.java" \
@@ -70,14 +71,14 @@ javac -encoding UTF-8 -cp "$JSON_JAR" -d "$OUT" \
 java -ea -cp "$OUT:$JSON_JAR" dev.bennett.codexmeter.ParserSelfTest
 
 # Source-level release checks.
-grep -q 'VERSION_NAME = "2.8.0"' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'VERSION_CODE = 30' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'versionName = "2.8.0"' "$ROOT/app/build.gradle.kts"
-grep -q 'versionCode = 30' "$ROOT/app/build.gradle.kts"
-grep -q 'codex-meter-android/2.8.0' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'VERSION_NAME="2.8.0"' "$ROOT/build.sh"
+grep -q 'VERSION_NAME = "1.0.0"' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
+grep -q 'VERSION_CODE = 1' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
+grep -q 'versionName = "1.0.0"' "$ROOT/app/build.gradle.kts"
+grep -q 'versionCode = 1' "$ROOT/app/build.gradle.kts"
+grep -q 'models-meter-android/1.0.0' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
+grep -q 'VERSION_NAME="1.0.0"' "$ROOT/build.sh"
 WORKFLOW="$ROOT/../.github/workflows/build-apk.yml"
-grep -q 'BenItBuhner/Codex-Meter/releases?per_page=30' "$ROOT/app/build.gradle.kts" # pragma: allowlist secret
+grep -q 'scorpion7slayer/Models-Meter/releases?per_page=30' "$ROOT/app/build.gradle.kts" # pragma: allowlist secret
 ! grep -R -q 'thatjoshguy67/Codex-Meter' \
   "$ROOT/app/src" "$ROOT/app/build.gradle.kts"
 
@@ -244,7 +245,7 @@ grep -q 'DashboardSections.RESET_CREDITS.equals(key)' \
 grep -q 'android.permission.ACCESS_NETWORK_STATE' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'android.permission.POST_NOTIFICATIONS' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'android.permission.SCHEDULE_EXACT_ALARM' "$ROOT/app/src/main/AndroidManifest.xml"
-grep -q 'android:scheme="codexmeter"' "$ROOT/app/src/main/AndroidManifest.xml"
+grep -q 'android:scheme="modelsmeter"' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'OnboardingActivity' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'ResetAlertReceiver' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'android.permission.POST_PROMOTED_NOTIFICATIONS' "$ROOT/app/src/main/AndroidManifest.xml"
@@ -261,7 +262,7 @@ grep -q 'ReleaseNotesUi.create' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateActivity.java"
 grep -q 'ReleaseNotesUi.create' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseHistoryActivity.java"
-grep -q 'FIRST_IN_APP_UPDATE_VERSION = "2.3.0"' \
+grep -q 'FIRST_IN_APP_UPDATE_VERSION = "1.0.0"' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseUpdatePolicy.java"
 grep -q 'isIrreversible' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateActivity.java"
@@ -445,27 +446,10 @@ test -f "$ROOT/app/src/main/res/drawable/ic_codex_logo_on_accent.xml"
 # Progress tracker must be a plain circle, not the brand glyph.
 grep -q 'M12,2c5.523,0 10,4.477 10,10' \
   "$ROOT/app/src/main/res/drawable/ic_now_bar_progress_dot.xml"
-# Codex logo vectors must stay transparent (no baked white square background).
-! grep -q 'android:pathData="M19.503 0H4.496' \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo_dark.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_notification.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo_on_accent.xml"
-# Keep SVG arc flags explicitly separated so SystemUI's VectorDrawable parser can load them.
-grep -q 'android:pathData="M 8.086,0.457 a 6.105,6.105 0 0,1' \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo_dark.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_notification.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo_on_accent.xml"
-! grep -q 'android:pathData="M8.086.457' \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo_dark.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_notification.xml" \
-  "$ROOT/app/src/main/res/drawable/ic_codex_logo_on_accent.xml"
-grep -q 'fillType="evenOdd"' \
-  "$ROOT/app/src/main/res/drawable/ic_notification.xml"
-grep -q '#FF111111' "$ROOT/app/src/main/res/drawable/ic_codex_logo.xml"
-grep -q '#FFFFFFFF' "$ROOT/app/src/main/res/drawable/ic_codex_logo_dark.xml"
+# Models Meter notification marks stay transparent and have explicit light/dark resources.
+grep -q 'fillColor="@android:color/transparent"' "$ROOT/app/src/main/res/drawable/ic_notification.xml"
+grep -q '#FF142335' "$ROOT/app/src/main/res/drawable/ic_codex_logo.xml"
+grep -q '#FFF1F7FF' "$ROOT/app/src/main/res/drawable/ic_codex_logo_dark.xml"
 grep -q 'android.ongoingActivityNoti.' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
 grep -q 'applySamsungCompatibility' \
