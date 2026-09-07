@@ -37,7 +37,7 @@ public struct ProviderSnapshot: Codable, Sendable, Equatable {
         self.usage = usage; self.models = models; self.checkedAt = checkedAt
         self.firstSeen = firstSeen; self.baselineAt = baselineAt
     }
-    public mutating func updateModels(_ available: [CodexModel], now: Date = .now) -> [CodexModel] {
+    public mutating func updateModels(_ available: [CodexModel], now: Date = Date()) -> [CodexModel] {
         let initialized = baselineAt != nil
         if !available.isEmpty && baselineAt == nil { baselineAt = now }
         let additions = initialized ? available.filter { firstSeen[$0.id] == nil } : []
@@ -57,7 +57,7 @@ public struct ProviderSnapshot: Codable, Sendable, Equatable {
 
 public enum ProviderUsageParser {
     public enum Failure: Error { case unsupportedResponse }
-    public static func parse(_ data: Data, provider: MeterProvider, now: Date = .now) throws -> UsageSnapshot {
+    public static func parse(_ data: Data, provider: MeterProvider, now: Date = Date()) throws -> UsageSnapshot {
         guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { throw Failure.unsupportedResponse }
         var five: UsageWindow?, week: UsageWindow?, month: UsageWindow?
         switch provider {
