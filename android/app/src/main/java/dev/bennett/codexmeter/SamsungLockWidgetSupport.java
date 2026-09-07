@@ -184,10 +184,18 @@ final class SamsungLockWidgetSupport {
     static RemoteViews buildViews(Context context, AppWidgetManager appWidgetManager, int i, Shape shape, Style style, Metric metric) {
         RemoteViews remoteViewsBuildArcViews;
         int i2;
-        boolean zIsSignedIn = SecureTokenStore.isSignedIn(context);
-        UsageSnapshot usageSnapshotLoadSnapshot = AppPreferences.loadSnapshot(context);
+        Provider provider = ProviderRepository.widgetProvider(context, i);
+        boolean zIsSignedIn = ProviderRepository.connected(context, provider);
+        UsageSnapshot usageSnapshotLoadSnapshot = ProviderRepository.usage(context, provider);
         LockWidgetOptions lockWidgetOptionsLoadLockWidgetOptions = AppPreferences.loadLockWidgetOptions(context, i);
-        ResetCreditsSnapshot resetCreditsSnapshotLoadResetCredits = AppPreferences.loadResetCredits(context);
+        if (provider != Provider.CHATGPT) {
+            lockWidgetOptionsLoadLockWidgetOptions = new LockWidgetOptions(
+                    lockWidgetOptionsLoadLockWidgetOptions.metricMode, false, false,
+                    lockWidgetOptionsLoadLockWidgetOptions.showCountdown,
+                    lockWidgetOptionsLoadLockWidgetOptions.effectiveVisibleMeters());
+        }
+        ResetCreditsSnapshot resetCreditsSnapshotLoadResetCredits = provider == Provider.CHATGPT
+                ? AppPreferences.loadResetCredits(context) : null;
         int i3 = resetCreditsSnapshotLoadResetCredits == null ? 0 : resetCreditsSnapshotLoadResetCredits.availableCount;
         LockMeterBinding binding = bindLockMeters(usageSnapshotLoadSnapshot, lockWidgetOptionsLoadLockWidgetOptions);
         int iRemaining = binding.primaryRemaining;
@@ -206,7 +214,7 @@ final class SamsungLockWidgetSupport {
                             size[0], size[1]));
             String metricName = metric == Metric.FIVE_HOUR ? "five hour"
                     : monthlyFallback ? "monthly" : "weekly";
-            single.setContentDescription(R.id.lock_graphic_root, zIsSignedIn
+            single.setContentDescription(dev.bennett.codexmeter.Translations.t(R.id.lock_graphic_root), zIsSignedIn
                     ? "Codex " + metricName + " " + value(value) + " remaining"
                     : "Models Meter, sign in required");
             applyOpenIntent(context, single, R.id.lock_graphic_root, i, shape, style,
@@ -228,7 +236,7 @@ final class SamsungLockWidgetSupport {
         }
         applyCountdowns(remoteViewsBuildArcViews, shape, style, lockWidgetOptionsLoadLockWidgetOptions,
                 binding);
-        remoteViewsBuildArcViews.setContentDescription(i2, contentDescription(zIsSignedIn, binding, style, lockWidgetOptionsLoadLockWidgetOptions, i3));
+        remoteViewsBuildArcViews.setContentDescription(dev.bennett.codexmeter.Translations.t(i2), contentDescription(zIsSignedIn, binding, style, lockWidgetOptionsLoadLockWidgetOptions, i3));
         applyOpenIntent(context, remoteViewsBuildArcViews, i2, i, shape, style, lockWidgetOptionsLoadLockWidgetOptions, zIsSignedIn, i3);
         return remoteViewsBuildArcViews;
     }
@@ -324,7 +332,7 @@ final class SamsungLockWidgetSupport {
         int i5 = shape == Shape.SQUARE ? R.id.lock_square_value : R.id.lock_wide_value;
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), i4);
         boolean z2 = lockWidgetOptions.showResetCredits || lockWidgetOptions.showResetAction;
-        remoteViews.setTextViewText(i5, numberText(z, binding, shape, lockWidgetOptions, i3));
+        remoteViews.setTextViewText(i5,dev.bennett.codexmeter.Translations.t( numberText(z, binding, shape, lockWidgetOptions, i3)));
         remoteViews.setTextViewTextSize(i5, 2, numberTextSize(shape, binding.singleMetric(), z2));
         return remoteViews;
     }
@@ -338,8 +346,8 @@ final class SamsungLockWidgetSupport {
         if (!z) {
             remoteViews.setViewVisibility(R.id.lock_bar_primary_group, View.VISIBLE);
             remoteViews.setViewVisibility(R.id.lock_bar_secondary_group, View.GONE);
-            remoteViews.setTextViewText(R.id.lock_bar_primary_label, "");
-            remoteViews.setTextViewText(R.id.lock_bar_primary_value, "SIGN IN");
+            remoteViews.setTextViewText(R.id.lock_bar_primary_label,dev.bennett.codexmeter.Translations.t( ""));
+            remoteViews.setTextViewText(R.id.lock_bar_primary_value,dev.bennett.codexmeter.Translations.t( "SIGN IN"));
             remoteViews.setTextViewTextSize(R.id.lock_bar_primary_value, 2, shape == Shape.SQUARE ? 10.0f : 12.0f);
             remoteViews.setViewVisibility(R.id.lock_bar_primary_progress, View.GONE);
             return remoteViews;
@@ -354,10 +362,10 @@ final class SamsungLockWidgetSupport {
         boolean z4 = z2 && !zShowsFiveHour && zShowsWeekly;
         String primaryLabel = binding.primary == null ? "5H" : binding.primary.label;
         String secondaryLabel = binding.secondary == null ? "W" : binding.secondary.label;
-        remoteViews.setTextViewText(R.id.lock_bar_primary_label, labelWithReset(primaryLabel, z3, i3));
-        remoteViews.setTextViewText(R.id.lock_bar_secondary_label, labelWithReset(secondaryLabel, z4, i3));
-        remoteViews.setTextViewText(R.id.lock_bar_primary_value, compactValue(binding.primaryRemaining));
-        remoteViews.setTextViewText(R.id.lock_bar_secondary_value, compactValue(binding.secondaryRemaining));
+        remoteViews.setTextViewText(R.id.lock_bar_primary_label,dev.bennett.codexmeter.Translations.t( labelWithReset(primaryLabel, z3, i3)));
+        remoteViews.setTextViewText(R.id.lock_bar_secondary_label,dev.bennett.codexmeter.Translations.t( labelWithReset(secondaryLabel, z4, i3)));
+        remoteViews.setTextViewText(R.id.lock_bar_primary_value,dev.bennett.codexmeter.Translations.t( compactValue(binding.primaryRemaining)));
+        remoteViews.setTextViewText(R.id.lock_bar_secondary_value,dev.bennett.codexmeter.Translations.t( compactValue(binding.secondaryRemaining)));
         remoteViews.setProgressBar(R.id.lock_bar_primary_progress, 100, progress(binding.primaryRemaining), false);
         remoteViews.setProgressBar(R.id.lock_bar_secondary_progress, 100, progress(binding.secondaryRemaining), false);
         if (binding.singleMetric()) {
@@ -396,7 +404,7 @@ final class SamsungLockWidgetSupport {
                 remoteViews.setViewVisibility(R.id.lock_graphic_secondary_group, View.GONE);
                 remoteViews.setViewVisibility(R.id.lock_graphic_primary_progress, View.GONE);
                 remoteViews.setViewVisibility(R.id.lock_graphic_primary_icon, View.GONE);
-                remoteViews.setTextViewText(R.id.lock_graphic_primary_value, "SIGN IN");
+                remoteViews.setTextViewText(R.id.lock_graphic_primary_value,dev.bennett.codexmeter.Translations.t( "SIGN IN"));
                 remoteViews.setTextViewTextSize(R.id.lock_graphic_primary_value, 2, 11.0f);
                 return remoteViews;
             }
@@ -425,25 +433,25 @@ final class SamsungLockWidgetSupport {
             } else {
                 strSquareGraphicText = "SIGN IN";
             }
-            remoteViews.setTextViewText(R.id.lock_graphic_center_value, strSquareGraphicText);
+            remoteViews.setTextViewText(R.id.lock_graphic_center_value,dev.bennett.codexmeter.Translations.t( strSquareGraphicText));
             remoteViews.setTextViewTextSize(R.id.lock_graphic_center_value, 2, z ? squareGraphicTextSize(binding.singleMetric(), lockWidgetOptions.showCountdown, z2) : 10.0f);
         } else if (!z) {
             remoteViews.setViewVisibility(R.id.lock_graphic_primary_group, View.VISIBLE);
             remoteViews.setViewVisibility(R.id.lock_graphic_secondary_group, View.GONE);
-            remoteViews.setTextViewText(R.id.lock_graphic_primary_value, "SIGN IN");
-            remoteViews.setTextViewText(R.id.lock_graphic_primary_label, "");
+            remoteViews.setTextViewText(R.id.lock_graphic_primary_value,dev.bennett.codexmeter.Translations.t( "SIGN IN"));
+            remoteViews.setTextViewText(R.id.lock_graphic_primary_label,dev.bennett.codexmeter.Translations.t( ""));
             remoteViews.setTextViewTextSize(R.id.lock_graphic_primary_value, 2, 11.0f);
         } else {
             boolean zShowsFiveHour = binding.showPrimary;
             boolean zShowsWeekly = binding.showSecondary;
             remoteViews.setViewVisibility(R.id.lock_graphic_primary_group, zShowsFiveHour ? View.VISIBLE : View.GONE);
             remoteViews.setViewVisibility(R.id.lock_graphic_secondary_group, zShowsWeekly ? View.VISIBLE : View.GONE);
-            remoteViews.setTextViewText(R.id.lock_graphic_primary_value, compactValue(i2));
-            remoteViews.setTextViewText(R.id.lock_graphic_secondary_value, compactValue(i3));
+            remoteViews.setTextViewText(R.id.lock_graphic_primary_value,dev.bennett.codexmeter.Translations.t( compactValue(i2)));
+            remoteViews.setTextViewText(R.id.lock_graphic_secondary_value,dev.bennett.codexmeter.Translations.t( compactValue(i3)));
             String primaryLabel = binding.primary == null ? "5H" : binding.primary.label;
             String secondaryLabel = binding.secondary == null ? "W" : binding.secondary.label;
-            remoteViews.setTextViewText(R.id.lock_graphic_primary_label, labelWithReset(primaryLabel, z2 && zShowsFiveHour, i4));
-            remoteViews.setTextViewText(R.id.lock_graphic_secondary_label, labelWithReset(secondaryLabel, z2 && !zShowsFiveHour && zShowsWeekly, i4));
+            remoteViews.setTextViewText(R.id.lock_graphic_primary_label,dev.bennett.codexmeter.Translations.t( labelWithReset(primaryLabel, z2 && zShowsFiveHour, i4)));
+            remoteViews.setTextViewText(R.id.lock_graphic_secondary_label,dev.bennett.codexmeter.Translations.t( labelWithReset(secondaryLabel, z2 && !zShowsFiveHour && zShowsWeekly, i4)));
             float f = binding.singleMetric() ? 20.0f : 17.0f;
             if (lockWidgetOptions.showCountdown) {
                 f -= 2.0f;
@@ -555,6 +563,7 @@ final class SamsungLockWidgetSupport {
                         + shape.name().toLowerCase(Locale.US) + "/"
                         + style.name().toLowerCase(Locale.US)
                         + "/" + target))
+                .putExtra("provider", ProviderRepository.widgetProvider(context, i2).id)
                 .addFlags(335544320);
         if (i2 == 0) {
             i2 = 0;

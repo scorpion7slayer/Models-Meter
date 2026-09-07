@@ -10,8 +10,8 @@ android {
         applicationId = "dev.scorpion7slayer.modelsmeter"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.0.1"
         providers.gradleProperty("demoVersionCode").orNull?.toIntOrNull()?.let {
             versionCode = it
         }
@@ -81,6 +81,7 @@ configurations.configureEach {
 
 dependencies {
     implementation(project(":shared"))
+    implementation("com.google.android.gms:play-services-wearable:20.0.1")
     implementation("io.github.tribalfs:oneui-design:0.9.14+oneui8")
     implementation("io.github.oneuiproject:icons:1.1.0")
 }

@@ -18,6 +18,10 @@ import dev.oneuiproject.oneui.widget.RoundedLinearLayout;
 
 /* JADX INFO: loaded from: classes.dex */
 public final class ResetCreditActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private LinearLayout content;
     private boolean dark;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -171,7 +175,7 @@ public final class ResetCreditActivity extends AppCompatActivity {
     }
 
     public void confirmUse() {
-        AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Use one Codex reset?").setMessage("The available credit expiring soonest will be used. This cannot be undone.").setNegativeButton("Cancel", (DialogInterface.OnClickListener) null).setPositiveButton("Use 1 reset", new DialogInterface.OnClickListener() { // from class: dev.bennett.codexmeter.ResetCreditActivity.5
+        AlertDialog dialog = new AlertDialog.Builder(this).setTitle(dev.bennett.codexmeter.Translations.t("Use one Codex reset?")).setMessage(dev.bennett.codexmeter.Translations.t("The available credit expiring soonest will be used. This cannot be undone.")).setNegativeButton("Cancel", (DialogInterface.OnClickListener) null).setPositiveButton("Use 1 reset", new DialogInterface.OnClickListener() { // from class: dev.bennett.codexmeter.ResetCreditActivity.5
             @Override // android.content.DialogInterface.OnClickListener
             public void onClick(DialogInterface dialogInterface, int i) {
                 ResetCreditActivity.this.consume();
@@ -199,7 +203,7 @@ public final class ResetCreditActivity extends AppCompatActivity {
     public void consume() {
         if (this.useButton != null) {
             this.useButton.setEnabled(false);
-            this.useButton.setText("Applying…");
+            this.useButton.setText(dev.bennett.codexmeter.Translations.t("Applying…"));
         }
         final Context applicationContext = getApplicationContext();
         this.executor.execute(new Runnable() { // from class: dev.bennett.codexmeter.ResetCreditActivity.6

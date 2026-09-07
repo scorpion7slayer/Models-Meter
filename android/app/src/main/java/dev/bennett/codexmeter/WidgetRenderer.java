@@ -111,9 +111,10 @@ public final class WidgetRenderer {
     }
 
     static RemoteViews buildPreview(Context context, int appWidgetId, WidgetOptions widgetOptions,
-            Bundle appWidgetOptions) {
+            Bundle appWidgetOptions, Provider provider) {
         RemoteViews preview = buildViews(context, appWidgetId, widgetOptions,
-                styleForSize(context, appWidgetOptions, widgetOptions), appWidgetOptions);
+                styleForSize(context, appWidgetOptions, widgetOptions), appWidgetOptions,
+                resolveGraphicTier(context, widgetOptions, appWidgetOptions), provider);
         preview.setInt(android.R.id.background, "setBackgroundColor", Color.TRANSPARENT);
         return preview;
     }
@@ -155,10 +156,16 @@ public final class WidgetRenderer {
     }
 
     private static RemoteViews buildViews(Context context, int i, WidgetOptions widgetOptions, String str, Bundle bundle, int i2) {
+        return buildViews(context, i, widgetOptions, str, bundle, i2,
+                ProviderRepository.widgetProvider(context, i));
+    }
+
+    private static RemoteViews buildViews(Context context, int i, WidgetOptions widgetOptions,
+            String str, Bundle bundle, int i2, Provider provider) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), layoutForStyle(str, i2));
         boolean zChooseDark = chooseDark(context, widgetOptions);
-        WidgetState widgetStateFrom = WidgetState.from(context, widgetOptions);
-        List<MeterSlot> slots = resolveSlots(context, widgetOptions, widgetStateFrom, str, bundle);
+        WidgetState widgetStateFrom = WidgetState.from(context, widgetOptions, provider);
+        List<MeterSlot> slots = resolveSlots(context, widgetOptions, widgetStateFrom, str, bundle, provider);
         applyRootAndHeader(context, remoteViews, i, widgetOptions, zChooseDark, widgetStateFrom);
         if (STYLE_MICRO.equals(str)) {
             renderMicro(remoteViews, widgetOptions, zChooseDark, widgetStateFrom, slots);
@@ -271,7 +278,7 @@ public final class WidgetRenderer {
         remoteViews.setTextColor(R.id.widget_title, WidgetGraphics.mainTextColor(z));
         remoteViews.setViewVisibility(R.id.widget_title, widgetOptions.showTitle ? GRAPHIC_STANDARD : 8);
         remoteViews.setTextColor(R.id.plan_label, mutedColor(z));
-        remoteViews.setTextViewText(R.id.plan_label, widgetState.plan);
+        remoteViews.setTextViewText(R.id.plan_label,dev.bennett.codexmeter.Translations.t( widgetState.plan));
         remoteViews.setViewVisibility(R.id.plan_label, (!widgetOptions.showPlan || widgetState.plan.isEmpty()) ? 8 : GRAPHIC_STANDARD);
         remoteViews.setImageViewResource(R.id.refresh_button, z ? R.drawable.ic_oui_refresh_widget_light : R.drawable.ic_oui_refresh_widget_dark);
         remoteViews.setViewVisibility(R.id.refresh_button, widgetOptions.showRefresh ? GRAPHIC_STANDARD : 8);
@@ -279,7 +286,9 @@ public final class WidgetRenderer {
     }
 
     private static void applyIntents(Context context, RemoteViews remoteViews, int i) {
+        Provider provider = ProviderRepository.widgetProvider(context, i);
         String tapAction = AppPreferences.getWidgetTapAction(context, i);
+        if (provider != Provider.CHATGPT && WidgetOptions.TAP_USE_RESET.equals(tapAction)) tapAction = WidgetOptions.TAP_OPEN_APP;
         PendingIntent rootAction;
         if (WidgetOptions.TAP_REFRESH.equals(tapAction)) {
             rootAction = PendingIntent.getBroadcast(context, 74000 + i,
@@ -297,7 +306,7 @@ public final class WidgetRenderer {
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         } else {
             rootAction = PendingIntent.getActivity(context, 74000 + i,
-                    new Intent(context, (Class<?>) MainActivity.class)
+                    new Intent(context, (Class<?>) MainActivity.class).putExtra("provider", provider.id)
                             .setAction("dev.scorpion7slayer.modelsmeter.action.WIDGET_OPEN")
                             .setData(widgetUri(i, "root-open"))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP),
@@ -352,12 +361,12 @@ public final class WidgetRenderer {
                 Math.max(GRAPHIC_STANDARD, primary == null ? 0 : primary.progress) * 100);
         remoteViews.setInt(R.id.secondary_progress, "setImageLevel",
                 Math.max(GRAPHIC_STANDARD, secondary == null ? 0 : secondary.progress) * 100);
-        remoteViews.setTextViewText(R.id.primary_label, primary == null ? "" : primary.label);
-        remoteViews.setTextViewText(R.id.secondary_label, secondary == null ? "" : secondary.label);
-        remoteViews.setTextViewText(R.id.primary_percent, primary == null ? "—" : primary.valueText);
-        remoteViews.setTextViewText(R.id.secondary_percent, secondary == null ? "—" : secondary.valueText);
-        remoteViews.setTextViewText(R.id.primary_reset, widgetState.primaryReset);
-        remoteViews.setTextViewText(R.id.secondary_reset, widgetState.secondaryReset);
+        remoteViews.setTextViewText(R.id.primary_label,dev.bennett.codexmeter.Translations.t( primary == null ? "" : primary.label));
+        remoteViews.setTextViewText(R.id.secondary_label,dev.bennett.codexmeter.Translations.t( secondary == null ? "" : secondary.label));
+        remoteViews.setTextViewText(R.id.primary_percent,dev.bennett.codexmeter.Translations.t( primary == null ? "—" : primary.valueText));
+        remoteViews.setTextViewText(R.id.secondary_percent,dev.bennett.codexmeter.Translations.t( secondary == null ? "—" : secondary.valueText));
+        remoteViews.setTextViewText(R.id.primary_reset,dev.bennett.codexmeter.Translations.t( widgetState.primaryReset));
+        remoteViews.setTextViewText(R.id.secondary_reset,dev.bennett.codexmeter.Translations.t( widgetState.secondaryReset));
         remoteViews.setViewVisibility(R.id.primary_reset, widgetState.primaryReset.isEmpty() ? 8 : GRAPHIC_STANDARD);
         remoteViews.setViewVisibility(R.id.secondary_reset, widgetState.secondaryReset.isEmpty() ? 8 : GRAPHIC_STANDARD);
         applyUpdated(remoteViews, widgetOptions, widgetState, iFaintColor);
@@ -388,10 +397,10 @@ public final class WidgetRenderer {
         remoteViews.setTextColor(R.id.secondary_label, iSecondaryColor);
         remoteViews.setTextColor(R.id.primary_percent, iMainTextColor);
         remoteViews.setTextColor(R.id.secondary_percent, iMainTextColor);
-        remoteViews.setTextViewText(R.id.primary_label, primary == null ? "" : primary.label);
-        remoteViews.setTextViewText(R.id.secondary_label, secondary == null ? "" : secondary.label);
-        remoteViews.setTextViewText(R.id.primary_percent, primary == null ? "—" : primary.shortText);
-        remoteViews.setTextViewText(R.id.secondary_percent, secondary == null ? "—" : secondary.shortText);
+        remoteViews.setTextViewText(R.id.primary_label,dev.bennett.codexmeter.Translations.t( primary == null ? "" : primary.label));
+        remoteViews.setTextViewText(R.id.secondary_label,dev.bennett.codexmeter.Translations.t( secondary == null ? "" : secondary.label));
+        remoteViews.setTextViewText(R.id.primary_percent,dev.bennett.codexmeter.Translations.t( primary == null ? "—" : primary.shortText));
+        remoteViews.setTextViewText(R.id.secondary_percent,dev.bennett.codexmeter.Translations.t( secondary == null ? "—" : secondary.shortText));
         remoteViews.setViewVisibility(R.id.primary_reset, 8);
         remoteViews.setViewVisibility(R.id.secondary_reset, 8);
         remoteViews.setViewVisibility(R.id.updated_label, 8);
@@ -426,10 +435,10 @@ public final class WidgetRenderer {
                 Math.max(GRAPHIC_STANDARD, primary == null ? 0 : primary.progress) * 100);
         remoteViews.setInt(R.id.secondary_progress, "setImageLevel",
                 Math.max(GRAPHIC_STANDARD, secondary == null ? 0 : secondary.progress) * 100);
-        remoteViews.setTextViewText(R.id.primary_label, primary == null ? "" : primary.label);
-        remoteViews.setTextViewText(R.id.secondary_label, secondary == null ? "" : secondary.label);
-        remoteViews.setTextViewText(R.id.primary_percent, primary == null ? "—" : primary.shortText);
-        remoteViews.setTextViewText(R.id.secondary_percent, secondary == null ? "—" : secondary.shortText);
+        remoteViews.setTextViewText(R.id.primary_label,dev.bennett.codexmeter.Translations.t( primary == null ? "" : primary.label));
+        remoteViews.setTextViewText(R.id.secondary_label,dev.bennett.codexmeter.Translations.t( secondary == null ? "" : secondary.label));
+        remoteViews.setTextViewText(R.id.primary_percent,dev.bennett.codexmeter.Translations.t( primary == null ? "—" : primary.shortText));
+        remoteViews.setTextViewText(R.id.secondary_percent,dev.bennett.codexmeter.Translations.t( secondary == null ? "—" : secondary.shortText));
         if ("five_hour".equals(widgetOptions.metricMode)) {
             str = widgetState.primaryShortReset.isEmpty() ? "" : "5h " + widgetState.primaryShortReset;
         } else if ("weekly".equals(widgetOptions.metricMode)) {
@@ -438,7 +447,7 @@ public final class WidgetRenderer {
         } else {
             str = widgetState.combinedReset;
         }
-        remoteViews.setTextViewText(R.id.primary_reset, str);
+        remoteViews.setTextViewText(R.id.primary_reset,dev.bennett.codexmeter.Translations.t( str));
         remoteViews.setViewVisibility(R.id.primary_reset, str.isEmpty() ? 8 : GRAPHIC_STANDARD);
         remoteViews.setViewVisibility(R.id.secondary_reset, 8);
         applyUpdated(remoteViews, widgetOptions, widgetState, iFaintColor);
@@ -472,10 +481,10 @@ public final class WidgetRenderer {
                     Math.max(GRAPHIC_STANDARD, primaryProgress), false);
             remoteViews.setProgressBar(R.id.secondary_samsung_progress, 100,
                     Math.max(GRAPHIC_STANDARD, secondaryProgress), false);
-            remoteViews.setTextViewText(R.id.primary_samsung_value,
-                    primary == null ? "—" : primary.valueText);
-            remoteViews.setTextViewText(R.id.secondary_samsung_value,
-                    secondary == null ? "—" : secondary.valueText);
+            remoteViews.setTextViewText(R.id.primary_samsung_value,dev.bennett.codexmeter.Translations.t(
+                    primary == null ? "—" : primary.valueText));
+            remoteViews.setTextViewText(R.id.secondary_samsung_value,dev.bennett.codexmeter.Translations.t(
+                    secondary == null ? "—" : secondary.valueText));
             remoteViews.setTextColor(R.id.primary_samsung_value, iMainTextColor);
             remoteViews.setTextColor(R.id.secondary_samsung_value, iMainTextColor);
             if (primary != null) {
@@ -501,12 +510,12 @@ public final class WidgetRenderer {
         remoteViews.setTextColor(R.id.primary_reset, iMutedColor);
         remoteViews.setTextColor(R.id.secondary_reset, iMutedColor);
         remoteViews.setTextColor(R.id.updated_label, iFaintColor);
-        remoteViews.setTextViewText(R.id.primary_label, primary == null ? "" : primary.label);
-        remoteViews.setTextViewText(R.id.secondary_label, secondary == null ? "" : secondary.label);
+        remoteViews.setTextViewText(R.id.primary_label,dev.bennett.codexmeter.Translations.t( primary == null ? "" : primary.label));
+        remoteViews.setTextViewText(R.id.secondary_label,dev.bennett.codexmeter.Translations.t( secondary == null ? "" : secondary.label));
         remoteViews.setViewVisibility(R.id.primary_label, 8);
         remoteViews.setViewVisibility(R.id.secondary_label, 8);
-        remoteViews.setTextViewText(R.id.primary_reset, widgetState.primaryShortReset);
-        remoteViews.setTextViewText(R.id.secondary_reset, widgetState.secondaryShortReset);
+        remoteViews.setTextViewText(R.id.primary_reset,dev.bennett.codexmeter.Translations.t( widgetState.primaryShortReset));
+        remoteViews.setTextViewText(R.id.secondary_reset,dev.bennett.codexmeter.Translations.t( widgetState.secondaryShortReset));
         remoteViews.setViewVisibility(R.id.primary_reset, 8);
         remoteViews.setViewVisibility(R.id.secondary_reset, 8);
         applyUpdated(remoteViews, widgetOptions, widgetState, iFaintColor);
@@ -584,7 +593,7 @@ public final class WidgetRenderer {
             int max = slot.progressMax > 0 ? slot.progressMax : 100;
             remoteViews.setProgressBar(progressIds[index], max,
                     Math.max(GRAPHIC_STANDARD, slot.progress), false);
-            remoteViews.setTextViewText(valueIds[index], slot.valueText);
+            remoteViews.setTextViewText(valueIds[index],dev.bennett.codexmeter.Translations.t( slot.valueText));
             remoteViews.setTextColor(valueIds[index], textColor);
             remoteViews.setImageViewResource(iconIds[index], slot.iconRes);
             remoteViews.setInt(iconIds[index], "setColorFilter", Color.WHITE);
@@ -618,7 +627,7 @@ public final class WidgetRenderer {
 
     private static void applyUpdated(RemoteViews remoteViews, WidgetOptions widgetOptions, WidgetState widgetState, int i) {
         remoteViews.setTextColor(R.id.updated_label, i);
-        remoteViews.setTextViewText(R.id.updated_label, widgetState.updated);
+        remoteViews.setTextViewText(R.id.updated_label,dev.bennett.codexmeter.Translations.t( widgetState.updated));
         remoteViews.setViewVisibility(R.id.updated_label, (!widgetOptions.showUpdated || widgetState.updated.isEmpty()) ? 8 : GRAPHIC_STANDARD);
     }
 
@@ -638,12 +647,12 @@ public final class WidgetRenderer {
     }
 
     private static List<MeterSlot> resolveSlots(Context context, WidgetOptions options,
-            WidgetState state, String visualStyle, Bundle bundle) {
-        UsageSnapshot snapshot = SecureTokenStore.isSignedIn(context)
-                ? AppPreferences.loadSnapshot(context) : null;
+            WidgetState state, String visualStyle, Bundle bundle, Provider provider) {
+        UsageSnapshot snapshot = ProviderRepository.usage(context, provider);
         int height = currentHeight(context, bundle);
         int capacity = WidgetMeters.slotCapacity(visualStyle, height);
         List<String> available = WidgetMeters.availableKeys(snapshot);
+        if (provider != Provider.CHATGPT) available = available.stream().filter(key -> !WidgetMeters.RESET_CREDITS.equals(key)).collect(java.util.stream.Collectors.toList());
         List<String> visible = WidgetMeters.cap(
                 WidgetMeters.resolveVisibleForWidget(options.effectiveVisibleMeters(),
                         available, options.metricMode),
@@ -652,6 +661,7 @@ public final class WidgetRenderer {
         int resetCount = credits == null ? 0 : credits.availableCount;
         ArrayList<MeterSlot> slots = new ArrayList<>();
         for (String key : visible) {
+            if (provider != Provider.CHATGPT && WidgetMeters.RESET_CREDITS.equals(key)) continue;
             MeterSlot slot = buildSlot(key, snapshot, state, options, resetCount);
             if (slot == null) {
                 // Keep the reserved slot so a toggled-on meter never collapses away.
@@ -745,7 +755,8 @@ public final class WidgetRenderer {
     private static void applyResetCreditRow(Context context, RemoteViews remoteViews, int i, WidgetOptions widgetOptions, boolean z, String str) {
         String str2;
         boolean zEquals = STYLE_MICRO.equals(str) || STYLE_BATTERY_LIST.equals(str);
-        boolean z2 = widgetOptions.showResetCredits || widgetOptions.showResetAction;
+        boolean z2 = ProviderRepository.widgetProvider(context, i) == Provider.CHATGPT
+                && (widgetOptions.showResetCredits || widgetOptions.showResetAction);
         if (zEquals || !z2) {
             remoteViews.setViewVisibility(R.id.reset_credit_row, 8);
             return;
@@ -755,7 +766,7 @@ public final class WidgetRenderer {
         long jCurrentTimeMillis = System.currentTimeMillis();
         long jNextExpiryMillis = resetCreditsSnapshotLoadResetCredits == null ? 0L : resetCreditsSnapshotLoadResetCredits.nextExpiryMillis(jCurrentTimeMillis);
         boolean z3 = widgetOptions.showResetCredits;
-        boolean z4 = widgetOptions.showResetAction && i2 > 0 && SecureTokenStore.isSignedIn(context);
+        boolean z4 = widgetOptions.showResetAction && i2 > 0 && ProviderRepository.widgetProvider(context, i) == Provider.CHATGPT && SecureTokenStore.isSignedIn(context);
         if (!z3 && !z4) {
             remoteViews.setViewVisibility(R.id.reset_credit_row, 8);
             return;
@@ -770,12 +781,12 @@ public final class WidgetRenderer {
         } else {
             str2 = i2 + " reset" + (i2 == GRAPHIC_LARGE ? "" : "s") + " available";
         }
-        remoteViews.setTextViewText(R.id.reset_credit_info, str2);
+        remoteViews.setTextViewText(R.id.reset_credit_info,dev.bennett.codexmeter.Translations.t( str2));
         remoteViews.setTextColor(R.id.reset_credit_info, mutedColor(z));
-        remoteViews.setTextViewText(R.id.reset_credit_button, i2 > GRAPHIC_LARGE ? "Use reset (" + i2 + ")" : "Use reset");
+        remoteViews.setTextViewText(R.id.reset_credit_button,dev.bennett.codexmeter.Translations.t( i2 > GRAPHIC_LARGE ? "Use reset (" + i2 + ")" : "Use reset"));
         remoteViews.setTextColor(R.id.reset_credit_button, WidgetGraphics.mainTextColor(z));
         remoteViews.setInt(R.id.reset_credit_button, "setBackgroundResource", z ? R.drawable.widget_action_dark : R.drawable.widget_action_light);
-        remoteViews.setContentDescription(R.id.reset_credit_button, "Use one Codex reset credit. " + str2);
+        remoteViews.setContentDescription(dev.bennett.codexmeter.Translations.t(R.id.reset_credit_button), "Use one Codex reset credit. " + str2);
     }
 
     private static int progressResource(String str, boolean z) {
@@ -976,15 +987,18 @@ public final class WidgetRenderer {
         }
 
         static WidgetState from(Context context, WidgetOptions widgetOptions) {
+            return from(context, widgetOptions, Provider.CHATGPT);
+        }
+        static WidgetState from(Context context, WidgetOptions widgetOptions, Provider provider) {
             String str;
-            boolean zIsSignedIn = SecureTokenStore.isSignedIn(context);
-            UsageSnapshot usageSnapshotLoadSnapshot = AppPreferences.loadSnapshot(context);
+            boolean zIsSignedIn = ProviderRepository.connected(context, provider);
+            UsageSnapshot usageSnapshotLoadSnapshot = ProviderRepository.usage(context, provider);
             long jCurrentTimeMillis = System.currentTimeMillis();
             if (!zIsSignedIn) {
-                return new WidgetState("", -1, -1, "Sign in", "—", "SIGN IN", "—", "Open the app to connect ChatGPT", "", "Tap to connect", "", "Open the app to connect ChatGPT", "Tap anywhere to sign in", "—", 0);
+                return new WidgetState("", -1, -1, "Sign in", "—", "SIGN IN", "—", Translations.t("Open the app to connect") + " " + provider.label, "", "Tap to connect", "", Translations.t("Open the app to connect") + " " + provider.label, "Tap anywhere to sign in", "—", 0);
             }
             if (usageSnapshotLoadSnapshot == null) {
-                String lastError = AppPreferences.getLastError(context);
+                String lastError = ProviderRepository.error(context, provider);
                 if (lastError.isEmpty()) {
                     lastError = "Tap refresh to load usage";
                 }

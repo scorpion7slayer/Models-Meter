@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="wear_display_mode_labels">
+        <item>Auto</item>
+        <item>Live Update</item>
+        <item>Ongoing Activity</item>
+    </string-array>
+    <string-array name="wear_percent_mode_labels">
+        <item>Auto</item>
+        <item>5 heures</item>
+        <item>Hebdomadaire</item>
+    </string-array>
+    <string-array name="wear_metric_labels">
+        <item>Les deux</item>
+        <item>5 heures</item>
+        <item>Hebdomadaire</item>
+    </string-array>
+    <string-array name="wear_pace_sensitivity_labels">
+        <item>Élevé</item>
+        <item>Moyen</item>
+        <item>Faible</item>
+        <item>Désactivé</item>
+    </string-array>
+</resources>

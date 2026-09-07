@@ -20,8 +20,13 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 public final class LockWidgetConfigActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private int appWidgetId = 0;
     private boolean dark;
+    private Provider provider;
     private ImageView preview;
     private CheckBox showCountdown;
     private CheckBox showResetAction;
@@ -40,6 +45,7 @@ public final class LockWidgetConfigActivity extends AppCompatActivity {
             finish();
         } else {
             this.dark = Ui.isDark(this);
+            this.provider = ProviderRepository.widgetProvider(this, appWidgetId);
             build();
         }
     }
@@ -60,6 +66,18 @@ public final class LockWidgetConfigActivity extends AppCompatActivity {
                 Ui.dp(this, 28.0f));
         page.preview.addView(this.preview, new FrameLayout.LayoutParams(-1, -1));
 
+        linearLayout.addView(Ui.separator(this, "Provider"));
+        android.widget.Spinner providerPicker = Ui.spinner(this, Provider.labels(), dark);
+        providerPicker.setSelection(provider.ordinal());
+        linearLayout.addView(providerPicker);
+        providerPicker.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                Provider next = Provider.values()[position];
+                if (provider != next) { provider = next; build(); }
+            }
+            @Override public void onNothingSelected(android.widget.AdapterView<?> parent) { }
+        });
+
         LockWidgetOptions saved = AppPreferences.loadLockWidgetOptions(this, this.appWidgetId);
         this.selectedMeters.clear();
         for (String key : WidgetMeters.parse(saved.effectiveVisibleMeters())) {
@@ -78,7 +96,7 @@ public final class LockWidgetConfigActivity extends AppCompatActivity {
                 13.0f, Ui.secondaryText(this.dark));
         this.metersHint.setPadding(0, 0, 0, Ui.dp(this, 8));
         metersCard.addView(this.metersHint);
-        UsageSnapshot snapshot = AppPreferences.loadSnapshot(this);
+        UsageSnapshot snapshot = ProviderRepository.usage(this, provider);
         List<String> available = new ArrayList<>();
         for (String key : WidgetMeters.availableKeys(snapshot)) {
             if (WidgetMeters.FIVE_HOUR.equals(key) || WidgetMeters.WEEKLY.equals(key)) {
@@ -148,6 +166,8 @@ public final class LockWidgetConfigActivity extends AppCompatActivity {
 
         page.cancel.setOnClickListener(view -> finish());
         page.save.setOnClickListener(view -> save());
+        this.showResetCredits.setEnabled(provider == Provider.CHATGPT);
+        this.showResetAction.setEnabled(provider == Provider.CHATGPT);
         updateMetersHint();
         updatePreview();
     }
@@ -185,7 +205,7 @@ public final class LockWidgetConfigActivity extends AppCompatActivity {
                     + " extra selection" + (selected - capacity == 1 ? " is" : "s are")
                     + " ignored until you deselect others.";
         }
-        this.metersHint.setText(message);
+        this.metersHint.setText(dev.bennett.codexmeter.Translations.t(message));
     }
 
     private LockWidgetOptions currentOptions() {
@@ -204,8 +224,8 @@ public final class LockWidgetConfigActivity extends AppCompatActivity {
         } else if (weekly && !five && this.selectedMeters.size() == 1) {
             metricMode = WidgetOptions.METRIC_WEEKLY;
         }
-        return new LockWidgetOptions(metricMode, this.showResetCredits.isChecked(),
-                this.showResetAction.isChecked(), this.showCountdown.isChecked(), visible);
+        return new LockWidgetOptions(metricMode, provider == Provider.CHATGPT && this.showResetCredits.isChecked(),
+                provider == Provider.CHATGPT && this.showResetAction.isChecked(), this.showCountdown.isChecked(), visible);
     }
 
     private void updatePreview() {
@@ -213,7 +233,7 @@ public final class LockWidgetConfigActivity extends AppCompatActivity {
             return;
         }
         LockWidgetOptions options = currentOptions();
-        UsageSnapshot snapshot = AppPreferences.loadSnapshot(this);
+        UsageSnapshot snapshot = ProviderRepository.usage(this, provider);
         List<String> available = WidgetMeters.availableKeys(snapshot);
         List<String> visible = WidgetMeters.cap(
                 WidgetMeters.resolveVisibleForWidget(options.effectiveVisibleMeters(), available,
@@ -264,6 +284,7 @@ public final class LockWidgetConfigActivity extends AppCompatActivity {
     }
 
     public void save() {
+        ProviderRepository.setWidgetProvider(this, appWidgetId, provider);
         AppPreferences.saveLockWidgetOptions(this, this.appWidgetId, currentOptions());
         SamsungLockWidgetSupport.updateById(this, this.appWidgetId);
         setResult(RESULT_OK, new Intent().putExtra(

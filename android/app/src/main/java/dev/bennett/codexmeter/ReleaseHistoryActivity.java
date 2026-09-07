@@ -15,6 +15,10 @@ import java.util.concurrent.Executors;
 
 /** Advanced release picker with explicit downgrade constraints. */
 public final class ReleaseHistoryActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private LinearLayout content;
     private boolean dark;

@@ -100,7 +100,7 @@ public final class Ui {
     }
 
     public static void configureReachToolbar(ToolbarLayout toolbar, String title, boolean back) {
-        toolbar.setTitle(title);
+        toolbar.setTitle(dev.bennett.codexmeter.Translations.t(title));
         toolbar.setShowNavigationButtonAsBack(back);
         // Force SESL to recalculate its responsive app-bar height after XML inflation.
         toolbar.setExpandable(false);
@@ -139,7 +139,7 @@ public final class Ui {
         FrameLayout preview = root.findViewById(R.id.widget_preview_container);
         TextView cancel = root.findViewById(R.id.config_cancel);
         TextView save = root.findViewById(R.id.config_save);
-        toolbar.setTitle(title);
+        toolbar.setTitle(dev.bennett.codexmeter.Translations.t(title));
         toolbar.setShowNavigationButtonAsBack(true);
         activity.setContentView(root);
         configureSystemBars(activity, root, isDark(activity));
@@ -281,7 +281,7 @@ public final class Ui {
 
     public static TextView text(Context context, String str, float f, int i) {
         TextView textView = new TextView(context);
-        textView.setText(str);
+        textView.setText(dev.bennett.codexmeter.Translations.t(str));
         textView.setTextSize(f);
         textView.setTextColor(i);
         textView.setTypeface(regularTypeface(context));
@@ -354,7 +354,7 @@ public final class Ui {
 
     public static Separator separator(Context context, String title) {
         Separator separator = new Separator(context);
-        separator.setText(title);
+        separator.setText(dev.bennett.codexmeter.Translations.t(title));
         return separator;
     }
 
@@ -362,7 +362,7 @@ public final class Ui {
         int iArgb;
         boolean zIsOneUi = isOneUi(context);
         Button button = new AppCompatButton(context);
-        button.setText(str);
+        button.setText(dev.bennett.codexmeter.Translations.t(str));
         button.setAllCaps(false);
         button.setTextSize(18.0f);
         button.setTypeface(mediumTypeface(context));
@@ -396,7 +396,7 @@ public final class Ui {
 
     public static Button nativePrimaryButton(Context context, String text) {
         Button button = (Button) LayoutInflater.from(context).inflate(R.layout.view_oneui_primary_button, null, false);
-        button.setText(text);
+        button.setText(dev.bennett.codexmeter.Translations.t(text));
         boolean dark = isDark(context);
         int accent = accent(context, dark);
         int onAccent = onAccent(context, dark);
@@ -414,7 +414,7 @@ public final class Ui {
     public static Button topAction(Context context, String str, boolean z) {
         boolean zIsOneUi = isOneUi(context);
         Button button = new AppCompatButton(context);
-        button.setText(str);
+        button.setText(dev.bennett.codexmeter.Translations.t(str));
         button.setAllCaps(false);
         button.setTextSize(18.0f);
         button.setTextColor(mainText(z));
@@ -491,7 +491,7 @@ public final class Ui {
         SeslProgressBar loading = new SeslProgressBar(context);
         loading.setIndeterminate(true);
         if (description != null && !description.isEmpty()) {
-            loading.setContentDescription(description);
+            loading.setContentDescription(dev.bennett.codexmeter.Translations.t(description));
             loading.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
         LinearLayout.LayoutParams params =
@@ -507,7 +507,7 @@ public final class Ui {
     public static Spinner spinner(final Context context, String[] strArr, final boolean z) {
         final boolean zIsOneUi = isOneUi(context);
         Spinner spinner = new AppCompatSpinner(context, 1);
-        spinner.setAdapter((SpinnerAdapter) new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, strArr) { // from class: dev.bennett.codexmeter.Ui.1
+        spinner.setAdapter((SpinnerAdapter) new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, Translations.labels(strArr)) { // from class: dev.bennett.codexmeter.Ui.1
             @Override // android.widget.ArrayAdapter, android.widget.Adapter
             public View getView(int i, View view, ViewGroup viewGroup) {
                 return style((TextView) super.getView(i, view, viewGroup), false);
@@ -573,7 +573,7 @@ public final class Ui {
 
     public static CheckBox checkbox(Context context, String str, boolean z, boolean z2) {
         CheckBox checkBox = new AppCompatCheckBox(context);
-        checkBox.setText(str);
+        checkBox.setText(dev.bennett.codexmeter.Translations.t(str));
         checkBox.setChecked(z);
         checkBox.setTextSize(isOneUi(context) ? 15.0f : 14.0f);
         checkBox.setTextColor(mainText(z2));
@@ -634,8 +634,8 @@ public final class Ui {
 
     public static CardItemView actionRow(Context context, String title, String summary, int icon, View.OnClickListener listener) {
         CardItemView row = new CardItemView(context);
-        row.setTitle(title);
-        row.setSummary(summary);
+        row.setTitle(dev.bennett.codexmeter.Translations.t(title));
+        row.setSummary(dev.bennett.codexmeter.Translations.t(summary));
         if (icon != 0) {
             row.setIcon(context.getDrawable(icon));
         }

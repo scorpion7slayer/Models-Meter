@@ -32,14 +32,14 @@ public final class UsageFormat {
 
     public static String percent(UsageWindow usageWindow, String str, boolean z) {
         if (usageWindow == null) {
-            return z ? "—" : "Unavailable";
+            return z ? "—" : Translations.t("Unavailable");
         }
         boolean zEquals = WidgetOptions.DISPLAY_USED.equals(str);
         int iRemainingPercent = zEquals ? usageWindow.usedPercent : usageWindow.remainingPercent();
         if (z) {
             return iRemainingPercent + "%";
         }
-        return iRemainingPercent + "% " + (zEquals ? WidgetOptions.DISPLAY_USED : "left");
+        return iRemainingPercent + "% " + Translations.t(zEquals ? WidgetOptions.DISPLAY_USED : "left");
     }
 
     public static String reset(Context context, UsageWindow usageWindow, String str, long j) {
@@ -54,14 +54,14 @@ public final class UsageFormat {
         }
         long jResetAtMillis = usageWindow.effectiveResetAtMillis(observedAtMillis);
         if (jResetAtMillis <= 0) {
-            return "Reset time unavailable";
+            return Translations.t("Reset time unavailable");
         }
         String strAbsolute = absolute(context, jResetAtMillis, nowMillis);
         String strRelative = relative(jResetAtMillis, nowMillis);
         if (WidgetOptions.RESET_RELATIVE.equals(str)) {
-            return "Resets " + strRelative;
+            return Translations.t("Resets ") + strRelative;
         }
-        return "both".equals(str) ? "Resets " + strAbsolute + " (" + strRelative + ")" : "Resets " + strAbsolute;
+        return "both".equals(str) ? Translations.t("Resets ") + strAbsolute + " (" + strRelative + ")" : Translations.t("Resets ") + strAbsolute;
     }
 
     public static String estimatedRemaining(UsagePace.Assessment assessment) {
@@ -69,7 +69,7 @@ public final class UsageFormat {
             return "";
         }
         if (assessment.estimatedRemainingMillis <= 0L) {
-            return "Est. depleted";
+            return Translations.t("Est. depleted");
         }
         return "Est. " + compactDuration(assessment.estimatedRemainingMillis);
     }
@@ -104,6 +104,11 @@ public final class UsageFormat {
         } else {
             str = zIs24HourFormat ? "EEE, MMM d 'at' HH:mm" : "EEE, MMM d 'at' h:mm a";
         }
+        if (Locale.getDefault().getLanguage().equals("fr")) {
+            str = str.replace("'today at'", "'aujourd’hui à'")
+                    .replace("'tomorrow at'", "'demain à'").replace("'at'", "'à'")
+                    .replace("EEE, MMM d", "EEE d MMM");
+        }
         return new SimpleDateFormat(str, Locale.getDefault()).format(new Date(j));
     }
 
@@ -112,31 +117,22 @@ public final class UsageFormat {
     }
 
     public static String relative(long j, long j2) {
+        boolean french = Locale.getDefault().getLanguage().equals("fr");
         long minutes = TimeUnit.MILLISECONDS.toMinutes(Math.max(0L, j - j2));
         long j3 = minutes / 1440;
         long j4 = (minutes % 1440) / 60;
         long j5 = minutes % 60;
         if (j3 > 0) {
-            return "in " + j3 + "d " + j4 + "h";
+            return (french ? "dans " : "in ") + j3 + (french ? "j " : "d ") + j4 + "h";
         }
         if (j4 > 0) {
-            return "in " + j4 + "h " + j5 + "m";
+            return (french ? "dans " : "in ") + j4 + "h " + j5 + "m";
         }
-        return minutes > 0 ? "in " + minutes + "m" : "now";
+        return minutes > 0 ? (french ? "dans " : "in ") + minutes + "m" : Translations.t("now");
     }
 
-    public static String updated(long j, long j2) {
-        if (j <= 0) {
-            return "Not updated yet";
-        }
-        long jMax = Math.max(0L, TimeUnit.MILLISECONDS.toMinutes(j2 - j));
-        if (jMax < 1) {
-            return "Updated just now";
-        }
-        if (jMax < 60) {
-            return "Updated " + jMax + "m ago";
-        }
-        long j3 = jMax / 60;
-        return j3 < 24 ? "Updated " + j3 + "h ago" : "Updated " + (j3 / 24) + "d ago";
+    public static String updated(long time, long now) {
+        return time <= 0 ? Translations.t("Not updated yet")
+                : Translations.t("Updated ") + LocalizedTime.relative(time, now, 60000);
     }
 }

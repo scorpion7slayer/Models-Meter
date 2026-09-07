@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <permission
         android:name="dev.scorpion7slayer.modelsmeter.permission.INTERNAL"
         android:protectionLevel="signature"/>
@@ -302,5 +302,34 @@
             android:exported="false"
             android:stopWithTask="false"
             android:foregroundServiceType="dataSync"/>
+        <service
+            android:name="dev.bennett.codexmeter.wear.PhoneWearListenerService"
+            android:exported="true">
+            <intent-filter>
+                <action
+                    android:name="com.google.android.gms.wearable.BIND_LISTENER"
+                    tools:ignore="WearableBindListener"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED"/>
+                <data
+                    android:scheme="wear"
+                    android:host="*"
+                    android:pathPrefix="/codex"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED"/>
+                <data
+                    android:scheme="wear"
+                    android:host="*"
+                    android:pathPrefix="/codex/msg"/>
+            </intent-filter>
+        </service>
+        <activity android:name=".ProviderSignInActivity" android:exported="false" />
+        <activity android:name=".ProvidersActivity" android:exported="false" />
+        <activity android:name=".ModelsWidgetConfigActivity" android:exported="true">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
+        </activity>
+        <receiver android:name="dev.bennett.codexmeter.ProviderResetReceiver" android:exported="false" />
     </application>
 </manifest>

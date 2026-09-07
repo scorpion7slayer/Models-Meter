@@ -31,3 +31,7 @@ A valid signature proves APK integrity and signing identity, not Google approval
 can request a scan or warn about an app installed outside Google Play. Keep Play
 Protect enabled; an emulator installation does not predict its verdict on every
 phone. There is no Play Store certification claimed for this fork.
+
+## Wear OS
+
+The Wear OS APK uses the same `dev.scorpion7slayer.modelsmeter` application ID and persistent certificate as the phone APK. Both are verified by `android/build.sh` and included in CI artifacts. Do not distribute a watch APK signed with a different key: Wear Data Layer trust would fail. iOS artifacts produced by the simulator workflow are not signed for installation on a physical iPhone.

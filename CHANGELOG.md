@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.1
+
+- Restore the original iOS and Wear OS targets with Models Meter branding, light/dark icons, fork credits and latest model names.
+- Add System, French and English language settings on all platforms, with English fallback for unsupported system languages.
+- Add independent Anthropic/Claude, Cursor and OpenCode Go connections, quota dashboards, model catalogs and provider alerts. Keep provider-specific API capabilities explicit.
+- Add provider selection to Android home/lock widgets and iOS widgets. Resize the Android models widget freely from 2 × 1 cells.
+- Remove the dashboard Add models widget button; widgets are added through the system picker.
+- Restore sanitized phone-to-Wear synchronization without transmitting credentials.
+- Prepare Android version code 2 and iOS build 2 while retaining the fork’s Android application ID, updater destination and signing key.
+
 ## 1.0.0
 
 - Launch Models Meter as an Android phone fork of Codex Meter, maintained by Theo (scorpion7slayer). Credit BenIt Buhner and That Josh Guy as the original project developers.

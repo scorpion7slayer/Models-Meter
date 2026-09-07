@@ -20,7 +20,7 @@ public final class ReleaseNotesUi {
     public static void apply(TextView view, String markdown) {
         String html = ReleaseNotesMarkdown.toHtml(markdown);
         if (html.isEmpty()) {
-            view.setText("");
+            view.setText(dev.bennett.codexmeter.Translations.t(""));
             return;
         }
         CharSequence rendered;
@@ -29,7 +29,7 @@ public final class ReleaseNotesUi {
         } else {
             rendered = Html.fromHtml(html);
         }
-        view.setText(rendered);
+        view.setText(dev.bennett.codexmeter.Translations.t(rendered));
         view.setMovementMethod(LinkMovementMethod.getInstance());
         view.setLinksClickable(true);
     }

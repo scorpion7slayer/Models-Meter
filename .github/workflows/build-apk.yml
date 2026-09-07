@@ -1,4 +1,4 @@
-name: Build Models Meter APK
+name: Build Models Meter Android and Wear OS APKs
 
 on:
   pull_request:
@@ -53,6 +53,7 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" \
             "platforms;android-36" \
+            "platforms;android-37.0" \
             "build-tools;36.0.0"
 
       - name: Validate version
@@ -153,6 +154,7 @@ jobs:
           name: models-meter-${{ steps.version.outputs.name }}-ci
           path: |
             android/dist/ModelsMeter-${{ steps.version.outputs.name }}.apk
+            android/dist/ModelsMeter-Wear-${{ steps.version.outputs.name }}.apk
             android/dist/SHA256SUMS.txt
             android/dist/build.log
           if-no-files-found: error
@@ -226,6 +228,7 @@ jobs:
           fi
           gh release upload "$GITHUB_REF_NAME" \
             "release-dist/ModelsMeter-$VERSION_NAME.apk#Models Meter $VERSION_NAME APK" \
+            "release-dist/ModelsMeter-Wear-$VERSION_NAME.apk#Models Meter $VERSION_NAME Wear OS APK" \
             "release-dist/SHA256SUMS.txt#SHA-256 checksums" \
             --clobber
           if [[ "$PRERELEASE" == "true" ]]; then

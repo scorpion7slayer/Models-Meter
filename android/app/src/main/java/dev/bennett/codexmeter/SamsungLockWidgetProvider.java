@@ -34,6 +34,9 @@ abstract class SamsungLockWidgetProvider extends AppWidgetProvider {
         if (iArr != null && iArr2 != null) {
             int iMin = Math.min(iArr.length, iArr2.length);
             for (int i = 0; i < iMin; i++) {
+                if (iArr[i] == iArr2[i]) continue;
+                ProviderRepository.setWidgetProvider(context, iArr2[i], ProviderRepository.widgetProvider(context, iArr[i]));
+                ProviderRepository.deleteWidget(context, iArr[i]);
                 AppPreferences.saveLockWidgetOptions(context, iArr2[i], AppPreferences.loadLockWidgetOptions(context, iArr[i]));
                 AppPreferences.deleteLockWidgetOptions(context, iArr[i]);
             }
@@ -46,6 +49,7 @@ abstract class SamsungLockWidgetProvider extends AppWidgetProvider {
         if (iArr != null) {
             for (int i : iArr) {
                 AppPreferences.deleteLockWidgetOptions(context, i);
+                ProviderRepository.deleteWidget(context, i);
             }
         }
     }

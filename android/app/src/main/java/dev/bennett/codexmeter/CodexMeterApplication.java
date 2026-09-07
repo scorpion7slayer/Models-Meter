@@ -11,9 +11,16 @@ public final class CodexMeterApplication extends Application
     @Override
     public void onCreate() {
         super.onCreate();
+        java.util.Locale.setDefault(L10n.locale(this));
         DiagnosticLog.install(this);
         registerActivityLifecycleCallbacks(this);
         DiagnosticLog.info(this, "process", "application_started");
+    }
+
+    @Override public void onConfigurationChanged(android.content.res.Configuration configuration) {
+        super.onConfigurationChanged(configuration);
+        java.util.Locale.setDefault(L10n.locale(this));
+        WidgetRenderer.updateAll(this);
     }
 
     @Override
@@ -38,6 +45,8 @@ public final class CodexMeterApplication extends Application
 
     @Override
     public void onActivityResumed(Activity activity) {
+        if (!activity.getResources().getConfiguration().getLocales().get(0).getLanguage()
+                .equals(L10n.locale(activity).getLanguage())) { activity.recreate(); return; }
         DiagnosticLog.info(this, "screen", "resumed",
                 "activity", activity.getClass().getSimpleName());
     }

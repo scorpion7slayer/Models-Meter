@@ -2,14 +2,15 @@
 
 ## Repository layout
 
-Models Meter is an **Android phone app** with no backend:
+Models Meter includes **Android, Wear OS and iOS apps** with no backend:
 
 | Path | Stack | Package / product |
 |------|--------|-------------------|
 | Repository root | Shared docs, license, changelog, CI entrypoints | — |
-| `android/` | Android (Gradle `:app`, `:shared`) | `dev.scorpion7slayer.modelsmeter` |
+| `android/` | Android / Wear OS (Gradle `:app`, `:wear`, `:shared`) | `dev.scorpion7slayer.modelsmeter` |
+| `ios/` | SwiftUI, WidgetKit, portable Swift core | `dev.scorpion7slayer.modelsmeter` |
 
-The app talks directly to OpenAI/ChatGPT remote endpoints. Tokens stay on-device in Android Keystore.
+The apps talk directly to the selected provider; see `docs/PROVIDERS.md`. Credentials stay on-device in Android Keystore / Apple Keychain. Widgets and Wear synchronization contain only sanitized display snapshots.
 
 ## Release channels & etiquette (Android)
 
@@ -25,7 +26,7 @@ Rules for agents:
 - **Never bump `versionCode`/`versionName` on your own.** Version bumps are release preparation and happen only when the user asks to cut a release.
 - Preparing an **alpha release** (`X.Y.Z-alpha.N`): bump `versionName` only; `versionCode` must stay **equal to** the newest stable release's versionCode. CI rejects the tag otherwise — this invariant is what keeps in-app channel switching (including "Return to stable") an in-place install with no uninstall. `X.Y.Z` must be the **next** stable version, not the shipped one (after stable `2.7.0`, cut `2.8.0-alpha.1` — never `2.7.0-alpha.1`, which SemVer orders below `2.7.0` so the in-app updater would never offer it).
 - Preparing a **stable release** (promotion): merge `alpha` into `main`, drop the suffix, bump `versionCode` by exactly one, and consolidate the alpha changelog sections under the stable version.
-- Any release prep must update every synced version touchpoint together, or `run-tests.sh` fails: `android/app/build.gradle.kts`, `AppConstants.java` (`VERSION_NAME`, `VERSION_CODE`, and the literal user-agent string), `android/build.sh`, the version guards in `android/run-tests.sh`, and a matching `## <version>` section in root `CHANGELOG.md` (the release job fails when notes are missing).
+- Any release prep must update every synced version touchpoint together, or `run-tests.sh` fails: `android/app/build.gradle.kts`, `android/wear/build.gradle.kts`, iOS marketing/build versions, `AppConstants.java` (`VERSION_NAME`, `VERSION_CODE`, and the literal user-agent string), `android/build.sh`, the version guards in `android/run-tests.sh`, and a matching `## <version>` section in root `CHANGELOG.md` (the release job fails when notes are missing).
 - Merging `main` into `alpha` to keep it fresh is fine; never force-push either branch, and never delete or recreate `alpha` on your own.
 
 Convenience wrappers at the repo root forward into the Android project:

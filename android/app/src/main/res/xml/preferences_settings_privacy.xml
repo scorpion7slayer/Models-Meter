@@ -2,16 +2,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Your data">
+    <PreferenceCategory android:title="@string/localized_48cd18dabc14">
         <Preference
             android:icon="@drawable/ic_oui_privacy"
-            android:summary="OAuth tokens are encrypted with Android Keystore and remain on this device."
-            android:title="Encrypted local storage"
+            android:summary="@string/localized_da09ffdbfefa"
+            android:title="@string/localized_e0ef7f273318"
             app:iconSpaceReserved="false"
             app:selectable="false" />
         <Preference
-            android:summary="Models Meter connects directly to OpenAI for authentication and to ChatGPT and Codex endpoints for usage data. There is no Models Meter backend."
-            android:title="Direct network access"
+            android:summary="@string/localized_e6b7024f1590"
+            android:title="@string/localized_47d8470a7612"
             app:iconSpaceReserved="false"
             app:selectable="false" />
     </PreferenceCategory>

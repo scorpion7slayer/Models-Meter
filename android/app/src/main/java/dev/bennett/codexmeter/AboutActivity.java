@@ -27,6 +27,10 @@ import dev.oneuiproject.oneui.widget.RoundedLinearLayout;
 import dev.oneuiproject.oneui.utils.EdgeToEdge;
 
 public final class AboutActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private static final int MENU_GITHUB = 8201;
     private static final int MENU_APP_INFO = 8202;
     private static final int DIAGNOSTIC_TAPS = 7;
@@ -44,7 +48,7 @@ public final class AboutActivity extends AppCompatActivity {
         setupToolbar();
         setupCollapsingContent();
         TextView version = findViewById(R.id.about_header_version);
-        version.setText(getString(R.string.about_version, Ui.versionName(this)));
+        version.setText(dev.bennett.codexmeter.Translations.t(getString(R.string.about_version, Ui.versionName(this))));
         version.setOnClickListener(this::onVersionTap);
         findViewById(R.id.about_header_icon).setOnClickListener(this::onVersionTap);
         build(findViewById(R.id.about_content));
@@ -52,10 +56,10 @@ public final class AboutActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(Menu.NONE, MENU_GITHUB, 0, "GitHub")
+        menu.add(Menu.NONE, MENU_GITHUB, 0, Translations.t("GitHub"))
                 .setIcon(R.drawable.ic_github_24)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, MENU_APP_INFO, 1, "App info")
+        menu.add(Menu.NONE, MENU_APP_INFO, 1, Translations.t("App info"))
                 .setIcon(R.drawable.ic_oui_info_outline)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;

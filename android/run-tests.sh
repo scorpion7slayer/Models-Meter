@@ -26,6 +26,12 @@ OUT="$ROOT/build/tests"
 rm -rf "$OUT" && mkdir -p "$OUT"
 
 javac -encoding UTF-8 -cp "$JSON_JAR" -d "$OUT" \
+  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/Provider.java" \
+  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/ProviderUsageParser.java" \
+  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/LocalizedTime.java" \
+  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/LanguageChoice.java" \
+  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WearGlanceFormat.java" \
+  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/Translations.java" \
   "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageWindow.java" \
   "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageCredits.java" \
   "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageLimit.java" \
@@ -66,17 +72,24 @@ javac -encoding UTF-8 -cp "$JSON_JAR" -d "$OUT" \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateCheckFrequency.java" \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/DiagnosticSanitizer.java" \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransfer.java" \
-  "$ROOT/tests/ParserSelfTest.java"
+  "$ROOT/tests/ParserSelfTest.java" \
+  "$ROOT/tests/ProviderSelfTest.java"
 
 java -ea -cp "$OUT:$JSON_JAR" dev.bennett.codexmeter.ParserSelfTest
+java -ea -cp "$OUT:$JSON_JAR" dev.bennett.codexmeter.ProviderSelfTest
 
 # Source-level release checks.
-grep -q 'VERSION_NAME = "1.0.0"' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'VERSION_CODE = 1' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'versionName = "1.0.0"' "$ROOT/app/build.gradle.kts"
-grep -q 'versionCode = 1' "$ROOT/app/build.gradle.kts"
-grep -q 'models-meter-android/1.0.0' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'VERSION_NAME="1.0.0"' "$ROOT/build.sh"
+grep -q 'VERSION_NAME = "1.0.1"' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
+grep -q 'VERSION_CODE = 2' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
+grep -q 'versionName = "1.0.1"' "$ROOT/app/build.gradle.kts"
+grep -q 'versionCode = 2' "$ROOT/app/build.gradle.kts"
+grep -q 'models-meter-android/1.0.1' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
+grep -q 'VERSION_NAME="1.0.1"' "$ROOT/build.sh"
+grep -q 'versionName = "1.0.1"' "$ROOT/wear/build.gradle.kts"
+grep -q 'versionCode = 2' "$ROOT/wear/build.gradle.kts"
+[[ "$(grep -c 'MARKETING_VERSION = 1.0.1;' "$ROOT/../ios/CodexMeter.xcodeproj/project.pbxproj")" -eq 4 ]]
+! grep 'CURRENT_PROJECT_VERSION =' "$ROOT/../ios/CodexMeter.xcodeproj/project.pbxproj" | grep -qv '= 2;'
+grep -q '^## 1.0.1' "$ROOT/../CHANGELOG.md"
 WORKFLOW="$ROOT/../.github/workflows/build-apk.yml"
 grep -q 'scorpion7slayer/Models-Meter/releases?per_page=30' "$ROOT/app/build.gradle.kts" # pragma: allowlist secret
 ! grep -R -q 'thatjoshguy67/Codex-Meter' \
@@ -200,7 +213,8 @@ grep -q 'shouldShowResetCreditsCard' \
 grep -q 'Model-specific additional limits' \
   "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WidgetMeters.java"
 grep -q 'available meters exclude model-specific Spark limits' \
-  "$ROOT/tests/ParserSelfTest.java"
+  "$ROOT/tests/ParserSelfTest.java" \
+  "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'resolveVisibleForWidget' \
   "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WidgetMeters.java"
 grep -q 'resolvedSingleUsageMetric' \
@@ -334,7 +348,7 @@ grep -q 'SettingsTransferStore.collect' \
 grep -q 'SettingsTransferStore.apply' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
 grep -q 'Protect authentication exports' \
-  "$ROOT/app/src/main/res/xml/preferences_settings_transfer.xml"
+  "$ROOT/app/src/main/res/values/localized_display.xml"
 grep -q 'material_you' \
   "$ROOT/app/src/main/res/xml/preferences_settings_appearance.xml"
 grep -q 'HorizontalRadioPreference' \
@@ -420,7 +434,8 @@ grep -q 'NowBarCopy.chipExpandedText' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
 grep -q 'testNowBarCopy' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'exhausted five-hour focus shows hours until natural reset' \
-  "$ROOT/tests/ParserSelfTest.java"
+  "$ROOT/tests/ParserSelfTest.java" \
+  "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'Build.VERSION.SDK_INT >= 36' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
 grep -q 'codex_live_monitor_v2' \
@@ -481,15 +496,20 @@ grep -q 'NowBarPreferences.isAutoStartEnabled' \
 grep -q 'markSuppressedUntil' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
 grep -q 'NowBarAutoStart.shouldStart' \
-  "$ROOT/tests/ParserSelfTest.java"
+  "$ROOT/tests/ParserSelfTest.java" \
+  "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'NowBarDisplayMode.resolve' \
-  "$ROOT/tests/ParserSelfTest.java"
+  "$ROOT/tests/ParserSelfTest.java" \
+  "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'NowBarPercentMode.resolveFocus' \
-  "$ROOT/tests/ParserSelfTest.java"
+  "$ROOT/tests/ParserSelfTest.java" \
+  "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'NowBarPercentMode.triggeredFocus' \
-  "$ROOT/tests/ParserSelfTest.java"
+  "$ROOT/tests/ParserSelfTest.java" \
+  "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'NowBarPercentMode.focusForSettingsChange' \
-  "$ROOT/tests/ParserSelfTest.java"
+  "$ROOT/tests/ParserSelfTest.java" \
+  "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'KEY_AUTO_TRIGGER_FOCUS' \
   "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
 grep -q 'sessionAutoTriggerFocus' \

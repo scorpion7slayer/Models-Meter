@@ -33,6 +33,7 @@ final class ModelCatalogStore {
                 .putString("catalog", next.toJson().toString()).commit()) {
             throw new Exception("Could not save the model catalog on this device.");
         }
+        dev.bennett.codexmeter.wear.PhoneWearSync.pushProviders(context);
     }
 
     static void clear(Context context) {

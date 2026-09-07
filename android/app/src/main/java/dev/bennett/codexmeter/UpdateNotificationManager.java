@@ -86,9 +86,9 @@ public final class UpdateNotificationManager {
                 updateIntent(context, release.version, true));
         Notification notification = new Notification.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setStyle(new Notification.BigTextStyle().bigText(text))
+                .setContentTitle(dev.bennett.codexmeter.Translations.t(title))
+                .setContentText(dev.bennett.codexmeter.Translations.t(text))
+                .setStyle(new Notification.BigTextStyle().bigText(dev.bennett.codexmeter.Translations.t(text)))
                 .setContentIntent(open)
                 .addAction(new Notification.Action.Builder(R.drawable.ic_notification,
                         "Open", open).build())

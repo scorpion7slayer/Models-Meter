@@ -25,6 +25,10 @@ import dev.oneuiproject.oneui.widget.RoundedLinearLayout;
 
 /** First-run setup built from the same One UI Design Library primitives as the app. */
 public final class OnboardingActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     public static final String EXTRA_AUTH_RETURN = "oauth_return";
 
     private LinearLayout content;
@@ -165,7 +169,7 @@ public final class OnboardingActivity extends AppCompatActivity {
     private void render() {
         if (this.content == null) return;
         this.content.removeAllViews();
-        this.page.toolbar.setTitle("Models Meter");
+        this.page.toolbar.setTitle(dev.bennett.codexmeter.Translations.t("Models Meter"));
         this.page.toolbar.setShowNavigationButtonAsBack(this.step > OnboardingFlow.STEP_WELCOME);
 
         addProgress();
@@ -277,6 +281,13 @@ public final class OnboardingActivity extends AppCompatActivity {
                 ? "Continue sign-in with ChatGPT"
                 : "Sign up or sign in with ChatGPT";
         addPrimaryAction(signInLabel, this::startSignIn);
+        Button providers = Ui.button(this, L10n.text(this, "Connect another provider", "Connecter un autre fournisseur"), false, dark);
+        providers.setOnClickListener(view -> {
+            AppPreferences.completeOnboarding(this);
+            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, ProvidersActivity.class)); finish();
+        });
+        content.addView(providers);
         Button later = Ui.button(this, "Not now", false, this.dark);
         later.setOnClickListener(view -> completeAndOpenMain());
         LinearLayout.LayoutParams laterParams = new LinearLayout.LayoutParams(-1, Ui.dp(this, 54));

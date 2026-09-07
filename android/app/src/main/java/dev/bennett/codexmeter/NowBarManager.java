@@ -19,6 +19,7 @@ import android.os.Looper;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
+import dev.bennett.codexmeter.wear.PhoneWearSync;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
@@ -94,6 +95,7 @@ public final class NowBarManager {
                     "reason", reason,
                     "focus", focus,
                     "until", until);
+            PhoneWearSync.pushSettings(context);
             return true;
         }
         stop(context, false);
@@ -112,6 +114,7 @@ public final class NowBarManager {
         String focus = computeInitialFocus(context, preview, false, now);
         saveState(context, true, until, focus, true, null, START_PREVIEW);
         if (post(context, preview, until, true)) {
+            PhoneWearSync.pushSettings(context);
             return true;
         }
         stop(context, false);
@@ -344,6 +347,8 @@ public final class NowBarManager {
                 Log.w(TAG, "Could not cancel live monitor expiry", exception);
             }
         }
+        PhoneWearSync.pushMonitorState(context);
+        PhoneWearSync.pushSettings(context);
     }
 
     public static boolean isActive(Context context) {
@@ -475,8 +480,8 @@ public final class NowBarManager {
         Notification.Builder builder = new Notification.Builder(context, CHANNEL_ID)
                 // Official Codex mark (white, no opaque square) — system tints status-bar icons.
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(text)
+                .setContentTitle(dev.bennett.codexmeter.Translations.t(title))
+                .setContentText(dev.bennett.codexmeter.Translations.t(text))
                 .setContentIntent(contentIntent)
                 .setDeleteIntent(stopIntent)
                 .setOngoing(true)
@@ -570,6 +575,7 @@ public final class NowBarManager {
                     "until", until);
             Log.w(TAG, "Could not schedule live monitor expiry", exception);
         }
+        PhoneWearSync.pushMonitorState(context);
         return true;
     }
 

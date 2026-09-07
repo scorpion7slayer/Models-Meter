@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="localized_042d72d357d5" formatted="false">Transférer les réglages entre appareils</string>
+    <string name="localized_05db09e353e6" formatted="false">Temps d’utilisation estimé</string>
+    <string name="localized_07e989b75936" formatted="false">Sensibilité des avertissements</string>
+    <string name="localized_09de4dee19f8" formatted="false">Protection des données sensibles</string>
+    <string name="localized_0d702465d3a6" formatted="false">Conseils pour le logiciel Samsung et les options développeur</string>
+    <string name="localized_1e138bf814eb" formatted="false">Mises à jour automatiques</string>
+    <string name="localized_2295664fe9fd" formatted="false">Enregistrer un fichier structuré au format JSON Lines</string>
+    <string name="localized_2537b3e0641c" formatted="false">S’adapte aux quotas restants, à l’utilisation de l’app, aux réinitialisations et aux échecs récents</string>
+    <string name="localized_254f901e00cc" formatted="false">Pourcentage affiché</string>
+    <string name="localized_258d3d2c00df" formatted="false">Envoyer une notification de test</string>
+    <string name="localized_26611f0ee012" formatted="false">Démarrer lorsque le quota est faible</string>
+    <string name="localized_2664a21699cf" formatted="false">Affiché uniquement si OpenAI fournit ce quota</string>
+    <string name="localized_285ec850c11d" formatted="false">Dépannage</string>
+    <string name="localized_2a8837785dff" formatted="false">Suivi en direct</string>
+    <string name="localized_2cccd46a3283" formatted="false">Afficher une notification avec les actions Ouvrir et Mettre à jour</string>
+    <string name="localized_2cd72f257b98" formatted="false">Recharges inattendues des quotas</string>
+    <string name="localized_388fc3ba3078" formatted="false">Démarrer quand le quota restant atteint</string>
+    <string name="localized_3ad3c4eb8776" formatted="false">Autoriser les notifications</string>
+    <string name="localized_3bb1bab9e8ba" formatted="false">Mode d’alerte</string>
+    <string name="localized_41def7a0febe" formatted="false">Apparence</string>
+    <string name="localized_44374f780d57" formatted="false">Alertes de quota et d’activité du compte</string>
+    <string name="localized_449c720b3cd9" formatted="false">Actualiser au démarrage</string>
+    <string name="localized_47d8470a7612" formatted="false">Accès direct au réseau</string>
+    <string name="localized_4850b2b53aa3" formatted="false">Expiration des crédits</string>
+    <string name="localized_48cd18dabc14" formatted="false">Vos données</string>
+    <string name="localized_492f59648e06" formatted="false">Versions disponibles et conditions de retour à une version antérieure</string>
+    <string name="localized_4d031548fb30" formatted="false">Journalisation</string>
+    <string name="localized_4d9bf95d5633" formatted="false">Application et données</string>
+    <string name="localized_4e7ae2e67baf" formatted="false">Utiliser la palette du système lorsqu’elle est disponible</string>
+    <string name="localized_4fb891e4f12d" formatted="false">Afficher le quota Codex restant jusqu’à la prochaine réinitialisation</string>
+    <string name="localized_5044ba0a5cf6" formatted="false">Historique des versions</string>
+    <string name="localized_5218af9e50f8" formatted="false">Vérifier GitHub maintenant</string>
+    <string name="localized_532ffc7ab096" formatted="false">Effacer les journaux</string>
+    <string name="localized_56e3badc4e6c" formatted="false">Actualiser</string>
+    <string name="localized_574ff9b0c49c" formatted="false">Affichage</string>
+    <string name="localized_5e67d3f79903" formatted="false">Quotas propres à certains modèles, comme GPT-5.3-Codex-Spark</string>
+    <string name="localized_5fd44f23f409" formatted="false">Exporter les journaux</string>
+    <string name="localized_60e2c3e64678" formatted="false">Solde des crédits d’utilisation</string>
+    <string name="localized_66eb00011302" formatted="false">Material You</string>
+    <string name="localized_6ba711522f73" formatted="false">Restaurer les sections choisies depuis un fichier de transfert</string>
+    <string name="localized_6d2ee26b1d0d" formatted="false">Supprimer définitivement les événements de diagnostic enregistrés</string>
+    <string name="localized_6f1fed0a1ea6" formatted="false">Enregistrer les journaux de diagnostic</string>
+    <string name="localized_71c25f52acfc" formatted="false">Démarrer en cas d’utilisation accélérée</string>
+    <string name="localized_736b9062b336" formatted="false">Vérifier les mises à jour</string>
+    <string name="localized_753a22b2eb61" formatted="false">Notifications</string>
+    <string name="localized_798075510ebb" formatted="false">Un quota retrouve 100 % avant sa réinitialisation prévue</string>
+    <string name="localized_79fd4abcf4a3" formatted="false">Réorganiser les cartes et choisir celles à afficher</string>
+    <string name="localized_7aaf676b8d26" formatted="false">Quota hebdomadaire</string>
+    <string name="localized_7cd229d28605" formatted="false">Vérifier automatiquement</string>
+    <string name="localized_7e6ebce522a6" formatted="false">Fréquence de vérification</string>
+    <string name="localized_7f56753aaed1" formatted="false">Quota de 5 heures</string>
+    <string name="localized_84bb295b34fd" formatted="false">Sauvegarde et transfert</string>
+    <string name="localized_85df69278df6" formatted="false">À propos de Models Meter</string>
+    <string name="localized_86c0a35ec883" formatted="false">Plus d’options</string>
+    <string name="localized_8f0f752259b6" formatted="false">Stockage local, chiffrement et accès réseau</string>
+    <string name="localized_903040520f58" formatted="false">Actualisation et quotas</string>
+    <string name="localized_91fb5a468fb9" formatted="false">Afficher un aperçu de test</string>
+    <string name="localized_9239ee2cda84" formatted="false">Général</string>
+    <string name="localized_9486f7405490" formatted="false">Estimations d’utilisation</string>
+    <string name="localized_9a09acd8b696" formatted="false">Enregistrer les réglages sélectionnés et, si souhaité, les données de connexion</string>
+    <string name="localized_9a5dc5877dab" formatted="false">Accès aux notifications système</string>
+    <string name="localized_9c4477ce36f9" formatted="false">Vérifier régulièrement les versions signées sur GitHub</string>
+    <string name="localized_9c7f764b3aa5" formatted="false">Masqué automatiquement si aucun crédit n’est disponible</string>
+    <string name="localized_9d8d3808063b" formatted="false">Réglage système</string>
+    <string name="localized_a04343020b9b" formatted="false">Importer les réglages</string>
+    <string name="localized_a0db3566afc6" formatted="false">Les journaux restent dans le stockage privé de l’app jusqu’à leur export ou suppression. Les jetons, cookies, codes d’autorisation, adresses e-mail, paramètres d’URL et contenus des requêtes et réponses ne sont pas enregistrés intentionnellement. Vérifiez un export avant de le partager.</string>
+    <string name="localized_a797e30923ac" formatted="false">Thème</string>
+    <string name="localized_a9281292e467" formatted="false">Vérifier la réception des alertes</string>
+    <string name="localized_a96362598042" formatted="false">Now Bar</string>
+    <string name="localized_ae939b9593f1" formatted="false">Canal de mise à jour</string>
+    <string name="localized_b082d7157de6" formatted="false">Alertes de nouveaux modèles</string>
+    <string name="localized_b1f3373232ac" formatted="false">2 crédits · prochaine expiration dans 3 j</string>
+    <string name="localized_b2a3573e71c5" formatted="false">Historique d’utilisation</string>
+    <string name="localized_b48c228428a2" formatted="false">Démarrer le suivi quand le quota restant est faible</string>
+    <string name="localized_b53294700392" formatted="false">Mode d’affichage en direct</string>
+    <string name="localized_b5682a7f2bcb" formatted="false">Être averti lorsqu’un nouveau modèle est détecté chez un fournisseur connecté</string>
+    <string name="localized_b7348b4b97ad" formatted="false">Démarrage automatique</string>
+    <string name="localized_be65a401a8cf" formatted="false">Afficher une activité de test pendant 20 minutes</string>
+    <string name="localized_c22769cb8725" formatted="false">Intervalle manuel</string>
+    <string name="localized_c32952c5982c" formatted="false">Utiliser un crédit</string>
+    <string name="localized_c76d18079a07" formatted="false">Mises à jour</string>
+    <string name="localized_cbb4cc49824b" formatted="false">Transfert</string>
+    <string name="localized_cc78226c5252" formatted="false">Masqué automatiquement si le solde est nul ou négatif</string>
+    <string name="localized_cf01481f626d" formatted="false">Confidentialité</string>
+    <string name="localized_d16a0bfd45b7" formatted="false">Quota faible</string>
+    <string name="localized_d18ef7b1738e" formatted="false">Exporter les réglages</string>
+    <string name="localized_d2bccf30e23e" formatted="false">Affiché lorsqu’un quota de 5 heures ou hebdomadaire est disponible</string>
+    <string name="localized_d2f61fcbc182" formatted="false">Le nombre de crédits disponibles augmente</string>
+    <string name="localized_d597120aef57" formatted="false">Avertir lorsqu’une mise à jour est disponible</string>
+    <string name="localized_d6fe4f39c067" formatted="false">Alerter quand le quota restant atteint</string>
+    <string name="localized_d87f47b47e4d" formatted="false">Tableau de bord</string>
+    <string name="localized_d9419d74bf9b" formatted="false">Aide à la configuration Samsung</string>
+    <string name="localized_da09ffdbfefa" formatted="false">Les jetons, identifiants de session et clés API sont chiffrés avec Android Keystore sur cet appareil.</string>
+    <string name="localized_e0656033011e" formatted="false">Canal de publication</string>
+    <string name="localized_e0ef7f273318" formatted="false">Stockage local chiffré</string>
+    <string name="localized_e32b3ebc0c5d" formatted="false">Mode d’actualisation</string>
+    <string name="localized_e3392efde095" formatted="false">Quotas supplémentaires</string>
+    <string name="localized_e6b7024f1590" formatted="false">Models Meter contacte directement chaque fournisseur sélectionné pour les données du compte. Le catalogue public Anthropic provient de models.dev. Models Meter n’a pas de serveur relais.</string>
+    <string name="localized_e81499813170" formatted="false">Nouveaux crédits de réinitialisation</string>
+    <string name="localized_e8cdf8500172" formatted="false">Activité du compte</string>
+    <string name="localized_e8d6a2474069" formatted="false">Estimer combien de temps le quota actuel peut durer</string>
+    <string name="localized_e8e0bd39b467" formatted="false">Me rappeler l’expiration prochaine d’un crédit disponible</string>
+    <string name="localized_ec0f10698082" formatted="false">Suivi</string>
+    <string name="localized_eefc71e04c8d" formatted="false">Alerter pour</string>
+    <string name="localized_ef7c08b2a739" formatted="false">Crédits de réinitialisation</string>
+    <string name="localized_efc81cda7c19" formatted="false">Protéger les exports d’authentification</string>
+    <string name="localized_f1e6fbe94552" formatted="false">Accès aux notifications en direct</string>
+    <string name="localized_f25ce1b8a399" formatted="false">Sécurité</string>
+    <string name="localized_f471dd05c53f" formatted="false">Démarrer si le quota risque de s’épuiser trop tôt</string>
+    <string name="localized_f9f37253201c" formatted="false">Enregistrer les événements détaillés de l’app, des actualisations, de la planification et du réseau</string>
+    <string name="localized_fbfce4efbe14" formatted="false">Modifier le tableau de bord</string>
+    <string name="localized_fc338f87a058" formatted="false">Fonctionnalités</string>
+    <string name="localized_fe8fe5c31ee9" formatted="false">Journaux enregistrés</string>
+    <string name="localized_ff2ab92b6f12" formatted="false">Délais de rappel</string>
+    <string name="localized_ffe89ea7af34" formatted="false">Les exports d’authentification contiennent les jetons ChatGPT. Toute personne possédant ce fichier peut utiliser votre compte : gardez-le privé.</string>
+</resources>

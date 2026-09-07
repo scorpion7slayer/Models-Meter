@@ -406,9 +406,9 @@ public final class ResetNotificationManager {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Notification notification = new Notification.Builder(context, channel)
                 .setSmallIcon(R.drawable.ic_oui_alarm)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setStyle(new Notification.BigTextStyle().bigText(text))
+                .setContentTitle(dev.bennett.codexmeter.Translations.t(title))
+                .setContentText(dev.bennett.codexmeter.Translations.t(text))
+                .setStyle(new Notification.BigTextStyle().bigText(dev.bennett.codexmeter.Translations.t(text)))
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(onlyAlertOnce)
@@ -439,9 +439,9 @@ public final class ResetNotificationManager {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Notification notification = new Notification.Builder(context, channel)
                 .setSmallIcon(R.drawable.ic_reset_notification)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setStyle(new Notification.BigTextStyle().bigText(text))
+                .setContentTitle(dev.bennett.codexmeter.Translations.t(title))
+                .setContentText(dev.bennett.codexmeter.Translations.t(text))
+                .setStyle(new Notification.BigTextStyle().bigText(dev.bennett.codexmeter.Translations.t(text)))
                 .setContentIntent(details)
                 .addAction(new Notification.Action.Builder(R.drawable.ic_reset_notification,
                         "Use reset", useReset).build())

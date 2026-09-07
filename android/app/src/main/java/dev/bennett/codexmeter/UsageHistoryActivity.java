@@ -23,6 +23,10 @@ import java.util.Locale;
  * customizable so the page can stay as minimal as the user likes.
  */
 public final class UsageHistoryActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private static final int MAX_BREAKDOWN_WINDOWS = 5;
     private static final int MENU_CUSTOMIZE = 8201;
 
@@ -46,7 +50,7 @@ public final class UsageHistoryActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(Menu.NONE, MENU_CUSTOMIZE, 0, "Customize")
+        menu.add(Menu.NONE, MENU_CUSTOMIZE, 0, Translations.t("Customize"))
                 .setIcon(R.drawable.ic_oui_edit_outline)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
@@ -71,7 +75,7 @@ public final class UsageHistoryActivity extends AppCompatActivity {
             checked[i] = AppPreferences.isHistorySectionVisible(this, keys.get(i));
         }
         new AlertDialog.Builder(this)
-                .setTitle("Highlights to show")
+                .setTitle(dev.bennett.codexmeter.Translations.t("Highlights to show"))
                 .setMultiChoiceItems(labels, checked, (dialog, which, isChecked) ->
                         AppPreferences.setHistorySectionVisible(this, keys.get(which), isChecked))
                 .setPositiveButton("Done", null)
@@ -142,9 +146,9 @@ public final class UsageHistoryActivity extends AppCompatActivity {
         clear.setEnabled(!five.samples.isEmpty() || !weekly.samples.isEmpty()
                 || !monthly.samples.isEmpty());
         clear.setOnClickListener(view -> new AlertDialog.Builder(this)
-                .setTitle("Clear usage history?")
-                .setMessage("This removes every locally stored usage sample. Your latest "
-                        + "allowance and account sign-in stay intact.")
+                .setTitle(dev.bennett.codexmeter.Translations.t("Clear usage history?"))
+                .setMessage(dev.bennett.codexmeter.Translations.t("This removes every locally stored usage sample. Your latest "
+                        + "allowance and account sign-in stay intact."))
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("Clear", (dialog, which) -> {
                     AppPreferences.clearUsageHistory(this);
@@ -202,13 +206,13 @@ public final class UsageHistoryActivity extends AppCompatActivity {
                             pricing.estimatedValueUsd(history.kind, usedPercent));
                 }
                 scrubDetail.setTextColor(Ui.mainText(dark));
-                scrubDetail.setText(text);
+                scrubDetail.setText(dev.bennett.codexmeter.Translations.t(text));
             }
 
             @Override
             public void onScrubEnd() {
                 scrubDetail.setTextColor(Ui.secondaryText(dark));
-                scrubDetail.setText(defaultDetail);
+                scrubDetail.setText(dev.bennett.codexmeter.Translations.t(defaultDetail));
             }
         });
 
@@ -274,7 +278,7 @@ public final class UsageHistoryActivity extends AppCompatActivity {
             row.setOnClickListener(view -> selections[rowIndex].run());
             row.setClickable(true);
             row.setFocusable(true);
-            row.setContentDescription("Inspect " + rowTitle + ". " + subtitle);
+            row.setContentDescription(dev.bennett.codexmeter.Translations.t("Inspect " + rowTitle + ". " + subtitle));
         }
     }
 

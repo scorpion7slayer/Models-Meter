@@ -82,6 +82,7 @@ public final class AppPreferences {
         NowBarPreferences.clearSuppression(context);
         ResetNotificationManager.clearState(context);
         ModelCatalogStore.clear(context);
+        dev.bennett.codexmeter.wear.PhoneWearSync.pushUsage(context, null);
         ResetCreditExpiryScheduler.cancelAll(context);
     }
 

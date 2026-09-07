@@ -73,3 +73,11 @@ Models Meter begins at version `1.0.0` / code `1` with its own application ID,
 original Codex Meter application when checking the version-code invariant.
 Dispatch builds keep the same signing key as releases; pull-request builds use
 a disposable local key. Never commit a keystore or its password.
+
+## Restored targets in 1.0.1
+
+`./build.sh` and `./lint.sh` include both phone and Wear OS modules. Install SDK platforms 36 and 37.0. Keep the phone and watch application IDs, version code/name and signing certificate aligned so Data Layer trust works. Version 1.0.1 uses code 2 on Android and build 2 on iOS. Include `android/wear/build.gradle.kts` and `ios/CodexMeter.xcodeproj/project.pbxproj` in explicitly requested version bumps.
+
+Run `swift test --package-path ios/CodexMeterCore` and Xcode's app/unit/UI checks for iOS changes. Simulator builds do not require a distribution signing identity. Physical iOS distribution requires the user's Apple provisioning. Do not publish a release tag without an explicit request.
+
+For translations, edit `localization/fr.json` and run `python3 scripts/generate-localizations.py`. Check French, English and the unsupported-system-language fallback. Internal IDs, stored enum values, API fields and provider/model names must remain untranslated.

@@ -388,8 +388,8 @@ public final class OAuthService extends Service {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         return new Notification.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_oui_notification)
-                .setContentTitle("Models Meter sign-in")
-                .setContentText(text)
+                .setContentTitle(dev.bennett.codexmeter.Translations.t("Models Meter sign-in"))
+                .setContentText(dev.bennett.codexmeter.Translations.t(text))
                 .setContentIntent(open)
                 .addAction(new Notification.Action.Builder(
                         Icon.createWithResource(this, R.drawable.ic_oui_close), "Cancel", cancel).build())

@@ -18,6 +18,10 @@ import java.util.concurrent.Executors;
 
 /** User-facing secure download and PackageInstaller hand-off flow. */
 public final class UpdateActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     public static final String EXTRA_VERSION = "release_version";
     public static final String EXTRA_FORCE_CHECK = "force_check";
     public static final String EXTRA_START_INSTALL = "start_install";
@@ -268,9 +272,9 @@ public final class UpdateActivity extends AppCompatActivity {
         if (!canInstallPackages()) {
             waitingForInstallPermission = true;
             new AlertDialog.Builder(this)
-                    .setTitle("Allow app installs")
-                    .setMessage("Android requires permission for Models Meter to hand its verified "
-                            + "GitHub APK to the system installer. You still approve every update.")
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Allow app installs"))
+                    .setMessage(dev.bennett.codexmeter.Translations.t("Android requires permission for Models Meter to hand its verified "
+                            + "GitHub APK to the system installer. You still approve every update."))
                     .setNegativeButton("Cancel", (dialog, which) ->
                             waitingForInstallPermission = false)
                     .setPositiveButton("Open settings", (dialog, which) -> {
@@ -337,17 +341,17 @@ public final class UpdateActivity extends AppCompatActivity {
             return;
         }
         status.setTextColor(color);
-        status.setText(message);
+        status.setText(dev.bennett.codexmeter.Translations.t(message));
         status.setVisibility(message == null || message.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
     private void confirmOlderDownload() {
         new AlertDialog.Builder(this)
-                .setTitle("Downgrade requires uninstalling")
-                .setMessage("Android blocks in-place downgrades for ordinary apps. Uninstalling "
+                .setTitle(dev.bennett.codexmeter.Translations.t("Downgrade requires uninstalling"))
+                .setMessage(dev.bennett.codexmeter.Translations.t("Android blocks in-place downgrades for ordinary apps. Uninstalling "
                         + "Models Meter removes its account, settings, cached usage, and widgets. "
                         + "The older APK will open in your browser so it remains available after "
-                        + "uninstalling.")
+                        + "uninstalling."))
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("Open APK download", (dialog, which) -> {
                     try {
