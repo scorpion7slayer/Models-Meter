@@ -116,8 +116,8 @@ def prepare():
                "manageAppVersionAndBuildNumber": False, "thinning": "<none>"}
     (directory / "ExportOptions.plist").write_bytes(plistlib.dumps(options))
     with open(os.environ["GITHUB_ENV"], "a") as output:
-        output.write("APP_PROVISIONING_PROFILE=" + profiles[0][0] + "\n")
-        output.write("WIDGET_PROVISIONING_PROFILE=" + profiles[1][0] + "\n")
+        output.write("APP_PROVISIONING_PROFILE=" + profiles[0][1]["Name"] + "\n")
+        output.write("WIDGET_PROVISIONING_PROFILE=" + profiles[1][1]["Name"] + "\n")
         output.write("IOS_VERSION=" + version + "\n")
     print("Validated Ad Hoc profiles for the app and widget; device identifiers are not logged.")
 
