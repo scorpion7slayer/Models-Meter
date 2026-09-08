@@ -83,7 +83,8 @@ temporary keychain and provisioning profiles even on failure.
 ## Test before tagging
 
 After the PR is merged, run the standalone **Build signed iOS Ad Hoc IPA**
-workflow on `main` (or use the feature branch to validate it before merging):
+workflow on `main`. GitHub requires the new workflow file to exist on the default
+branch before it can be dispatched manually:
 
 ```sh
 gh workflow run ios-release.yml --repo scorpion7slayer/Models-Meter --ref main
@@ -121,7 +122,8 @@ The tag triggers tests, lint, signed Android/Wear builds and, when enabled, the
 signed iOS archive. The release stays a draft until all enabled artifacts are
 verified and uploaded. Stable tags become latest; prerelease tags never do.
 The workflow rejects a tag that disagrees with the app version and serializes
-runs on the same ref. It does not publish a tag itself.
+tag runs on the same ref. Obsolete PR checks can be cancelled by newer commits.
+It does not publish a tag itself.
 
 Assets: `ModelsMeter-<version>.apk`, `ModelsMeter-Wear-<version>.apk`,
 `SHA256SUMS.txt`, and optionally `ModelsMeter-iOS-<version>.ipa` plus
