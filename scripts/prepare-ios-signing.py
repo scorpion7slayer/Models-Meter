@@ -112,7 +112,7 @@ def prepare():
             shutil.copyfile(path, destination / (identifier + ".mobileprovision"))
     options = {"method": "release-testing", "destination": "export", "teamID": team,
                "signingStyle": "manual", "signingCertificate": "Apple Distribution",
-               "provisioningProfiles": {bundle: identifier for identifier, _, _, bundle in profiles},
+               "provisioningProfiles": {bundle: profile["Name"] for _, profile, _, bundle in profiles},
                "manageAppVersionAndBuildNumber": False, "thinning": "<none>"}
     (directory / "ExportOptions.plist").write_bytes(plistlib.dumps(options))
     with open(os.environ["GITHUB_ENV"], "a") as output:
