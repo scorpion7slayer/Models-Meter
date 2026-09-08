@@ -5,6 +5,8 @@ on:
     branches: [main, alpha]
     paths:
       - 'ios/**'
+      - 'scripts/*ios*'
+      - '.github/workflows/ios-release.yml'
       - '.github/workflows/ios-ci.yml'
   workflow_dispatch:
 
@@ -36,6 +38,12 @@ jobs:
         run: |
           set -euo pipefail
           swift test --package-path CodexMeterCore
+
+      - name: Validate release signing helpers
+        working-directory: .
+        run: |
+          python3 -m unittest discover -s scripts -p 'test_ios_signing.py'
+          python3 scripts/prepare-ios-signing.py --validate-version
 
   app-build-and-test:
     name: App build and simulator tests

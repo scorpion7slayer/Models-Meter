@@ -9,6 +9,7 @@
 - Remove the dashboard Add models widget button; widgets are added through the system picker.
 - Restore sanitized phone-to-Wear synchronization without transmitting credentials.
 - Prepare Android version code 2 and iOS build 2 while retaining the fork’s Android application ID, updater destination and signing key.
+- Publish signed phone/Wear APKs on version tags, with an optional Apple-signed Ad Hoc IPA for registered devices and documented signing setup.
 
 ## 1.0.0
 

@@ -1,5 +1,8 @@
 # Models Meter
 
+For signed APK/IPA distribution and releases triggered by version tags, see
+[the release setup guide](docs/RELEASING.md).
+
 Models Meter is an independent fork of [Codex Meter](https://github.com/BenItBuhner/Codex-Meter), maintained by [Theo (scorpion7slayer)](https://github.com/scorpion7slayer). BenIt Buhner and That Josh Guy are the developers of the original project; Filip Bukovina contributed the original iOS app.
 
 [Source](https://github.com/scorpion7slayer/Models-Meter) · [Android and Wear OS downloads](https://github.com/scorpion7slayer/Models-Meter/actions/workflows/build-apk.yml) · [iOS builds](https://github.com/scorpion7slayer/Models-Meter/actions/workflows/ios-ci.yml)

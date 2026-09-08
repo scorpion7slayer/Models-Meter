@@ -11,6 +11,10 @@ permissions:
   contents: read
   packages: read
 
+concurrency:
+  group: models-meter-release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -98,8 +102,8 @@ jobs:
               elif [[ "$PRERELEASE" == "true" && "$VERSION_CODE" -ne "$STABLE_CODE" ]]; then
                 echo "::error::Alpha tag $GITHUB_REF_NAME must keep versionCode $STABLE_CODE from $LATEST_STABLE_TAG (found $VERSION_CODE) so returning to stable stays an in-place install"
                 exit 1
-              elif [[ "$PRERELEASE" == "false" && "$VERSION_CODE" -le "$STABLE_CODE" ]]; then
-                echo "::error::Stable tag $GITHUB_REF_NAME must raise versionCode above $STABLE_CODE from $LATEST_STABLE_TAG (found $VERSION_CODE)"
+              elif [[ "$PRERELEASE" == "false" && "$VERSION_CODE" -ne "$((STABLE_CODE + 1))" ]]; then
+                echo "::error::Stable tag $GITHUB_REF_NAME must raise versionCode by exactly one from $STABLE_CODE at $LATEST_STABLE_TAG (found $VERSION_CODE)"
                 exit 1
               fi
             fi
@@ -160,9 +164,19 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Remove signing files
+        if: always()
+        shell: bash
+        run: rm -rf .local-signing
+
+  ios:
+    if: github.event_name != 'pull_request' && vars.IOS_RELEASE_ENABLED == 'true'
+    uses: ./.github/workflows/ios-release.yml
+    secrets: inherit
+
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
+    if: always() && startsWith(github.ref, 'refs/tags/v') && needs.build.result == 'success' && (needs.ios.result == 'success' || needs.ios.result == 'skipped')
+    needs: [build, ios]
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -183,6 +197,21 @@ jobs:
           set -euo pipefail
           cd release-dist
           sha256sum -c SHA256SUMS.txt
+
+      - name: Download signed iOS app
+        if: needs.ios.result == 'success'
+        uses: actions/download-artifact@v8
+        with:
+          name: models-meter-ios-signed
+          path: release-ios
+
+      - name: Verify signed iOS checksum
+        if: needs.ios.result == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd release-ios
+          shasum -a 256 -c SHA256SUMS-iOS.txt
 
       - name: Prepare release notes
         shell: bash
@@ -211,6 +240,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           VERSION_NAME: ${{ needs.build.outputs.version }}
           PRERELEASE: ${{ needs.build.outputs.prerelease }}
+          IOS_RESULT: ${{ needs.ios.result }}
         run: |
           set -euo pipefail
           if ! gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
@@ -231,8 +261,13 @@ jobs:
             "release-dist/ModelsMeter-Wear-$VERSION_NAME.apk#Models Meter $VERSION_NAME Wear OS APK" \
             "release-dist/SHA256SUMS.txt#SHA-256 checksums" \
             --clobber
+          if [[ "$IOS_RESULT" == "success" ]]; then
+            gh release upload "$GITHUB_REF_NAME" \
+              "release-ios/ModelsMeter-iOS-$VERSION_NAME.ipa#Models Meter $VERSION_NAME iOS Ad Hoc (registered devices only)" \
+              "release-ios/SHA256SUMS-iOS.txt#iOS SHA-256 checksum" --clobber
+          fi
           if [[ "$PRERELEASE" == "true" ]]; then
-            gh release edit "$GITHUB_REF_NAME" --draft=false
+            gh release edit "$GITHUB_REF_NAME" --draft=false --latest=false
           else
             gh release edit "$GITHUB_REF_NAME" --draft=false --latest
           fi

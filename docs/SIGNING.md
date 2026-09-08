@@ -1,5 +1,8 @@
 # Models Meter Android signing
 
+For tag publication and the optional signed iOS Ad Hoc IPA, see
+[RELEASING.md](RELEASING.md), including the required Apple secrets and profiles.
+
 Distributed Models Meter builds use application ID `dev.scorpion7slayer.modelsmeter`
 and the fork's RSA 3072-bit signing key. This is a separate app from Codex Meter;
 the first install needs a new sign-in and can coexist with the original app.

@@ -36,3 +36,4 @@ out/
 *.orig
 *.rej
 *.log
+__pycache__/
