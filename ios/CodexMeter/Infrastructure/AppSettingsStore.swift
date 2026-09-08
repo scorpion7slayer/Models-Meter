@@ -52,6 +52,7 @@ nonisolated public struct AppSettings: Codable, Sendable, Equatable {
     public var alertMetric: AlertMetric
     /// Remaining allowance percentage. `100` corresponds to the “Always” UI option.
     public var alertThreshold: Int
+    public var newModelAlertsEnabled: Bool
     public var creditIncreaseAlertsEnabled: Bool
     public var unexpectedRefillAlertsEnabled: Bool
     public var creditExpiryRemindersEnabled: Bool
@@ -76,6 +77,7 @@ nonisolated public struct AppSettings: Codable, Sendable, Equatable {
         notificationsEnabled: Bool = false,
         alertMetric: AlertMetric = .both,
         alertThreshold: Int = 25,
+        newModelAlertsEnabled: Bool = true,
         creditIncreaseAlertsEnabled: Bool = true,
         unexpectedRefillAlertsEnabled: Bool = true,
         creditExpiryRemindersEnabled: Bool = true,
@@ -100,6 +102,7 @@ nonisolated public struct AppSettings: Codable, Sendable, Equatable {
         self.notificationsEnabled = notificationsEnabled
         self.alertMetric = alertMetric
         self.alertThreshold = Self.allowedAlertThresholds.contains(alertThreshold) ? alertThreshold : 25
+        self.newModelAlertsEnabled = newModelAlertsEnabled
         self.creditIncreaseAlertsEnabled = creditIncreaseAlertsEnabled
         self.unexpectedRefillAlertsEnabled = unexpectedRefillAlertsEnabled
         self.creditExpiryRemindersEnabled = creditExpiryRemindersEnabled
@@ -214,6 +217,7 @@ nonisolated public struct AppSettings: Codable, Sendable, Equatable {
         case notificationsEnabled
         case alertMetric
         case alertThreshold
+        case newModelAlertsEnabled
         case creditIncreaseAlertsEnabled
         case unexpectedRefillAlertsEnabled
         case creditExpiryRemindersEnabled
@@ -240,6 +244,7 @@ nonisolated public struct AppSettings: Codable, Sendable, Equatable {
             notificationsEnabled: try container.decodeIfPresent(Bool.self, forKey: .notificationsEnabled) ?? false,
             alertMetric: try container.decodeIfPresent(AlertMetric.self, forKey: .alertMetric) ?? .both,
             alertThreshold: try container.decodeIfPresent(Int.self, forKey: .alertThreshold) ?? 25,
+            newModelAlertsEnabled: try container.decodeIfPresent(Bool.self, forKey: .newModelAlertsEnabled) ?? true,
             creditIncreaseAlertsEnabled: try container.decodeIfPresent(Bool.self, forKey: .creditIncreaseAlertsEnabled) ?? true,
             unexpectedRefillAlertsEnabled: try container.decodeIfPresent(Bool.self, forKey: .unexpectedRefillAlertsEnabled) ?? true,
             creditExpiryRemindersEnabled: try container.decodeIfPresent(Bool.self, forKey: .creditExpiryRemindersEnabled) ?? true,

@@ -118,17 +118,19 @@ enum WidgetTapAction: String, AppEnum, Sendable {
     var url: URL {
         switch self {
         case .open:
-            URL(string: "codexmeter://dashboard")!
+            URL(string: "modelsmeter://dashboard")!
         case .refresh:
-            URL(string: "codexmeter://refresh")!
+            URL(string: "modelsmeter://refresh")!
         case .reset:
-            URL(string: "codexmeter://reset")!
+            URL(string: "modelsmeter://reset")!
         }
     }
 }
 
 struct MeterWidgetConfigurationIntent: WidgetConfigurationIntent, Sendable {
-    static let title: LocalizedStringResource = "Configure Codex Meter"
+    @Parameter(title: "Provider", default: .chatgpt) var provider: WidgetProvider
+
+    static let title: LocalizedStringResource = "Configure Models Meter"
     static let description = IntentDescription("Choose which allowance appears, how the widget looks, and what happens when you tap it.")
 
     @Parameter(title: "Allowance", default: .both)
@@ -178,6 +180,8 @@ extension MeterWidgetConfigurationIntent {
 }
 
 struct FiveHourAccessoryConfigurationIntent: WidgetConfigurationIntent, Sendable {
+    @Parameter(title: "Provider", default: .chatgpt) var provider: WidgetProvider
+
     static let title: LocalizedStringResource = "Configure five-hour allowance"
     static let description = IntentDescription("Choose which Codex allowance this circular widget shows.")
 
@@ -192,6 +196,8 @@ struct FiveHourAccessoryConfigurationIntent: WidgetConfigurationIntent, Sendable
 }
 
 struct WeeklyAccessoryConfigurationIntent: WidgetConfigurationIntent, Sendable {
+    @Parameter(title: "Provider", default: .chatgpt) var provider: WidgetProvider
+
     static let title: LocalizedStringResource = "Configure weekly allowance"
     static let description = IntentDescription("Choose which Codex allowance this circular widget shows.")
 
@@ -206,6 +212,8 @@ struct WeeklyAccessoryConfigurationIntent: WidgetConfigurationIntent, Sendable {
 }
 
 struct DualAccessoryConfigurationIntent: WidgetConfigurationIntent, Sendable {
+    @Parameter(title: "Provider", default: .chatgpt) var provider: WidgetProvider
+
     static let title: LocalizedStringResource = "Configure Codex allowances"
     static let description = IntentDescription("Show both allowance windows or focus this accessory widget on one.")
 

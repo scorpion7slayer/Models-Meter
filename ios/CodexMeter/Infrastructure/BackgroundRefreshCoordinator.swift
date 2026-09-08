@@ -40,7 +40,7 @@ nonisolated struct BackgroundRefreshRunGate: Sendable, Equatable {
 /// connecting.
 @MainActor
 public final class BackgroundRefreshCoordinator {
-    public static let taskIdentifier = "com.bukovinafilip.CodexMeter.refresh"
+    public static let taskIdentifier = "dev.scorpion7slayer.modelsmeter.refresh"
     public typealias RefreshHandler = @Sendable () async throws -> BackgroundRefreshOutcome
 
     private let scheduler: BGTaskScheduler

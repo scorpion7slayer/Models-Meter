@@ -21,11 +21,11 @@ struct AboutView: View {
                         .foregroundStyle(.tint)
                         .symbolRenderingMode(.hierarchical)
                         .accessibilityHidden(true)
-                    Text("Codex Meter")
+                    Text("Models Meter")
                         .font(.title2.bold())
                     Text("Version \(version)")
                         .foregroundStyle(.secondary)
-                    Text("An unofficial native iPhone and iPad client for checking and monitoring Codex usage.")
+                    Text("Usage, quotas and new models for ChatGPT, Anthropic, Cursor and OpenCode Go.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -44,8 +44,12 @@ struct AboutView: View {
             }
 
             Section("Source and credits") {
-                Link("BenItBuhner/Codex-Meter", destination: URL(string: "https://github.com/BenItBuhner/Codex-Meter")!)
-                LabeledContent("Original project", value: "Bennett")
+                Text("Models Meter is an independent fork of Codex Meter.")
+                Link("Models Meter on GitHub", destination: URL(string: "https://github.com/scorpion7slayer/Models-Meter")!)
+                Link("Theo · scorpion7slayer — Models Meter developer", destination: URL(string: "https://github.com/scorpion7slayer")!)
+                Link("Original project · Codex Meter", destination: URL(string: "https://github.com/BenItBuhner/Codex-Meter")!)
+                Link("BenIt Buhner — original project developer", destination: URL(string: "https://github.com/BenItBuhner")!)
+                Link("That Josh Guy — original project developer and designer", destination: URL(string: "https://tjg.gg")!)
                 Link("iOS development — Filip Bukovina", destination: URL(string: "https://github.com/FBukovina")!)
                 LabeledContent("License", value: "MIT")
                 NavigationLink("Open-source notices") {
@@ -55,7 +59,7 @@ struct AboutView: View {
             }
 
             Section("Important") {
-                Text("Codex Meter is not affiliated with or endorsed by OpenAI. ChatGPT and Codex are trademarks of their respective owner. Account routes used by this app may change without notice.")
+                Text("Models Meter is not affiliated with OpenAI, Anthropic, Cursor or OpenCode. Provider names and logos belong to their respective owners. Account routes may change without notice.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
@@ -114,10 +118,10 @@ struct PrivacyPolicyView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text("Privacy policy")
                     .font(.largeTitle.bold())
-                Text("Codex Meter has no analytics, advertising, account system, or relay server. Authentication and Codex account requests go directly to OpenAI only when needed for the feature you selected.")
+                Text("Models Meter has no analytics, advertising, app account or relay server. Authentication and usage requests go directly to the provider you connect. The public Anthropic model catalog comes from models.dev.")
                 Text("Credentials")
                     .font(.title3.bold())
-                Text("OAuth tokens are stored in Apple Keychain on this device. Widgets never receive tokens or account identifiers.")
+                Text("Tokens, API keys and session credentials are stored in Apple Keychain on this device. Login pages use a temporary browser session. Widgets receive only display data, never credentials or account identifiers.")
                 Text("Local storage")
                     .font(.title3.bold())
                 Text("The last successful usage response and bounded allowance samples are stored locally for offline display, burn charts, and pace estimates. You can clear history separately; signing out removes credentials, cached account data, history, background requests, and scheduled notifications.")
@@ -125,7 +129,7 @@ struct PrivacyPolicyView: View {
                 Text("Demo mode")
                     .font(.title3.bold())
                 Text("Demo mode is entirely local and does not contact OpenAI.")
-                Text("Last updated August 14, 2026")
+                Text("Last updated September 7, 2026")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }

@@ -38,7 +38,7 @@ extension CodexServiceError: LocalizedError {
         case .signedOut:
             "Sign in to ChatGPT first."
         case .invalidURL:
-            "Codex Meter could not create a valid server request."
+            "Models Meter could not create a valid server request."
         case .invalidResponse:
             "The server returned an invalid response."
         case .responseTooLarge:

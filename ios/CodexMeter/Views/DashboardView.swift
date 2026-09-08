@@ -5,10 +5,17 @@ struct DashboardView: View {
     @Environment(AppModel.self) private var model
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    @State private var providers = ProviderStore.shared
+
     var body: some View {
         ScrollView {
             LazyVStack(spacing: AppChrome.sectionSpacing) {
-                if model.mode == .signedOut {
+                Picker(MeterL10n.text("Provider", "Fournisseur"), selection: $providers.selected) {
+                    ForEach(MeterProvider.allCases) { Text($0.title).tag($0) }
+                }.pickerStyle(.menu).accessibilityIdentifier("provider-picker")
+                if providers.selected != .chatgpt {
+                    ProviderDashboardView(provider: providers.selected)
+                } else if model.mode == .signedOut {
                     SignedOutView()
                 } else {
                     if model.mode == .demo {
@@ -35,6 +42,7 @@ struct DashboardView: View {
                         )
                     }
 
+                    LatestModelsCard(provider: .chatgpt)
                     DashboardSectionsView()
                     PrivacyFootnote()
                 }
@@ -44,10 +52,10 @@ struct DashboardView: View {
             .padding(.vertical, 18)
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle("Codex Meter")
+        .navigationTitle("Models Meter")
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
-                if model.mode != .signedOut {
+                if model.mode != .signedOut && providers.selected == .chatgpt {
                     NavigationLink {
                         DashboardEditView()
                     } label: {
@@ -75,11 +83,13 @@ struct DashboardView: View {
             }
         }
         .refreshable {
+            if providers.selected != .chatgpt { await providers.refreshAll(); return }
             guard model.mode != .signedOut else { return }
             await model.refresh()
         }
         .task {
             await model.startIfNeeded()
+            await providers.refreshAll()
         }
     }
 }

@@ -43,6 +43,8 @@ public final class WearPreferences {
     }
 
     public static UsageSnapshot loadSnapshot(Context context) {
+        Provider provider = WearProviders.selected(context);
+        if (provider != Provider.CHATGPT) return WearProviders.usage(context, provider);
         String json = prefs(context).getString(KEY_SNAPSHOT_JSON, null);
         if (json == null || json.isEmpty()) return null;
         try {

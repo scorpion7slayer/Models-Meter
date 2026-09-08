@@ -2,65 +2,65 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Live monitor">
+    <PreferenceCategory android:title="@string/localized_2a8837785dff">
         <SwitchPreferenceCompat
             android:key="now_bar_monitor_ui"
-            android:summary="Show remaining Codex allowance until the next usage reset"
-            android:title="Live monitor" />
+            android:summary="@string/localized_4fb891e4f12d"
+            android:title="@string/localized_2a8837785dff" />
         <Preference
             android:key="now_bar_permission"
-            android:title="Live notification access"
+            android:title="@string/localized_f1e6fbe94552"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Display">
+    <PreferenceCategory android:title="@string/localized_574ff9b0c49c">
         <ListPreference
             android:entries="@array/now_bar_display_mode_entries"
             android:entryValues="@array/now_bar_display_mode_values"
             android:key="now_bar_display_mode_ui"
-            android:title="Live display mode"
+            android:title="@string/localized_b53294700392"
             app:useSimpleSummaryProvider="true" />
         <ListPreference
             android:entries="@array/now_bar_percent_mode_entries"
             android:entryValues="@array/now_bar_percent_mode_values"
             android:key="now_bar_percent_mode_ui"
-            android:title="Percentage shown"
+            android:title="@string/localized_254f901e00cc"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Automatic start">
+    <PreferenceCategory android:title="@string/localized_b7348b4b97ad">
         <SwitchPreferenceCompat
             android:key="now_bar_auto_start_ui"
-            android:summary="Start the monitor when remaining allowance is low"
-            android:title="Start when allowance is low" />
+            android:summary="@string/localized_b48c228428a2"
+            android:title="@string/localized_26611f0ee012" />
         <ListPreference
             android:entries="@array/settings_metric_entries"
             android:entryValues="@array/settings_metric_values"
             android:key="now_bar_metric_ui"
-            android:title="Monitor"
+            android:title="@string/localized_ec0f10698082"
             app:useSimpleSummaryProvider="true" />
         <ListPreference
             android:entries="@array/settings_threshold_entries"
             android:entryValues="@array/settings_threshold_values"
             android:key="now_bar_threshold_ui"
-            android:title="Start when remaining reaches"
+            android:title="@string/localized_388fc3ba3078"
             app:useSimpleSummaryProvider="true" />
         <SwitchPreferenceCompat
             android:key="now_bar_accelerated_ui"
-            android:summary="Start while usage is projected to run out early"
-            android:title="Start for accelerated usage" />
+            android:summary="@string/localized_f471dd05c53f"
+            android:title="@string/localized_71c25f52acfc" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Troubleshooting">
+    <PreferenceCategory android:title="@string/localized_285ec850c11d">
         <Preference
             android:key="now_bar_setup_help"
-            android:summary="Samsung firmware and developer-option guidance"
-            android:title="Samsung setup help"
+            android:summary="@string/localized_0d702465d3a6"
+            android:title="@string/localized_d9419d74bf9b"
             app:iconSpaceReserved="false" />
         <Preference
             android:key="now_bar_preview"
-            android:summary="Show a 20-minute sample activity for device testing"
-            android:title="Start sample preview"
+            android:summary="@string/localized_be65a401a8cf"
+            android:title="@string/localized_91fb5a468fb9"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 

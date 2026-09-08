@@ -44,6 +44,10 @@ import java.util.concurrent.TimeUnit;
 
 /** Settings built from the One UI Design Library preference components used by its sample app. */
 public final class SettingsActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private static final String EXTRA_PAGE = "settings_page";
     private static final String PAGE_ROOT = "root";
     private static final String PAGE_APPEARANCE = "appearance";
@@ -248,6 +252,33 @@ public final class SettingsActivity extends AppCompatActivity {
         }
 
         private void bindRoot() {
+            Preference providers = new Preference(requireContext());
+            providers.setTitle(dev.bennett.codexmeter.Translations.t(L10n.text(requireContext(), "Providers", "Fournisseurs")));
+            providers.setSummary(dev.bennett.codexmeter.Translations.t("ChatGPT · Anthropic · Cursor · OpenCode Go"));
+            providers.setOrder(-10);
+            providers.setOnPreferenceClickListener(item -> {
+                startActivity(new Intent(requireContext(), ProvidersActivity.class)); return true;
+            });
+            getPreferenceScreen().addPreference(providers);
+            Preference language = new Preference(requireContext());
+            language.setTitle(dev.bennett.codexmeter.Translations.t(L10n.text(requireContext(), "Language", "Langue")));
+            language.setSummary(dev.bennett.codexmeter.Translations.t(L10n.choice(requireContext()).equals("fr") ? "Français"
+                    : L10n.choice(requireContext()).equals("en") ? "English"
+                    : L10n.text(requireContext(), "System language", "Langue système")));
+            language.setOrder(-9);
+            language.setOnPreferenceClickListener(item -> {
+                String[] values = {"system", "fr", "en"};
+                new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                        .setTitle(dev.bennett.codexmeter.Translations.t(L10n.text(requireContext(), "Language", "Langue")))
+                        .setSingleChoiceItems(new String[]{L10n.text(requireContext(), "System language", "Langue système"), "Français", "English"},
+                                java.util.Arrays.asList(values).indexOf(L10n.choice(requireContext())), (dialog, which) -> {
+                            L10n.select(requireContext(), values[which]);
+                            WidgetRenderer.updateAll(requireContext());
+                            dialog.dismiss(); requireActivity().recreate();
+                        }).show();
+                return true;
+            });
+            getPreferenceScreen().addPreference(language);
             bindAccount();
             bindPageLink("settings_appearance", PAGE_APPEARANCE);
             bindPageLink("settings_refresh_usage", PAGE_REFRESH_USAGE);
@@ -294,8 +325,8 @@ public final class SettingsActivity extends AppCompatActivity {
             });
             findPreference("clear_diagnostic_logs").setOnPreferenceClickListener(preference -> {
                 new AlertDialog.Builder(requireContext())
-                        .setTitle("Clear diagnostic logs?")
-                        .setMessage("This permanently deletes all saved diagnostic events.")
+                        .setTitle(dev.bennett.codexmeter.Translations.t("Clear diagnostic logs?"))
+                        .setMessage(dev.bennett.codexmeter.Translations.t("This permanently deletes all saved diagnostic events."))
                         .setNegativeButton("Cancel", null)
                         .setPositiveButton("Clear", (dialog, which) -> {
                             DiagnosticLog.clear(requireContext());
@@ -320,9 +351,9 @@ public final class SettingsActivity extends AppCompatActivity {
             }
             DiagnosticLog.Stats stats = DiagnosticLog.stats(requireContext());
             Preference status = findPreference("diagnostic_log_status");
-            status.setSummary((enabled ? "Tracing on" : "Tracing off")
+            status.setSummary(dev.bennett.codexmeter.Translations.t((enabled ? "Tracing on" : "Tracing off")
                     + " · " + DiagnosticLog.formatBytes(stats.bytes)
-                    + (stats.files == 1 ? " in 1 file" : " across " + stats.files + " files"));
+                    + (stats.files == 1 ? " in 1 file" : " across " + stats.files + " files")));
             findPreference("export_diagnostic_logs").setEnabled(stats.hasLogs());
             findPreference("clear_diagnostic_logs").setEnabled(stats.hasLogs());
         }
@@ -371,8 +402,8 @@ public final class SettingsActivity extends AppCompatActivity {
             String themeLabel = WidgetOptions.THEME_SYSTEM.equals(theme)
                     ? "System default"
                     : WidgetOptions.THEME_DARK.equals(theme) ? "Dark" : "Light";
-            findPreference("settings_appearance").setSummary(themeLabel + " · Material You "
-                    + (AppPreferences.isMaterialYouEnabled(requireContext()) ? "on" : "off"));
+            findPreference("settings_appearance").setSummary(dev.bennett.codexmeter.Translations.t(themeLabel + " · Material You "
+                    + (AppPreferences.isMaterialYouEnabled(requireContext()) ? "on" : "off")));
 
             int refreshMinutes = AppPreferences.getAutomaticRefresh(requireContext())
                     ? RefreshScheduler.effectiveRefreshMinutes(requireContext())
@@ -391,15 +422,15 @@ public final class SettingsActivity extends AppCompatActivity {
             } else {
                 estimatesSummary = "Estimates on";
             }
-            findPreference("settings_refresh_usage").setSummary(
-                    refreshLabel + " · " + estimatesSummary);
+            findPreference("settings_refresh_usage").setSummary(dev.bennett.codexmeter.Translations.t(
+                    refreshLabel + " · " + estimatesSummary));
 
-            findPreference("settings_notifications").setSummary(
+            findPreference("settings_notifications").setSummary(dev.bennett.codexmeter.Translations.t(
                     ResetAlertPreferences.enabled(requireContext())
                             ? "On · "
                             + metricLabel(ResetAlertPreferences.getMetric(requireContext()))
                             + " at " + ResetAlertPreferences.getThreshold(requireContext()) + "%"
-                            : "Off");
+                            : "Off"));
 
             String nowBarSummary;
             if (NowBarManager.isActive(requireContext())) {
@@ -410,17 +441,17 @@ public final class SettingsActivity extends AppCompatActivity {
             } else {
                 nowBarSummary = "Manual start";
             }
-            findPreference("settings_now_bar").setSummary(nowBarSummary);
+            findPreference("settings_now_bar").setSummary(dev.bennett.codexmeter.Translations.t(nowBarSummary));
 
             GitHubRelease availableUpdate = UpdatePreferences.availableUpdate(requireContext());
             String channelSuffix = UpdateChannel.isAlpha(
                     UpdatePreferences.channel(requireContext())) ? " · Alpha channel" : "";
-            findPreference("settings_updates").setSummary((availableUpdate != null
+            findPreference("settings_updates").setSummary(dev.bennett.codexmeter.Translations.t((availableUpdate != null
                     ? "v" + availableUpdate.version + " available"
                     : UpdatePreferences.automaticChecks(requireContext())
                     ? "Automatic · " + UpdateCheckFrequency.label(
                     UpdatePreferences.checkIntervalHours(requireContext()))
-                    : "Automatic checks off") + channelSuffix);
+                    : "Automatic checks off") + channelSuffix));
         }
 
         private String metricLabel(String metric) {
@@ -454,17 +485,17 @@ public final class SettingsActivity extends AppCompatActivity {
 
             AuthTokens tokens = SecureTokenStore.load(requireContext());
             UsageSnapshot snapshot = AppPreferences.loadSnapshot(requireContext());
-            title.setText(tokens == null ? "Not connected" : "ChatGPT account");
-            summary.setText(tokens == null ? "Sign in from the dashboard"
-                    : (tokens.email.isEmpty() ? "Connected" : tokens.email));
+            title.setText(dev.bennett.codexmeter.Translations.t(tokens == null ? "Not connected" : "ChatGPT account"));
+            summary.setText(dev.bennett.codexmeter.Translations.t(tokens == null ? "Sign in from the dashboard"
+                    : (tokens.email.isEmpty() ? "Connected" : tokens.email)));
             if (tokens != null && snapshot != null) {
                 String label = UsageFormat.planLabel(snapshot.planType);
-                plan.setText(label.isEmpty() ? "Codex" : label);
+                plan.setText(dev.bennett.codexmeter.Translations.t(label.isEmpty() ? "Codex" : label));
                 plan.setVisibility(View.VISIBLE);
             } else {
                 plan.setVisibility(View.GONE);
             }
-            action.getTitleView().setText(tokens == null ? "Sign in with ChatGPT" : "Sign out");
+            action.getTitleView().setText(dev.bennett.codexmeter.Translations.t(tokens == null ? "Sign in with ChatGPT" : "Sign out"));
             action.getTitleView().setTextColor(tokens == null
                     ? Ui.accent(requireContext(), dark)
                     : (dark ? 0xFFFF6B6B : 0xFFFF3B30));
@@ -481,8 +512,8 @@ public final class SettingsActivity extends AppCompatActivity {
 
         private void confirmSignOut() {
             androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                    .setTitle("Sign out?")
-                    .setMessage("This removes encrypted ChatGPT tokens and cached usage from this device.")
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Sign out?"))
+                    .setMessage(dev.bennett.codexmeter.Translations.t("This removes encrypted ChatGPT tokens and cached usage from this device."))
                     .setNegativeButton("Cancel", null)
                     .setPositiveButton("Sign out", (dialogInterface, which) -> {
                         AuthTokens tokens = SecureTokenStore.load(requireContext());
@@ -624,11 +655,11 @@ public final class SettingsActivity extends AppCompatActivity {
                 }
                 if (UpdateChannel.ALPHA.equals(channel)) {
                     new AlertDialog.Builder(requireContext())
-                            .setTitle("Switch to the alpha channel?")
-                            .setMessage("Alpha builds ship faster with less testing and may be "
+                            .setTitle(dev.bennett.codexmeter.Translations.t("Switch to the alpha channel?"))
+                            .setMessage(dev.bennett.codexmeter.Translations.t("Alpha builds ship faster with less testing and may be "
                                     + "unstable. They use the same signing key and version code "
                                     + "as stable releases, so switching back to stable later is "
-                                    + "one in-place install with no uninstalling or data loss.")
+                                    + "one in-place install with no uninstalling or data loss."))
                             .setNegativeButton("Cancel", null)
                             .setPositiveButton("Use alpha", (dialog, which) ->
                                     applyUpdateChannel(UpdateChannel.ALPHA))
@@ -730,11 +761,11 @@ public final class SettingsActivity extends AppCompatActivity {
                 return;
             }
             if (!UpdatePreferences.automaticChecks(requireContext())) {
-                automaticUpdatePreference.setSummary("Automatic GitHub release checks are off");
+                automaticUpdatePreference.setSummary(dev.bennett.codexmeter.Translations.t("Automatic GitHub release checks are off"));
                 return;
             }
-            automaticUpdatePreference.setSummary(UpdateCheckFrequency.summary(
-                    UpdatePreferences.checkIntervalHours(requireContext())));
+            automaticUpdatePreference.setSummary(dev.bennett.codexmeter.Translations.t(UpdateCheckFrequency.summary(
+                    UpdatePreferences.checkIntervalHours(requireContext()))));
         }
 
         private boolean ensureUpdateNotificationPermission() {
@@ -830,6 +861,14 @@ public final class SettingsActivity extends AppCompatActivity {
                 return true;
             });
 
+            SwitchPreferenceCompat newModels = findPreference("new_models_ui");
+            newModels.setPersistent(false);
+            newModels.setChecked(ResetAlertPreferences.newModelsEnabled(requireContext()));
+            newModels.setOnPreferenceChangeListener((preference, value) -> {
+                ResetAlertPreferences.setNewModelsEnabled(requireContext(), (Boolean) value);
+                return true;
+            });
+
             SwitchPreferenceCompat resetCreditIncreases = findPreference("reset_credit_increases_ui");
             resetCreditIncreases.setPersistent(false);
             resetCreditIncreases.setChecked(ResetAlertPreferences.resetCreditIncreasesEnabled(requireContext()));
@@ -899,13 +938,13 @@ public final class SettingsActivity extends AppCompatActivity {
             List<Long> leadTimes = ResetAlertPreferences.getResetCreditExpiryLeadTimes(
                     requireContext());
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
-                    .setTitle("Reminder times")
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Reminder times"))
                     .setNeutralButton("Add", (dialog, which) ->
                             showAddExpiryReminderDialog())
                     .setNegativeButton("Done", null);
             if (leadTimes.isEmpty()) {
-                builder.setMessage("No reminder times are configured. Add one to choose how "
-                        + "long before expiry Codex Meter should notify you.");
+                builder.setMessage(dev.bennett.codexmeter.Translations.t("No reminder times are configured. Add one to choose how "
+                        + "long before expiry Models Meter should notify you."));
             } else {
                 String[] labels = new String[leadTimes.size()];
                 for (int i = 0; i < leadTimes.size(); i++) {
@@ -939,7 +978,7 @@ public final class SettingsActivity extends AppCompatActivity {
             LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, -2);
             rowParams.setMargins(0, Ui.dp(requireContext(), 16), 0, 0);
             EditText amount = new EditText(requireContext());
-            amount.setHint("Amount");
+            amount.setHint(dev.bennett.codexmeter.Translations.t("Amount"));
             amount.setSingleLine(true);
             amount.setTextColor(Ui.mainText(dark));
             amount.setHintTextColor(Ui.secondaryText(dark));
@@ -957,7 +996,7 @@ public final class SettingsActivity extends AppCompatActivity {
             container.addView(inputRow, rowParams);
 
             AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                    .setTitle("Add reminder time")
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Add reminder time"))
                     .setView(container)
                     .setNegativeButton("Cancel", null)
                     .setPositiveButton("Add", null)
@@ -1020,12 +1059,12 @@ public final class SettingsActivity extends AppCompatActivity {
             List<Long> leadTimes = ResetAlertPreferences.getResetCreditExpiryLeadTimes(
                     requireContext());
             if (leadTimes.isEmpty()) {
-                expiryTimesPreference.setSummary("No reminder times configured");
+                expiryTimesPreference.setSummary(dev.bennett.codexmeter.Translations.t("No reminder times configured"));
                 return;
             }
             List<String> labels = new ArrayList<>();
             for (Long leadTime : leadTimes) labels.add(formatLeadTime(leadTime));
-            expiryTimesPreference.setSummary(String.join(", ", labels) + " before expiry");
+            expiryTimesPreference.setSummary(dev.bennett.codexmeter.Translations.t(String.join(", ", labels) + " before expiry"));
         }
 
         private String formatLeadTime(long millis) {
@@ -1213,8 +1252,8 @@ public final class SettingsActivity extends AppCompatActivity {
 
         private void showSamsungNowBarHelp() {
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Samsung Now Bar setup")
-                    .setMessage("For Android Live Updates:\n"
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Samsung Now Bar setup"))
+                    .setMessage(dev.bennett.codexmeter.Translations.t("For Android Live Updates:\n"
                             + "1. Open Settings > About phone/tablet > Software information.\n"
                             + "2. Tap Build number seven times and confirm your screen lock.\n"
                             + "3. Return to Settings > Developer options.\n"
@@ -1225,8 +1264,8 @@ public final class SettingsActivity extends AppCompatActivity {
                             + "region, and firmware build even when Android and One UI versions "
                             + "match.\n\n"
                             + "If both modes remain ordinary notifications, that firmware or "
-                            + "device does not expose a third-party Now Bar surface. Codex Meter "
-                            + "cannot override Samsung’s system allowlist.")
+                            + "device does not expose a third-party Now Bar surface. Models Meter "
+                            + "cannot override Samsung’s system allowlist."))
                     .setNeutralButton("Developer options", (dialog, which) -> {
                         try {
                             startActivity(new Intent(
@@ -1301,17 +1340,17 @@ public final class SettingsActivity extends AppCompatActivity {
                         ? "promoted as a Live Update"
                         : "active, but not promoted by the system")
                         : "active";
-                nowBarMonitorPreference.setSummary(kind + " " + state + " · ends "
+                nowBarMonitorPreference.setSummary(dev.bennett.codexmeter.Translations.t(kind + " " + state + " · ends "
                         + UsageFormat.absolute(requireContext(), NowBarManager.activeUntil(requireContext()),
-                        System.currentTimeMillis()));
+                        System.currentTimeMillis())));
             } else if (NowBarPreferences.isAutoStartEnabled(requireContext())
                     || (UsagePacePreferences.areWarningsEnabled(requireContext())
                     && NowBarPreferences.isAcceleratedStartEnabled(requireContext()))) {
-                nowBarMonitorPreference.setSummary(
-                        "Waiting for a low allowance or accelerated usage trigger");
+                nowBarMonitorPreference.setSummary(dev.bennett.codexmeter.Translations.t(
+                        "Waiting for a low allowance or accelerated usage trigger"));
             } else {
-                nowBarMonitorPreference.setSummary(
-                        "Show remaining Codex allowance until the next available usage reset");
+                nowBarMonitorPreference.setSummary(dev.bennett.codexmeter.Translations.t(
+                        "Show remaining Codex allowance until the next available usage reset"));
             }
             if (nowBarAutoStartPreference != null) {
                 nowBarAutoStartPreference.setChecked(
@@ -1351,7 +1390,7 @@ public final class SettingsActivity extends AppCompatActivity {
                 } else {
                     summary = "Live notifications allowed";
                 }
-                nowBarPermissionPreference.setSummary(summary);
+                nowBarPermissionPreference.setSummary(dev.bennett.codexmeter.Translations.t(summary));
             }
         }
 
@@ -1383,6 +1422,7 @@ public final class SettingsActivity extends AppCompatActivity {
                 ResetNotificationManager.onResetCreditsUpdated(requireContext(), AppPreferences.loadResetCredits(requireContext()));
             }
             ResetAlertScheduler.scheduleFromSnapshot(requireContext(), AppPreferences.loadSnapshot(requireContext()));
+            ProviderResetReceiver.scheduleAll(requireContext());
             scheduleResetCreditExpiryReminders();
         }
 
@@ -1393,7 +1433,7 @@ public final class SettingsActivity extends AppCompatActivity {
                     && (Build.VERSION.SDK_INT < 33
                     || requireContext().checkSelfPermission("android.permission.POST_NOTIFICATIONS")
                     == PackageManager.PERMISSION_GRANTED);
-            permissionPreference.setSummary(allowed ? "Allowed" : "Not allowed");
+            permissionPreference.setSummary(dev.bennett.codexmeter.Translations.t(allowed ? "Allowed" : "Not allowed"));
             if (testNotificationPreference != null) {
                 testNotificationPreference.setEnabled(allowed && ResetAlertPreferences.enabled(requireContext()));
             }
@@ -1445,7 +1485,7 @@ public final class SettingsActivity extends AppCompatActivity {
             };
             boolean[] checked = {true, true, true, false};
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Export sections")
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Export sections"))
                     .setMultiChoiceItems(labels, checked, (dialog, which, isChecked) -> {
                         if (which == 3 && isChecked && !signedIn) {
                             checked[3] = false;
@@ -1478,10 +1518,10 @@ public final class SettingsActivity extends AppCompatActivity {
         private void confirmSensitiveExport(boolean appSettings, boolean notifications,
                 boolean nowBar, boolean authentication) {
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Authentication will be included")
-                    .setMessage(SettingsTransfer.SECURITY_WARNING
-                            + "\n\nOnly continue if you are moving Codex Meter to another device "
-                            + "you control.")
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Authentication will be included"))
+                    .setMessage(dev.bennett.codexmeter.Translations.t(SettingsTransfer.SECURITY_WARNING
+                            + "\n\nOnly continue if you are moving Models Meter to another device "
+                            + "you control."))
                     .setNegativeButton("Cancel", null)
                     .setPositiveButton("Export anyway", (dialog, which) ->
                             launchExportPicker(appSettings, notifications, nowBar, authentication))
@@ -1563,7 +1603,7 @@ public final class SettingsActivity extends AppCompatActivity {
                 checked[i] = !SettingsTransfer.isAuthenticationSection(section);
             }
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Import sections")
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Import sections"))
                     .setMultiChoiceItems(labels, checked,
                             (dialog, which, isChecked) -> checked[which] = isChecked)
                     .setNegativeButton("Cancel", null)
@@ -1605,10 +1645,10 @@ public final class SettingsActivity extends AppCompatActivity {
                 boolean appSettings, boolean notifications, boolean nowBar,
                 boolean authentication) {
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Import authentication?")
-                    .setMessage(SettingsTransfer.SECURITY_WARNING
+                    .setTitle(dev.bennett.codexmeter.Translations.t("Import authentication?"))
+                    .setMessage(dev.bennett.codexmeter.Translations.t(SettingsTransfer.SECURITY_WARNING
                             + "\n\nThis replaces ChatGPT sign-in on this device with the tokens "
-                            + "from the file.")
+                            + "from the file."))
                     .setNegativeButton("Cancel", null)
                     .setPositiveButton("Import anyway", (dialog, which) ->
                             finishImport(document, appSettings, notifications, nowBar,

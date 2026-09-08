@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="now_bar_display_mode_entries">
+        <item>Automatique (recommandé)</item>
+        <item>Android Live Update</item>
+        <item>Compatibilité Samsung</item>
+    </string-array>
+    <string-array name="now_bar_percent_mode_entries">
+        <item>Auto</item>
+        <item>Utilisation sur 5 heures</item>
+        <item>Utilisation hebdomadaire</item>
+    </string-array>
+</resources>

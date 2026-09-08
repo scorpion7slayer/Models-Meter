@@ -12,9 +12,9 @@ enum AppMode: String, Codable, Sendable {
 extension AppAppearance {
     var title: String {
         switch self {
-        case .system: "System"
-        case .light: "Light"
-        case .dark: "Dark"
+        case .system: MeterL10n.translate("System")
+        case .light: MeterL10n.translate("Light")
+        case .dark: MeterL10n.translate("Dark")
         }
     }
 
@@ -30,9 +30,9 @@ extension AppAppearance {
 extension AlertMetric {
     var title: String {
         switch self {
-        case .both: "Both"
-        case .fiveHour: "5-hour"
-        case .weekly: "Weekly / Monthly"
+        case .both: MeterL10n.translate("Both")
+        case .fiveHour: MeterL10n.translate("5-hour")
+        case .weekly: MeterL10n.translate("Weekly / Monthly")
         }
     }
 }
@@ -40,11 +40,11 @@ extension AlertMetric {
 extension NotificationPermissionState {
     var title: String {
         switch self {
-        case .notDetermined: "Not requested"
-        case .denied: "Denied"
-        case .authorized: "Allowed"
-        case .provisional: "Provisional"
-        case .ephemeral: "Temporary"
+        case .notDetermined: MeterL10n.translate("Not requested")
+        case .denied: MeterL10n.translate("Denied")
+        case .authorized: MeterL10n.translate("Allowed")
+        case .provisional: MeterL10n.translate("Provisional")
+        case .ephemeral: MeterL10n.translate("Temporary")
         }
     }
 }
@@ -204,6 +204,8 @@ final class AppModel {
         notificationPermissionState = await notificationCoordinator.permissionState()
 #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-ui-testing-reset-settings") {
+            UserDefaults(suiteName: MeterL10n.group)?.set("en", forKey: "language")
+            ProviderStore.shared.selected = .chatgpt
             settingsStore.reset()
             settings = settingsStore.settings
             try? await usageHistoryStore.clear()
@@ -258,6 +260,7 @@ final class AppModel {
     }
 
     func refresh() async {
+        if mode != .demo { await ProviderStore.shared.refreshAll() }
         guard mode != .signedOut, !isRefreshing else { return }
 #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-ui-testing-refresh-failure") {
@@ -313,6 +316,7 @@ final class AppModel {
         try? await usageHistoryStore.clear()
         apply(history: .empty)
         clearSessionState()
+        scheduleBackgroundRefresh()
     }
 
     func signOut() async {
@@ -320,6 +324,8 @@ final class AppModel {
         signInTask = nil
         DiagnosticLog.info("process", "sign_out")
         await activeService.signOut()
+        ProviderStore.shared.clearChatGPT()
+        await notificationCoordinator.clearModelDiscovery()
         await notificationCoordinator.clearAll()
         backgroundRefreshCoordinator.cancel()
         try? await usageHistoryStore.clear()
@@ -491,7 +497,9 @@ final class AppModel {
     }
 
     func handle(url: URL) {
-        guard url.scheme?.lowercased() == "codexmeter" else { return }
+        guard url.scheme?.lowercased() == "modelsmeter" else { return }
+        if let id = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "provider" })?.value,
+           let provider = MeterProvider(rawValue: id) { ProviderStore.shared.selected = provider }
         let route = (url.host ?? url.path)
             .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
             .lowercased()
@@ -513,7 +521,7 @@ final class AppModel {
 
     private func apply(route: String) {
         switch route {
-        case "dashboard":
+        case "dashboard", "models":
             isShowingSettings = false
             isShowingReset = false
             isShowingSignIn = false
@@ -545,6 +553,7 @@ final class AppModel {
     }
 
     func sceneBecameActive() async {
+        if mode != .demo { await ProviderStore.shared.refreshAll() }
         refreshEngagementStore.recordForeground()
         await refreshNotificationPermissionState()
         guard hasStarted else {
@@ -597,6 +606,20 @@ final class AppModel {
             settings: settings
         )
         scheduleBackgroundRefresh()
+        if mode == .live {
+            do {
+                if let catalog = try await liveService.refreshModels(), mode == .live {
+                    ProviderStore.shared.updateChatGPT(catalog.models, account: catalog.accountID)
+                    await notificationCoordinator.processModels(
+                        catalog.models, accountID: catalog.accountID, settings: settings
+                    )
+                }
+            } catch is CancellationError {
+                return
+            } catch {
+                DiagnosticLog.error("models", "catalog_refresh_failed", error: error)
+            }
+        }
     }
 
     private func apply(
@@ -642,7 +665,7 @@ final class AppModel {
     }
 
     private func scheduleBackgroundRefresh() {
-        guard mode == .live, !isPreview else {
+        guard (mode == .live || MeterProvider.allCases.contains { ProviderStore.shared.connected($0) }), !isPreview else {
             if mode != .live { backgroundRefreshCoordinator.cancel() }
             return
         }
@@ -683,6 +706,7 @@ final class AppModel {
     }
 
     private func applyNotificationSettings() async {
+        await ProviderStore.shared.updateNotificationSettings()
         guard settings.notificationsEnabled else {
             await notificationCoordinator.clearAll()
             return
@@ -700,6 +724,10 @@ final class AppModel {
     }
 
     private func performBackgroundRefresh() async throws -> BackgroundRefreshOutcome {
+        await ProviderStore.shared.refreshAll()
+        if mode != .live && MeterProvider.allCases.contains(where: { ProviderStore.shared.connected($0) }) {
+            return BackgroundRefreshOutcome(preferredMinutes: settings.refreshMinutes, nextReset: nil)
+        }
         if mode != .live {
             guard let tokens = try await liveService.currentTokens(), tokens.isUsable else {
                 throw CodexServiceError.signedOut

@@ -2,71 +2,71 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Refresh">
+    <PreferenceCategory android:title="@string/localized_56e3badc4e6c">
         <SwitchPreferenceCompat
             android:key="refresh_on_launch"
-            android:title="Refresh on launch" />
+            android:title="@string/localized_449c720b3cd9" />
         <ListPreference
             android:entries="@array/settings_refresh_mode_entries"
             android:entryValues="@array/settings_refresh_mode_values"
             android:key="refresh_mode_ui"
-            android:summary="Adapts to remaining usage, app attention, reset timing, and recent failures"
-            android:title="Refresh mode" />
+            android:summary="@string/localized_2537b3e0641c"
+            android:title="@string/localized_e32b3ebc0c5d" />
         <ListPreference
             android:entries="@array/settings_refresh_entries"
             android:entryValues="@array/settings_refresh_values"
             android:key="refresh_interval_ui"
-            android:title="Manual interval"
+            android:title="@string/localized_c22769cb8725"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Dashboard">
+    <PreferenceCategory android:title="@string/localized_d87f47b47e4d">
         <Preference
             android:key="dashboard_reorder_ui"
-            android:summary="Arrange usage cards and choose which ones appear"
-            android:title="Edit dashboard" />
+            android:summary="@string/localized_79fd4abcf4a3"
+            android:title="@string/localized_fbfce4efbe14" />
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="dashboard_five_hour"
-            android:summary="Shown only when OpenAI returns this window"
-            android:title="5-hour limit" />
+            android:summary="@string/localized_2664a21699cf"
+            android:title="@string/localized_7f56753aaed1" />
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="dashboard_weekly"
-            android:summary="Shown only when OpenAI returns this window"
-            android:title="Weekly limit" />
+            android:summary="@string/localized_2664a21699cf"
+            android:title="@string/localized_7aaf676b8d26" />
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="dashboard_additional_limits"
-            android:summary="Model-specific limits such as GPT-5.3-Codex-Spark"
-            android:title="Additional limits" />
+            android:summary="@string/localized_5e67d3f79903"
+            android:title="@string/localized_e3392efde095" />
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="dashboard_usage_credits"
-            android:summary="Hidden automatically at a zero or negative balance"
-            android:title="Usage-credit balance" />
+            android:summary="@string/localized_cc78226c5252"
+            android:title="@string/localized_60e2c3e64678" />
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="dashboard_usage_history"
-            android:summary="Shown only when a 5-hour or weekly window is available"
-            android:title="Usage history" />
+            android:summary="@string/localized_d2bccf30e23e"
+            android:title="@string/localized_b2a3573e71c5" />
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="dashboard_reset_credits"
-            android:summary="Hidden automatically when no resets are available"
-            android:title="Reset credits" />
+            android:summary="@string/localized_9c7f764b3aa5"
+            android:title="@string/localized_ef7c08b2a739" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Usage estimates">
+    <PreferenceCategory android:title="@string/localized_9486f7405490">
         <SwitchPreferenceCompat
             android:key="usage_pace_enabled_ui"
-            android:summary="Project how long the current allowance may last"
-            android:title="Estimated usage time" />
+            android:summary="@string/localized_e8d6a2474069"
+            android:title="@string/localized_05db09e353e6" />
         <ListPreference
             android:entries="@array/usage_pace_sensitivity_entries"
             android:entryValues="@array/usage_pace_sensitivity_values"
             android:key="usage_pace_sensitivity_ui"
-            android:title="Warning sensitivity"
+            android:title="@string/localized_07e989b75936"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 

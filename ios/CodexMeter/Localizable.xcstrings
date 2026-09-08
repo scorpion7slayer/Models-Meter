@@ -1,335 +1,5361 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "%" : {
-
-    },
-    "%lld" : {
-
-    },
-    "%lld minutes" : {
-
-    },
-    "%lld reset %@ available" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld reset %2$@ available"
+  "sourceLanguage": "en",
+  "strings": {
+    "%": {},
+    "%lld": {},
+    "%lld minutes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld minutes"
           }
         }
       }
     },
-    "%lld%% or lower" : {
-
-    },
-    "%lld%% used" : {
-
-    },
-    "2 hours" : {
-
-    },
-    "5-hour" : {
-
-    },
-    "About" : {
-
-    },
-    "About Codex Meter" : {
-
-    },
-    "Account" : {
-
-    },
-    "After signing in on the OpenAI page, return here. This screen updates automatically." : {
-
-    },
-    "Allow notifications" : {
-
-    },
-    "Always" : {
-
-    },
-    "An unofficial native iPhone and iPad client for checking and monitoring Codex usage." : {
-
-    },
-    "Appearance" : {
-
-    },
-    "Applying…" : {
-
-    },
-    "BenItBuhner/Codex-Meter" : {
-
-    },
-    "Cancel" : {
-
-    },
-    "ChatGPT account" : {
-
-    },
-    "Close" : {
-
-    },
-    "Code copied" : {
-
-    },
-    "Codex Meter" : {
-
-    },
-    "Codex Meter has no analytics, advertising, account system, or relay server. Authentication and Codex account requests go directly to OpenAI only when needed for the feature you selected." : {
-
-    },
-    "Codex Meter is not affiliated with or endorsed by OpenAI. ChatGPT and Codex are trademarks of their respective owner. Account routes used by this app may change without notice." : {
-
-    },
-    "Codex Meter uses OpenAI's device-code flow. Your password is entered only on the OpenAI-controlled page and is never visible to this app." : {
-
-    },
-    "Codex reset" : {
-
-    },
-    "Codex usage is not currently available for this account." : {
-
-    },
-    "Connect account" : {
-
-    },
-    "Connect your ChatGPT account to see the current five-hour and weekly windows, reset times, and earned reset credits." : {
-
-    },
-    "Copied" : {
-
-    },
-    "Copy code" : {
-
-    },
-    "Credentials" : {
-
-    },
-    "Credentials and cached account data will be removed from this device and its widgets." : {
-
-    },
-    "Demo mode" : {
-
-    },
-    "Demo mode is entirely local and does not contact OpenAI." : {
-
-    },
-    "Demo mode is local and never contacts OpenAI." : {
-
-    },
-    "Done" : {
-
-    },
-    "Enter this one-time code" : {
-
-    },
-    "Expiry details are unavailable for the current inventory." : {
-
-    },
-    "Expiry details are unavailable; OpenAI will choose an eligible credit." : {
-
-    },
-    "Expiry reminders fire at each selected lead time before an available credit expires. Choose at least one lead time." : {
-
-    },
-    "Explore demo" : {
-
-    },
-    "Get one-time code" : {
-
-    },
-    "Important" : {
-
-    },
-    "Includes low usage, scheduled resets, optional surprise refills, and reset-credit inventory changes." : {
-
-    },
-    "iOS decides when background work runs. This interval is an earliest preference, not a guaranteed schedule." : {
-
-    },
-    "iOS development — Filip Bukovina" : {
-
-    },
-    "Last updated July 12, 2026" : {
-
-    },
-    "Leave Demo" : {
-
-    },
-    "License" : {
-
-    },
-    "Local storage" : {
-
-    },
-    "Low usage alerts" : {
-
-    },
-    "Low when remaining reaches" : {
-
-    },
-    "Mode" : {
-
-    },
-    "New reset-credit alerts" : {
-
-    },
-    "Next credit expires %@" : {
-
-    },
-    "Next credit expires %@ (%@)." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Next credit expires %1$@ (%2$@)."
+    "%lld reset %@ available": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld reset %2$@ available"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld réinitialisation %@ disponible"
           }
         }
       }
     },
-    "No reset available" : {
-
+    "%lld%% or lower": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld %% ou moins"
+          }
+        }
+      }
     },
-    "No resets available" : {
-
+    "%lld%% used": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld %% utilisés"
+          }
+        }
+      }
     },
-    "Notifications" : {
-
+    "2 hours": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 heures"
+          }
+        }
+      }
     },
-    "OAuth tokens are stored in Apple Keychain on this device. Widgets never receive tokens or account identifiers." : {
-
+    "5-hour": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 heures"
+          }
+        }
+      }
     },
-    "One-time code %@" : {
-
+    "About": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À propos"
+          }
+        }
+      }
     },
-    "Open ChatGPT sign-in" : {
-
+    "About Models Meter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À propos de Models Meter"
+          }
+        }
+      }
     },
-    "Open notification settings" : {
-
+    "Account": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compte"
+          }
+        }
+      }
     },
-    "Open-source notices" : {
-
+    "After signing in on the OpenAI page, return here. This screen updates automatically.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Après la connexion sur la page OpenAI, revenez ici. Cet écran s’actualise automatiquement."
+          }
+        }
+      }
     },
-    "OpenAI" : {
-
+    "Allow notifications": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autoriser les notifications"
+          }
+        }
+      }
     },
-    "Original project" : {
-
+    "Always": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toujours"
+          }
+        }
+      }
     },
-    "Plan" : {
-
+    "An unofficial native iPhone and iPad client for checking and monitoring Codex usage.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une application native non officielle pour suivre vos quotas et vos modèles sur iPhone et iPad."
+          }
+        }
+      }
     },
-    "Plan %@" : {
-
+    "Appearance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apparence"
+          }
+        }
+      }
     },
-    "Preferred interval" : {
-
+    "Applying…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Application…"
+          }
+        }
+      }
     },
-    "Preparing secure sign-in…" : {
-
+    "BenItBuhner/Codex-Meter": {},
+    "Cancel": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler"
+          }
+        }
+      }
     },
-    "Privacy" : {
-
+    "ChatGPT account": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compte ChatGPT"
+          }
+        }
+      }
     },
-    "Privacy policy" : {
-
+    "Close": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fermer"
+          }
+        }
+      }
     },
-    "Refresh" : {
-
+    "Code copied": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code copié"
+          }
+        }
+      }
     },
-    "Refresh on launch" : {
-
+    "Models Meter": {},
+    "Models Meter has no analytics, advertising, account system, or relay server. Authentication and Codex account requests go directly to OpenAI only when needed for the feature you selected.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models Meter n’utilise ni analyse d’audience, ni publicité, ni compte propre, ni serveur intermédiaire. Les requêtes vont directement aux fournisseurs pour les fonctions choisies."
+          }
+        }
+      }
     },
-    "Refresh usage" : {
-
+    "Models Meter is not affiliated with or endorsed by OpenAI. ChatGPT and Codex are trademarks of their respective owner. Account routes used by this app may change without notice.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models Meter n’est ni affilié à OpenAI ni approuvé par OpenAI. ChatGPT et Codex sont des marques de leur propriétaire. Les accès aux comptes utilisés par cette app peuvent changer sans préavis."
+          }
+        }
+      }
     },
-    "Refreshing usage" : {
-
+    "Models Meter uses OpenAI's device-code flow. Your password is entered only on the OpenAI-controlled page and is never visible to this app.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models Meter utilise la connexion OpenAI par code à usage unique. Votre mot de passe est saisi uniquement sur la page OpenAI et n’est jamais visible par cette app."
+          }
+        }
+      }
     },
-    "Reset available" : {
-
+    "Codex reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réinitialisation Codex"
+          }
+        }
+      }
     },
-    "Reset time unavailable" : {
-
+    "Codex usage is not currently available for this account.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les quotas Codex ne sont pas disponibles pour ce compte actuellement."
+          }
+        }
+      }
     },
-    "Reset-credit expiry reminders" : {
-
+    "Connect account": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connecter le compte"
+          }
+        }
+      }
     },
-    "Resets available" : {
-
+    "Connect your ChatGPT account to see the current five-hour and weekly windows, reset times, and earned reset credits.": {},
+    "Copied": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copié"
+          }
+        }
+      }
     },
-    "Resets in" : {
-
+    "Copy code": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copier le code"
+          }
+        }
+      }
     },
-    "Send test notification" : {
-
+    "Credentials": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Identifiants"
+          }
+        }
+      }
     },
-    "Settings" : {
-
+    "Credentials and cached account data will be removed from this device and its widgets.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les identifiants et les données du compte en cache seront supprimés de cet appareil et de ses widgets."
+          }
+        }
+      }
     },
-    "Sign in or open demo mode to configure usage alerts." : {
-
+    "Demo mode": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode démo"
+          }
+        }
+      }
     },
-    "Sign in with ChatGPT" : {
-
+    "Demo mode is entirely local and does not contact OpenAI.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le mode démo est entièrement local et ne contacte pas OpenAI."
+          }
+        }
+      }
     },
-    "Sign out" : {
-
+    "Demo mode is local and never contacts OpenAI.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le mode démo est local et ne contacte jamais OpenAI."
+          }
+        }
+      }
     },
-    "Sign out of ChatGPT?" : {
-
+    "Done": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminé"
+          }
+        }
+      }
     },
-    "Source and credits" : {
-
+    "Enter this one-time code": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez ce code à usage unique"
+          }
+        }
+      }
     },
-    "System permission" : {
-
+    "Expiry details are unavailable for the current inventory.": {},
+    "Expiry details are unavailable; OpenAI will choose an eligible credit.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les dates d’expiration ne sont pas disponibles ; OpenAI choisira un crédit éligible."
+          }
+        }
+      }
     },
-    "The last successful usage response is cached for offline display. Signing out removes credentials, cached account data, background requests, and scheduled notifications." : {
-
+    "Expiry reminders fire at each selected lead time before an available credit expires. Choose at least one lead time.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un rappel est envoyé à chaque délai sélectionné avant l’expiration d’un crédit. Choisissez au moins un délai."
+          }
+        }
+      }
     },
-    "This action consumes one available reset credit and cannot be undone." : {
-
+    "Explore demo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Découvrir la démo"
+          }
+        }
+      }
     },
-    "Tokens stay in Keychain. Requests go directly to OpenAI; widgets only get a sanitized usage snapshot." : {
-
+    "Get one-time code": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obtenir un code à usage unique"
+          }
+        }
+      }
     },
-    "Unexpected refill alerts" : {
-
+    "Important": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Important"
+          }
+        }
+      }
     },
-    "Usage limit reached for the current window." : {
-
+    "Includes low usage, scheduled resets, optional surprise refills, and reset-credit inventory changes.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprend les quotas faibles, les réinitialisations prévues, les recharges inattendues facultatives et les changements de crédits disponibles."
+          }
+        }
+      }
     },
-    "Use 1 reset" : {
-
+    "iOS decides when background work runs. This interval is an earliest preference, not a guaranteed schedule.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS décide de l’exécution en arrière-plan. Cet intervalle indique un délai minimal souhaité, sans garantir l’horaire."
+          }
+        }
+      }
     },
-    "Use one Codex reset?" : {
-
+    "iOS development — Filip Bukovina": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Développement iOS — Filip Bukovina"
+          }
+        }
+      }
     },
-    "Use reset" : {
-
+    "Last updated July 12, 2026": {},
+    "Leave Demo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitter la démo"
+          }
+        }
+      }
     },
-    "Using a credit asks OpenAI to reset the currently used Codex rate-limit windows. The app reloads usage and the remaining credit inventory afterward." : {
-
+    "License": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Licence"
+          }
+        }
+      }
     },
-    "Version %@" : {
-
+    "Local storage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage local"
+          }
+        }
+      }
     },
-    "Waiting for data" : {
-
+    "Low usage alerts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertes de quota faible"
+          }
+        }
+      }
     },
-    "Waiting for secure sign-in…" : {
-
+    "Low when remaining reaches": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota faible lorsque le restant atteint"
+          }
+        }
+      }
     },
-    "Weekly" : {
-
+    "Mode": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode"
+          }
+        }
+      }
     },
-    "Your Codex allowance at a glance" : {
-
+    "New reset-credit alerts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertes de nouveaux crédits"
+          }
+        }
+      }
+    },
+    "Next credit expires %@": {},
+    "Next credit expires %@ (%@).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Next credit expires %1$@ (%2$@)."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le prochain crédit expire %@ (%@)."
+          }
+        }
+      }
+    },
+    "No reset available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun crédit disponible"
+          }
+        }
+      }
+    },
+    "No resets available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun crédit disponible"
+          }
+        }
+      }
+    },
+    "Notifications": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications"
+          }
+        }
+      }
+    },
+    "OAuth tokens are stored in Apple Keychain on this device. Widgets never receive tokens or account identifiers.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les jetons OAuth sont conservés dans le trousseau Apple de cet appareil. Les widgets ne reçoivent jamais de jetons ni d’identifiants de compte."
+          }
+        }
+      }
+    },
+    "One-time code %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code à usage unique %@"
+          }
+        }
+      }
+    },
+    "Open ChatGPT sign-in": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir la connexion ChatGPT"
+          }
+        }
+      }
+    },
+    "Open notification settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir les réglages des notifications"
+          }
+        }
+      }
+    },
+    "Open-source notices": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mentions open source"
+          }
+        }
+      }
+    },
+    "OpenAI": {},
+    "Original project": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Projet original"
+          }
+        }
+      }
+    },
+    "Plan": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnement"
+          }
+        }
+      }
+    },
+    "Plan %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnement %@"
+          }
+        }
+      }
+    },
+    "Preferred interval": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intervalle souhaité"
+          }
+        }
+      }
+    },
+    "Preparing secure sign-in…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Préparation de la connexion sécurisée…"
+          }
+        }
+      }
+    },
+    "Privacy": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confidentialité"
+          }
+        }
+      }
+    },
+    "Privacy policy": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Politique de confidentialité"
+          }
+        }
+      }
+    },
+    "Refresh": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualiser"
+          }
+        }
+      }
+    },
+    "Refresh on launch": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualiser au démarrage"
+          }
+        }
+      }
+    },
+    "Refresh usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualiser les quotas"
+          }
+        }
+      }
+    },
+    "Refreshing usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation des quotas"
+          }
+        }
+      }
+    },
+    "Reset available": {},
+    "Reset time unavailable": {},
+    "Reset-credit expiry reminders": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rappels d’expiration des crédits"
+          }
+        }
+      }
+    },
+    "Resets available": {},
+    "Resets in": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réinitialisation dans"
+          }
+        }
+      }
+    },
+    "Send test notification": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envoyer une notification de test"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réglages"
+          }
+        }
+      }
+    },
+    "Sign in or open demo mode to configure usage alerts.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connectez-vous ou ouvrez la démo pour configurer les alertes de quota."
+          }
+        }
+      }
+    },
+    "Sign in with ChatGPT": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se connecter avec ChatGPT"
+          }
+        }
+      }
+    },
+    "Sign out": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se déconnecter"
+          }
+        }
+      }
+    },
+    "Sign out of ChatGPT?": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se déconnecter de ChatGPT ?"
+          }
+        }
+      }
+    },
+    "Source and credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code source et crédits"
+          }
+        }
+      }
+    },
+    "System permission": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisation système"
+          }
+        }
+      }
+    },
+    "The last successful usage response is cached for offline display. Signing out removes credentials, cached account data, background requests, and scheduled notifications.": {},
+    "This action consumes one available reset credit and cannot be undone.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cette action consomme un crédit de réinitialisation et ne peut pas être annulée."
+          }
+        }
+      }
+    },
+    "Tokens stay in Keychain. Requests go directly to OpenAI; widgets only get a sanitized usage snapshot.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les jetons restent dans le trousseau. Les requêtes vont directement aux fournisseurs ; les widgets reçoivent seulement les données de quota nécessaires."
+          }
+        }
+      }
+    },
+    "Unexpected refill alerts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertes de recharge inattendue"
+          }
+        }
+      }
+    },
+    "Usage limit reached for the current window.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le quota de la période actuelle est atteint."
+          }
+        }
+      }
+    },
+    "Use 1 reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser 1 crédit"
+          }
+        }
+      }
+    },
+    "Use one Codex reset?": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser un crédit de réinitialisation Codex ?"
+          }
+        }
+      }
+    },
+    "Use reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser un crédit"
+          }
+        }
+      }
+    },
+    "Using a credit asks OpenAI to reset the currently used Codex rate-limit windows. The app reloads usage and the remaining credit inventory afterward.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un crédit demande à OpenAI de réinitialiser les quotas Codex actuellement utilisés. L’app actualise ensuite les quotas et les crédits restants."
+          }
+        }
+      }
+    },
+    "Version %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@"
+          }
+        }
+      }
+    },
+    "Waiting for data": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente de données"
+          }
+        }
+      }
+    },
+    "Waiting for secure sign-in…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente de la connexion sécurisée…"
+          }
+        }
+      }
+    },
+    "Weekly": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hebdomadaire"
+          }
+        }
+      }
+    },
+    "Your Codex allowance at a glance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vos quotas Codex en un coup d’œil"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer"
+          }
+        }
+      }
+    },
+    "Back": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour"
+          }
+        }
+      }
+    },
+    "Next": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivant"
+          }
+        }
+      }
+    },
+    "Continue": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuer"
+          }
+        }
+      }
+    },
+    "Connect": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connecter"
+          }
+        }
+      }
+    },
+    "Connected": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connecté"
+          }
+        }
+      }
+    },
+    "Disconnect": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déconnecter"
+          }
+        }
+      }
+    },
+    "Reconnect": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconnecter"
+          }
+        }
+      }
+    },
+    "Sign in": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se connecter"
+          }
+        }
+      }
+    },
+    "Continue sign-in": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuer la connexion"
+          }
+        }
+      }
+    },
+    "Refreshing…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation…"
+          }
+        }
+      }
+    },
+    "Refreshing": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation"
+          }
+        }
+      }
+    },
+    "System": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Système"
+          }
+        }
+      }
+    },
+    "System default": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réglage système"
+          }
+        }
+      }
+    },
+    "System language": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Langue système"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Langue"
+          }
+        }
+      }
+    },
+    "Light": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clair"
+          }
+        }
+      }
+    },
+    "Dark": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sombre"
+          }
+        }
+      }
+    },
+    "Theme": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thème"
+          }
+        }
+      }
+    },
+    "Background": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrière-plan"
+          }
+        }
+      }
+    },
+    "Opacity": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opacité"
+          }
+        }
+      }
+    },
+    "Surface opacity": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opacité du fond"
+          }
+        }
+      }
+    },
+    "Accent": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couleur d’accentuation"
+          }
+        }
+      }
+    },
+    "Display": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affichage"
+          }
+        }
+      }
+    },
+    "Show": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher"
+          }
+        }
+      }
+    },
+    "Used": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilisé"
+          }
+        }
+      }
+    },
+    "Remaining": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restant"
+          }
+        }
+      }
+    },
+    "Percentage shown": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pourcentage affiché"
+          }
+        }
+      }
+    },
+    "Percent shown": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pourcentage affiché"
+          }
+        }
+      }
+    },
+    "Show percent symbol": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher le symbole %"
+          }
+        }
+      }
+    },
+    "Provider": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fournisseur"
+          }
+        }
+      }
+    },
+    "Providers": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fournisseurs"
+          }
+        }
+      }
+    },
+    "Demo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démo"
+          }
+        }
+      }
+    },
+    "Try demo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayer la démo"
+          }
+        }
+      }
+    },
+    "Dashboard": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tableau de bord"
+          }
+        }
+      }
+    },
+    "Edit dashboard": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier le tableau de bord"
+          }
+        }
+      }
+    },
+    "Latest models": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Derniers modèles"
+          }
+        }
+      }
+    },
+    "View all models": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voir tous les modèles"
+          }
+        }
+      }
+    },
+    "Available on your account": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disponible sur votre compte"
+          }
+        }
+      }
+    },
+    "Provider catalog": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catalogue du fournisseur"
+          }
+        }
+      }
+    },
+    "Waiting for models": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente des modèles"
+          }
+        }
+      }
+    },
+    "New models": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveaux modèles"
+          }
+        }
+      }
+    },
+    "New Codex model alerts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertes de nouveaux modèles"
+          }
+        }
+      }
+    },
+    "Notify when a new model becomes available in your Codex model picker": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Être averti lorsqu’un nouveau modèle est détecté chez un fournisseur connecté"
+          }
+        }
+      }
+    },
+    "Usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilisation"
+          }
+        }
+      }
+    },
+    "Codex usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotas des modèles"
+          }
+        }
+      }
+    },
+    "5-hour limit": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota de 5 heures"
+          }
+        }
+      }
+    },
+    "5-hour allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota de 5 heures"
+          }
+        }
+      }
+    },
+    "Five-hour": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 heures"
+          }
+        }
+      }
+    },
+    "Weekly limit": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota hebdomadaire"
+          }
+        }
+      }
+    },
+    "Weekly allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota hebdomadaire"
+          }
+        }
+      }
+    },
+    "Week": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semaine"
+          }
+        }
+      }
+    },
+    "Monthly": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensuel"
+          }
+        }
+      }
+    },
+    "Monthly limit": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota mensuel"
+          }
+        }
+      }
+    },
+    "Monthly allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota mensuel"
+          }
+        }
+      }
+    },
+    "Month": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mois"
+          }
+        }
+      }
+    },
+    "Both": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les deux"
+          }
+        }
+      }
+    },
+    "Allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota"
+          }
+        }
+      }
+    },
+    "Additional limits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotas supplémentaires"
+          }
+        }
+      }
+    },
+    "Additional model limits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotas des autres modèles"
+          }
+        }
+      }
+    },
+    "Available Codex reset credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crédits de réinitialisation Codex disponibles"
+          }
+        }
+      }
+    },
+    "Reset credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crédits de réinitialisation"
+          }
+        }
+      }
+    },
+    "No reset credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun crédit de réinitialisation"
+          }
+        }
+      }
+    },
+    "Reset allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réinitialiser le quota"
+          }
+        }
+      }
+    },
+    "Next reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prochaine réinitialisation"
+          }
+        }
+      }
+    },
+    "Time remaining until the next usage reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temps restant avant la prochaine réinitialisation du quota"
+          }
+        }
+      }
+    },
+    "Low usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota faible"
+          }
+        }
+      }
+    },
+    "Allowance running low": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota bientôt épuisé"
+          }
+        }
+      }
+    },
+    "Allowance replenished": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota rechargé"
+          }
+        }
+      }
+    },
+    "Usage-credit balance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solde des crédits d’utilisation"
+          }
+        }
+      }
+    },
+    "Usage credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crédits d’utilisation"
+          }
+        }
+      }
+    },
+    "Usage history": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historique d’utilisation"
+          }
+        }
+      }
+    },
+    "View history": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voir l’historique"
+          }
+        }
+      }
+    },
+    "Clear history": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer l’historique"
+          }
+        }
+      }
+    },
+    "No history yet": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun historique pour le moment"
+          }
+        }
+      }
+    },
+    "Estimated usage time": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temps d’utilisation estimé"
+          }
+        }
+      }
+    },
+    "Usage estimates": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimations d’utilisation"
+          }
+        }
+      }
+    },
+    "Usage pace": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rythme d’utilisation"
+          }
+        }
+      }
+    },
+    "Pace": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rythme"
+          }
+        }
+      }
+    },
+    "Warning sensitivity": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sensibilité des avertissements"
+          }
+        }
+      }
+    },
+    "Balanced": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Équilibré"
+          }
+        }
+      }
+    },
+    "Conservative": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prudent"
+          }
+        }
+      }
+    },
+    "Sensitive": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sensible"
+          }
+        }
+      }
+    },
+    "Relaxed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tolérant"
+          }
+        }
+      }
+    },
+    "Automatic": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatique"
+          }
+        }
+      }
+    },
+    "Manual": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manuel"
+          }
+        }
+      }
+    },
+    "Off": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désactivé"
+          }
+        }
+      }
+    },
+    "On": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activé"
+          }
+        }
+      }
+    },
+    "Enabled": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activé"
+          }
+        }
+      }
+    },
+    "Disabled": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désactivé"
+          }
+        }
+      }
+    },
+    "Never": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jamais"
+          }
+        }
+      }
+    },
+    "General": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Général"
+          }
+        }
+      }
+    },
+    "Features": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fonctionnalités"
+          }
+        }
+      }
+    },
+    "App & data": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Application et données"
+          }
+        }
+      }
+    },
+    "Refresh & usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation et quotas"
+          }
+        }
+      }
+    },
+    "Refresh mode": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode d’actualisation"
+          }
+        }
+      }
+    },
+    "Manual interval": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intervalle manuel"
+          }
+        }
+      }
+    },
+    "Adapts to remaining usage, app attention, reset timing, and recent failures": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "S’adapte aux quotas restants, à l’utilisation de l’app, aux réinitialisations et aux échecs récents"
+          }
+        }
+      }
+    },
+    "Arrange usage cards and choose which ones appear": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réorganiser les cartes et choisir celles à afficher"
+          }
+        }
+      }
+    },
+    "Shown only when OpenAI returns this window": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affiché uniquement si OpenAI fournit ce quota"
+          }
+        }
+      }
+    },
+    "Shown only when a 5-hour or weekly window is available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affiché lorsqu’un quota de 5 heures ou hebdomadaire est disponible"
+          }
+        }
+      }
+    },
+    "Model-specific limits such as GPT-5.3-Codex-Spark": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotas propres à certains modèles, comme GPT-5.3-Codex-Spark"
+          }
+        }
+      }
+    },
+    "Hidden automatically at a zero or negative balance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masqué automatiquement si le solde est nul ou négatif"
+          }
+        }
+      }
+    },
+    "Hidden automatically when no resets are available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masqué automatiquement si aucun crédit n’est disponible"
+          }
+        }
+      }
+    },
+    "Project how long the current allowance may last": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimer combien de temps le quota actuel peut durer"
+          }
+        }
+      }
+    },
+    "Use the system color palette when available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser la palette du système lorsqu’elle est disponible"
+          }
+        }
+      }
+    },
+    "Delivery style": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode d’alerte"
+          }
+        }
+      }
+    },
+    "Alert for": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alerter pour"
+          }
+        }
+      }
+    },
+    "Alert when remaining reaches": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alerter quand le quota restant atteint"
+          }
+        }
+      }
+    },
+    "System notification access": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accès aux notifications système"
+          }
+        }
+      }
+    },
+    "Not requested": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non demandée"
+          }
+        }
+      }
+    },
+    "Denied": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refusée"
+          }
+        }
+      }
+    },
+    "Allowed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisée"
+          }
+        }
+      }
+    },
+    "Provisional": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Provisoire"
+          }
+        }
+      }
+    },
+    "Temporary": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temporaire"
+          }
+        }
+      }
+    },
+    "Notification": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notification"
+          }
+        }
+      }
+    },
+    "Silent": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silencieux"
+          }
+        }
+      }
+    },
+    "Alarm": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarme"
+          }
+        }
+      }
+    },
+    "Verify alert delivery now": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier la réception des alertes"
+          }
+        }
+      }
+    },
+    "Usage and account activity alerts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertes de quota et d’activité du compte"
+          }
+        }
+      }
+    },
+    "Account activity": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activité du compte"
+          }
+        }
+      }
+    },
+    "Surprise limit refills": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recharges inattendues des quotas"
+          }
+        }
+      }
+    },
+    "An allowance reaches 100% before its scheduled reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un quota retrouve 100 % avant sa réinitialisation prévue"
+          }
+        }
+      }
+    },
+    "New reset credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveaux crédits de réinitialisation"
+          }
+        }
+      }
+    },
+    "The available reset-credit count increases": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le nombre de crédits disponibles augmente"
+          }
+        }
+      }
+    },
+    "Expiring reset credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expiration des crédits"
+          }
+        }
+      }
+    },
+    "Remind me before an available reset credit expires": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Me rappeler l’expiration prochaine d’un crédit disponible"
+          }
+        }
+      }
+    },
+    "Reminder times": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Délais de rappel"
+          }
+        }
+      }
+    },
+    "Live monitor": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivi en direct"
+          }
+        }
+      }
+    },
+    "Monitor": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivi"
+          }
+        }
+      }
+    },
+    "Start monitor": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrer le suivi"
+          }
+        }
+      }
+    },
+    "Stop monitor": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrêter le suivi"
+          }
+        }
+      }
+    },
+    "Toggle monitor": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activer ou arrêter le suivi"
+          }
+        }
+      }
+    },
+    "Automatic start": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrage automatique"
+          }
+        }
+      }
+    },
+    "Start when allowance is low": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrer lorsque le quota est faible"
+          }
+        }
+      }
+    },
+    "Start when remaining reaches": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrer quand le quota restant atteint"
+          }
+        }
+      }
+    },
+    "Start the monitor when remaining allowance is low": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrer le suivi quand le quota restant est faible"
+          }
+        }
+      }
+    },
+    "Start for accelerated usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrer en cas d’utilisation accélérée"
+          }
+        }
+      }
+    },
+    "Start while usage is projected to run out early": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrer si le quota risque de s’épuiser trop tôt"
+          }
+        }
+      }
+    },
+    "Show remaining Codex allowance until the next usage reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher le quota Codex restant jusqu’à la prochaine réinitialisation"
+          }
+        }
+      }
+    },
+    "Live display mode": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode d’affichage en direct"
+          }
+        }
+      }
+    },
+    "Live notification access": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accès aux notifications en direct"
+          }
+        }
+      }
+    },
+    "Start sample preview": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher un aperçu de test"
+          }
+        }
+      }
+    },
+    "Show a 20-minute sample activity for device testing": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher une activité de test pendant 20 minutes"
+          }
+        }
+      }
+    },
+    "Samsung setup help": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aide à la configuration Samsung"
+          }
+        }
+      }
+    },
+    "Samsung firmware and developer-option guidance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conseils pour le logiciel Samsung et les options développeur"
+          }
+        }
+      }
+    },
+    "More options": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus d’options"
+          }
+        }
+      }
+    },
+    "Updates": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mises à jour"
+          }
+        }
+      }
+    },
+    "Update": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mettre à jour"
+          }
+        }
+      }
+    },
+    "Review update": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Examiner la mise à jour"
+          }
+        }
+      }
+    },
+    "Update available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mise à jour disponible"
+          }
+        }
+      }
+    },
+    "Automatic updates": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mises à jour automatiques"
+          }
+        }
+      }
+    },
+    "Check automatically": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier automatiquement"
+          }
+        }
+      }
+    },
+    "Check for updates": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier les mises à jour"
+          }
+        }
+      }
+    },
+    "Check GitHub now": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier GitHub maintenant"
+          }
+        }
+      }
+    },
+    "Check frequency": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fréquence de vérification"
+          }
+        }
+      }
+    },
+    "Check signed GitHub releases on a schedule": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier régulièrement les versions signées sur GitHub"
+          }
+        }
+      }
+    },
+    "Update channel": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canal de mise à jour"
+          }
+        }
+      }
+    },
+    "Release channel": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canal de publication"
+          }
+        }
+      }
+    },
+    "Stable": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stable"
+          }
+        }
+      }
+    },
+    "Alpha": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alpha"
+          }
+        }
+      }
+    },
+    "Return to stable": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenir à la version stable"
+          }
+        }
+      }
+    },
+    "Release history": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historique des versions"
+          }
+        }
+      }
+    },
+    "Available versions and downgrade requirements": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versions disponibles et conditions de retour à une version antérieure"
+          }
+        }
+      }
+    },
+    "Notify when an update is available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avertir lorsqu’une mise à jour est disponible"
+          }
+        }
+      }
+    },
+    "Show a notification with Open and Update actions": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher une notification avec les actions Ouvrir et Mettre à jour"
+          }
+        }
+      }
+    },
+    "Downloading checksum and APK…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Téléchargement de l’empreinte et de l’APK…"
+          }
+        }
+      }
+    },
+    "Verified. Opening Android’s install confirmation…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifié. Ouverture de la confirmation d’installation Android…"
+          }
+        }
+      }
+    },
+    "Waiting for Android’s install confirmation.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente de la confirmation d’installation Android."
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir"
+          }
+        }
+      }
+    },
+    "Install": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installer"
+          }
+        }
+      }
+    },
+    "Transfer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfert"
+          }
+        }
+      }
+    },
+    "Backup & transfer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sauvegarde et transfert"
+          }
+        }
+      }
+    },
+    "Move settings between devices": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transférer les réglages entre appareils"
+          }
+        }
+      }
+    },
+    "Export settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter les réglages"
+          }
+        }
+      }
+    },
+    "Import settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importer les réglages"
+          }
+        }
+      }
+    },
+    "Save selected settings and optional sign-in data": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer les réglages sélectionnés et, si souhaité, les données de connexion"
+          }
+        }
+      }
+    },
+    "Restore selected sections from a transfer file": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurer les sections choisies depuis un fichier de transfert"
+          }
+        }
+      }
+    },
+    "Sensitive data protection": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protection des données sensibles"
+          }
+        }
+      }
+    },
+    "Protect authentication exports": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protéger les exports d’authentification"
+          }
+        }
+      }
+    },
+    "Authentication exports include ChatGPT tokens. Anyone with the file can use your account, so keep it private.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les exports d’authentification contiennent les jetons ChatGPT. Toute personne possédant ce fichier peut utiliser votre compte : gardez-le privé."
+          }
+        }
+      }
+    },
+    "Your data": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vos données"
+          }
+        }
+      }
+    },
+    "Security": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sécurité"
+          }
+        }
+      }
+    },
+    "Local storage, encryption, and network access": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage local, chiffrement et accès réseau"
+          }
+        }
+      }
+    },
+    "Encrypted local storage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage local chiffré"
+          }
+        }
+      }
+    },
+    "Direct network access": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accès direct au réseau"
+          }
+        }
+      }
+    },
+    "OAuth tokens are encrypted with Android Keystore and remain on this device.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les jetons OAuth sont chiffrés avec Android Keystore et restent sur cet appareil."
+          }
+        }
+      }
+    },
+    "Models Meter connects directly to OpenAI for authentication and to ChatGPT and Codex endpoints for usage data. There is no Models Meter backend.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models Meter contacte directement les services des fournisseurs pour l’authentification et les quotas. Models Meter ne possède aucun serveur intermédiaire."
+          }
+        }
+      }
+    },
+    "Troubleshooting": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dépannage"
+          }
+        }
+      }
+    },
+    "Diagnostics": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diagnostic"
+          }
+        }
+      }
+    },
+    "Log tracing": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journalisation"
+          }
+        }
+      }
+    },
+    "Record detailed app, refresh, scheduler, and network events": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer les événements détaillés de l’app, des actualisations, de la planification et du réseau"
+          }
+        }
+      }
+    },
+    "Saved logs": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journaux enregistrés"
+          }
+        }
+      }
+    },
+    "Save diagnostic logs": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer les journaux de diagnostic"
+          }
+        }
+      }
+    },
+    "Export logs": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter les journaux"
+          }
+        }
+      }
+    },
+    "Save a structured JSON Lines file": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer un fichier structuré au format JSON Lines"
+          }
+        }
+      }
+    },
+    "Clear logs": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer les journaux"
+          }
+        }
+      }
+    },
+    "Permanently delete saved diagnostic events": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer définitivement les événements de diagnostic enregistrés"
+          }
+        }
+      }
+    },
+    "Logs stay in private app storage until you export or clear them. Authentication tokens, cookies, authorization codes, email addresses, URL queries, and request/response bodies are never intentionally recorded. Review an export before sharing it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les journaux restent dans le stockage privé de l’app jusqu’à leur export ou suppression. Les jetons, cookies, codes d’autorisation, adresses e-mail, paramètres d’URL et contenus des requêtes et réponses ne sont pas enregistrés intentionnellement. Vérifiez un export avant de le partager."
+          }
+        }
+      }
+    },
+    "Your Codex allowance, without having to go looking for it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vos quotas Codex, sans avoir à les chercher."
+          }
+        }
+      }
+    },
+    "Your Codex allowance at a glance.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vos quotas Codex en un coup d’œil."
+          }
+        }
+      }
+    },
+    "Made by": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Développé par"
+          }
+        }
+      }
+    },
+    "Original creator": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créateur du projet original"
+          }
+        }
+      }
+    },
+    "Open source projects": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Projets open source"
+          }
+        }
+      }
+    },
+    "Legal": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mentions légales"
+          }
+        }
+      }
+    },
+    "Privacy and security": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confidentialité et sécurité"
+          }
+        }
+      }
+    },
+    "Developer of Codex Meter, the original project.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Développeur de Codex Meter, le projet original."
+          }
+        }
+      }
+    },
+    "The SESL and One UI components behind the app’s interface.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les composants SESL et One UI utilisés pour l’interface de l’app."
+          }
+        }
+      }
+    },
+    "Tokens stay encrypted on this device. Models Meter contains no analytics SDK and is not affiliated with OpenAI.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les jetons restent chiffrés sur cet appareil. Models Meter ne contient aucun SDK d’analyse et n’est pas affilié à OpenAI."
+          }
+        }
+      }
+    },
+    "Account avatar": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avatar du compte"
+          }
+        }
+      }
+    },
+    "Names of available Codex models, with new discoveries first.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noms des modèles du fournisseur choisi, avec les nouveautés en premier."
+          }
+        }
+      }
+    },
+    "Open Models Meter and sign in to see your models.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrez Models Meter et connectez-vous pour voir vos modèles."
+          }
+        }
+      }
+    },
+    "Refresh to discover the models available on your account.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisez pour découvrir les modèles disponibles sur votre compte."
+          }
+        }
+      }
+    },
+    "No visible models were reported for this account.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun modèle visible n’a été signalé pour ce compte."
+          }
+        }
+      }
+    },
+    "New discoveries first · Tap to view all": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveautés en premier · Toucher pour tout voir"
+          }
+        }
+      }
+    },
+    "Checked %1$s": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifié %1$s"
+          }
+        }
+      }
+    },
+    "Configure Models Meter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurer Models Meter"
+          }
+        }
+      }
+    },
+    "Customize widget": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personnaliser le widget"
+          }
+        }
+      }
+    },
+    "Widget updated.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widget actualisé."
+          }
+        }
+      }
+    },
+    "No widget was selected.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun widget n’a été sélectionné."
+          }
+        }
+      }
+    },
+    "Tap action": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Action au toucher"
+          }
+        }
+      }
+    },
+    "Open app": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir l’app"
+          }
+        }
+      }
+    },
+    "Bars": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barres"
+          }
+        }
+      }
+    },
+    "Rings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anneaux"
+          }
+        }
+      }
+    },
+    "Dials": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cadrans"
+          }
+        }
+      }
+    },
+    "Minimal": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimal"
+          }
+        }
+      }
+    },
+    "Meters": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indicateurs"
+          }
+        }
+      }
+    },
+    "Style": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Style"
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aujourd’hui"
+          }
+        }
+      }
+    },
+    "Yesterday": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hier"
+          }
+        }
+      }
+    },
+    "Tomorrow": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demain"
+          }
+        }
+      }
+    },
+    "Just now": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À l’instant"
+          }
+        }
+      }
+    },
+    "Updated just now": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisé à l’instant"
+          }
+        }
+      }
+    },
+    "Tap to refresh": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toucher pour actualiser"
+          }
+        }
+      }
+    },
+    "Tap refresh to load usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touchez Actualiser pour charger les quotas"
+          }
+        }
+      }
+    },
+    "Open the app to connect ChatGPT": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrez l’app pour connecter ChatGPT"
+          }
+        }
+      }
+    },
+    "Tap anywhere to sign in": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touchez le widget pour vous connecter"
+          }
+        }
+      }
+    },
+    "Tap to connect": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toucher pour connecter"
+          }
+        }
+      }
+    },
+    "Waiting for phone": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente du téléphone"
+          }
+        }
+      }
+    },
+    "Phone paired · waiting for sync": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Téléphone associé · en attente de synchronisation"
+          }
+        }
+      }
+    },
+    "Sign in on phone": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se connecter sur le téléphone"
+          }
+        }
+      }
+    },
+    "Refreshing from phone…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation depuis le téléphone…"
+          }
+        }
+      }
+    },
+    "Refresh requested": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation demandée"
+          }
+        }
+      }
+    },
+    "Refresh failed · %1$s": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échec de l’actualisation · %1$s"
+          }
+        }
+      }
+    },
+    "Phone paired · %1$s": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Téléphone associé · %1$s"
+          }
+        }
+      }
+    },
+    "Stale · %1$s": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anciennes données · %1$s"
+          }
+        }
+      }
+    },
+    "Enable notifications for live monitor": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisez les notifications pour le suivi en direct"
+          }
+        }
+      }
+    },
+    "Waiting for phone usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente des quotas du téléphone"
+          }
+        }
+      }
+    },
+    "Glanceable surfaces": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affichages rapides"
+          }
+        }
+      }
+    },
+    "Surface": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affichage"
+          }
+        }
+      }
+    },
+    "Low start": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrage si quota faible"
+          }
+        }
+      }
+    },
+    "Metric": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indicateur"
+          }
+        }
+      }
+    },
+    "Threshold": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seuil"
+          }
+        }
+      }
+    },
+    "Pace sensitivity": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sensibilité du rythme"
+          }
+        }
+      }
+    },
+    "Fast start": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrage rapide"
+          }
+        }
+      }
+    },
+    "Connection expired or access denied. Reconnect this provider.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connexion expirée ou accès refusé. Reconnectez ce fournisseur."
+          }
+        }
+      }
+    },
+    "Enter a valid credential.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez un identifiant valide."
+          }
+        }
+      }
+    },
+    "Provider response is too large.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La réponse du fournisseur est trop volumineuse."
+          }
+        }
+      }
+    },
+    "Could not save credentials.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible d’enregistrer les identifiants."
+          }
+        }
+      }
+    },
+    "Session / OAuth token": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Session / jeton OAuth"
+          }
+        }
+      }
+    },
+    "API key": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clé API"
+          }
+        }
+      }
+    },
+    "5 minutes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 minutes"
+          }
+        }
+      }
+    },
+    "10 minutes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 minutes"
+          }
+        }
+      }
+    },
+    "15 minutes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "15 minutes"
+          }
+        }
+      }
+    },
+    "30 minutes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 minutes"
+          }
+        }
+      }
+    },
+    "60 minutes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "60 minutes"
+          }
+        }
+      }
+    },
+    "10% or lower": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 % ou moins"
+          }
+        }
+      }
+    },
+    "25% or lower": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "25 % ou moins"
+          }
+        }
+      }
+    },
+    "50% or lower": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "50 % ou moins"
+          }
+        }
+      }
+    },
+    "75% or lower": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "75 % ou moins"
+          }
+        }
+      }
+    },
+    "5-hour usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilisation sur 5 heures"
+          }
+        }
+      }
+    },
+    "Weekly usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilisation hebdomadaire"
+          }
+        }
+      }
+    },
+    "73% left": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "73 % restants"
+          }
+        }
+      }
+    },
+    "44% left": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "44 % restants"
+          }
+        }
+      }
+    },
+    "2 resets · next expires in 3d": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 crédits · prochaine expiration dans 3 j"
+          }
+        }
+      }
+    },
+    "5h resets 3:42 PM · Week resets Mon 11:00 AM": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 h : 15:42 · Semaine : lun. 11:00"
+          }
+        }
+      }
+    },
+    "Adaptive bars, rings, and dials for five-hour and weekly Codex usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barres, anneaux et cadrans adaptatifs pour les quotas du fournisseur choisi"
+          }
+        }
+      }
+    },
+    "Alarm sound": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son d’alarme"
+          }
+        }
+      }
+    },
+    "Notification sound": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son de notification"
+          }
+        }
+      }
+    },
+    "Alpha (early builds)": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alpha (versions préliminaires)"
+          }
+        }
+      }
+    },
+    "Automatic (recommended)": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatique (recommandé)"
+          }
+        }
+      }
+    },
+    "Automatically picks Live Update when available, otherwise Ongoing Activity.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisit automatiquement Live Update si disponible, sinon Ongoing Activity."
+          }
+        }
+      }
+    },
+    "Codex 5-hour": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · 5 heures"
+          }
+        }
+      }
+    },
+    "Codex Wear live monitor": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivi Models Meter sur Wear OS"
+          }
+        }
+      }
+    },
+    "Codex dual usage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deux quotas Codex"
+          }
+        }
+      }
+    },
+    "Codex monitor": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivi Models Meter"
+          }
+        }
+      }
+    },
+    "Codex next reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prochaine réinitialisation Codex"
+          }
+        }
+      }
+    },
+    "Codex overview": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aperçu Models Meter"
+          }
+        }
+      }
+    },
+    "Codex usage preview": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aperçu des quotas"
+          }
+        }
+      }
+    },
+    "Codex weekly": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota hebdomadaire Codex"
+          }
+        }
+      }
+    },
+    "Codex · 5-hour": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · 5 heures"
+          }
+        }
+      }
+    },
+    "Codex · Bars · Square": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Barres · Carré"
+          }
+        }
+      }
+    },
+    "Codex · Bars · Wide": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Barres · Large"
+          }
+        }
+      }
+    },
+    "Codex · Gauges · Square": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Cadrans · Carré"
+          }
+        }
+      }
+    },
+    "Codex · Gauges · Wide": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Cadrans · Large"
+          }
+        }
+      }
+    },
+    "Codex · Numbers · Square": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Chiffres · Carré"
+          }
+        }
+      }
+    },
+    "Codex · Numbers · Wide": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Chiffres · Large"
+          }
+        }
+      }
+    },
+    "Codex · Rings · Square": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Anneaux · Carré"
+          }
+        }
+      }
+    },
+    "Codex · Rings · Wide": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Anneaux · Large"
+          }
+        }
+      }
+    },
+    "Codex · Weekly": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · Hebdomadaire"
+          }
+        }
+      }
+    },
+    "Compact Codex allowance gauges for supported Samsung lock screens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cadrans de quota compacts pour les écrans de verrouillage Samsung compatibles"
+          }
+        }
+      }
+    },
+    "Compact circular Codex allowance rings for supported Samsung lock screens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anneaux de quota compacts pour les écrans de verrouillage Samsung compatibles"
+          }
+        }
+      }
+    },
+    "Compact horizontal Codex allowance bars for supported Samsung lock screens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barres de quota compactes pour les écrans de verrouillage Samsung compatibles"
+          }
+        }
+      }
+    },
+    "Daily": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque jour"
+          }
+        }
+      }
+    },
+    "Every 12 hours": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les 12 heures"
+          }
+        }
+      }
+    },
+    "Every 6 hours": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les 6 heures"
+          }
+        }
+      }
+    },
+    "Every hour": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les heures"
+          }
+        }
+      }
+    },
+    "Design, development and maintenance. Far too much caffeine consumed in the process.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conception, développement et maintenance. Bien trop de caféine au passage."
+          }
+        }
+      }
+    },
+    "Five-hour Codex allowance gauge for Samsung lock screens and AOD": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cadran du quota de 5 heures pour l’écran de verrouillage Samsung et l’affichage permanent"
+          }
+        }
+      }
+    },
+    "High": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Élevé"
+          }
+        }
+      }
+    },
+    "Low": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faible"
+          }
+        }
+      }
+    },
+    "Medium": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moyen"
+          }
+        }
+      }
+    },
+    "Productivity": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Productivité"
+          }
+        }
+      }
+    },
+    "Resets Monday at 11:00 AM": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réinitialisation lundi à 11:00"
+          }
+        }
+      }
+    },
+    "Resets today at 3:42 PM": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réinitialisation aujourd’hui à 15:42"
+          }
+        }
+      }
+    },
+    "Samsung compatibility": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compatibilité Samsung"
+          }
+        }
+      }
+    },
+    "Shown only while completing browser sign-in": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affiché uniquement pendant la connexion dans le navigateur"
+          }
+        }
+      }
+    },
+    "Square numeric five-hour and weekly Codex allowance for supported Samsung lock screens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotas de 5 heures et hebdomadaire en chiffres, au format carré, pour les écrans de verrouillage Samsung compatibles"
+          }
+        }
+      }
+    },
+    "Two Codex allowance gauges for supported Samsung lock screens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deux cadrans de quota pour les écrans de verrouillage Samsung compatibles"
+          }
+        }
+      }
+    },
+    "Two circular Codex allowance rings for supported Samsung lock screens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deux anneaux de quota pour les écrans de verrouillage Samsung compatibles"
+          }
+        }
+      }
+    },
+    "Two horizontal Codex allowance bars for supported Samsung lock screens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deux barres de quota pour les écrans de verrouillage Samsung compatibles"
+          }
+        }
+      }
+    },
+    "Uses Wear Ongoing Activity for watch-face chips and Recents.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilise Wear Ongoing Activity sur le cadran de montre et dans les applications récentes."
+          }
+        }
+      }
+    },
+    "Uses a local Wear Live Update when supported, with Ongoing Activity for watch-face chips and Recents.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilise Wear Live Update si disponible, avec Ongoing Activity sur le cadran et dans les applications récentes."
+          }
+        }
+      }
+    },
+    "Watch-face and Recents monitor for Codex usage.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivi des quotas sur le cadran et dans les applications récentes."
+          }
+        }
+      }
+    },
+    "Weekly Codex allowance gauge for Samsung lock screens and AOD": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cadran du quota hebdomadaire pour l’écran de verrouillage Samsung et l’affichage permanent"
+          }
+        }
+      }
+    },
+    "Wide numeric five-hour and weekly Codex allowance for supported Samsung lock screens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotas de 5 heures et hebdomadaire en chiffres, au format large, pour les écrans de verrouillage Samsung compatibles"
+          }
+        }
+      }
+    },
+    "ChatGPT sign-in": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connexion ChatGPT"
+          }
+        }
+      }
+    },
+    "Version %1$s": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %1$s"
+          }
+        }
+      }
+    },
+    "%@ allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota %@"
+          }
+        }
+      }
+    },
+    "%@ usage burn chart": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Graphique de consommation %@"
+          }
+        }
+      }
+    },
+    "%@ · %@/month": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@/mois"
+          }
+        }
+      }
+    },
+    "%lld credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld crédits"
+          }
+        }
+      }
+    },
+    "%lld resets available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld crédits disponibles"
+          }
+        }
+      }
+    },
+    "%lld samples": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld relevés"
+          }
+        }
+      }
+    },
+    "%lld samples · %lld completed %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld relevés · %lld %@ terminés"
+          }
+        }
+      }
+    },
+    "1 reset available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 crédit disponible"
+          }
+        }
+      }
+    },
+    "5 hours": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 heures"
+          }
+        }
+      }
+    },
+    "5-hour %@ used, %@ %@ used": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 heures : %@ utilisés, %@ : %@ utilisés"
+          }
+        }
+      }
+    },
+    "5-hour only": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 heures uniquement"
+          }
+        }
+      }
+    },
+    "A configurable circular Codex allowance dial.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un cadran circulaire configurable pour vos quotas."
+          }
+        }
+      }
+    },
+    "Automatic adapts on device to remaining usage, reset timing, recent attention, quiet hours, accelerated usage, and failures. iOS still decides when background work runs.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le mode automatique s’adapte aux quotas restants, aux réinitialisations, à l’activité récente, aux heures calmes, au rythme d’utilisation et aux échecs. iOS décide toujours de l’exécution en arrière-plan."
+          }
+        }
+      }
+    },
+    "Blue": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bleu"
+          }
+        }
+      }
+    },
+    "Green": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vert"
+          }
+        }
+      }
+    },
+    "Orange": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orange"
+          }
+        }
+      }
+    },
+    "Pink": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rose"
+          }
+        }
+      }
+    },
+    "Purple": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Violet"
+          }
+        }
+      }
+    },
+    "Red": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rouge"
+          }
+        }
+      }
+    },
+    "Teal": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bleu-vert"
+          }
+        }
+      }
+    },
+    "Indigo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indigo"
+          }
+        }
+      }
+    },
+    "Both allowance windows": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les deux périodes de quota"
+          }
+        }
+      }
+    },
+    "Both windows": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les deux périodes"
+          }
+        }
+      }
+    },
+    "Both allowance windows or one focused metric with locally updating reset timers.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les deux quotas ou un seul indicateur, avec des comptes à rebours actualisés localement."
+          }
+        }
+      }
+    },
+    "Building history": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Création de l’historique"
+          }
+        }
+      }
+    },
+    "Cached": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En cache"
+          }
+        }
+      }
+    },
+    "Changes save immediately. Usage-credit and reset-credit cards still hide automatically when their inventory is empty or unknown. Usage history stays off the dashboard until OpenAI reports a usage window.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les changements sont enregistrés immédiatement. Les cartes de crédits sont masquées si le solde est vide ou inconnu. L’historique apparaît lorsqu’OpenAI fournit un quota."
+          }
+        }
+      }
+    },
+    "Charts appear once OpenAI reports your 5-hour, weekly, or monthly usage windows.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les graphiques apparaissent lorsqu’OpenAI fournit vos quotas de 5 heures, hebdomadaire ou mensuel."
+          }
+        }
+      }
+    },
+    "Charts appear once OpenAI reports your 5-hour, weekly, or monthly usage windows. Refresh usage from the dashboard to check again.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les graphiques apparaissent lorsqu’OpenAI fournit vos quotas de 5 heures, hebdomadaire ou mensuel. Actualisez le tableau de bord pour vérifier à nouveau."
+          }
+        }
+      }
+    },
+    "Choose which Codex allowance this circular widget shows.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez le quota affiché dans ce widget circulaire."
+          }
+        }
+      }
+    },
+    "Choose which allowance appears, how the widget looks, and what happens when you tap it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez le quota affiché, l’apparence du widget et l’action au toucher."
+          }
+        }
+      }
+    },
+    "Clear": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer"
+          }
+        }
+      }
+    },
+    "Clear diagnostic logs?": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer les journaux de diagnostic ?"
+          }
+        }
+      }
+    },
+    "Clear local history": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer l’historique local"
+          }
+        }
+      }
+    },
+    "Clear usage history?": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer l’historique d’utilisation ?"
+          }
+        }
+      }
+    },
+    "Codex allowances": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotas Codex"
+          }
+        }
+      }
+    },
+    "Configure Codex allowances": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurer les quotas"
+          }
+        }
+      }
+    },
+    "Configure five-hour allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurer le quota de 5 heures"
+          }
+        }
+      }
+    },
+    "Configure weekly allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurer le quota hebdomadaire"
+          }
+        }
+      }
+    },
+    "Confirm reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirmer la réinitialisation"
+          }
+        }
+      }
+    },
+    "Connect your ChatGPT account to see current usage limits, purchased usage credits, reset times, and earned reset credits.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connectez votre compte ChatGPT pour voir vos quotas, crédits d’utilisation, réinitialisations et crédits de réinitialisation."
+          }
+        }
+      }
+    },
+    "Credits": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crédits"
+          }
+        }
+      }
+    },
+    "Current pace may exhaust allowance %@.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Au rythme actuel, le quota pourrait être épuisé %@."
+          }
+        }
+      }
+    },
+    "Customize": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personnaliser"
+          }
+        }
+      }
+    },
+    "Dashboard cards": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartes du tableau de bord"
+          }
+        }
+      }
+    },
+    "Data": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Données"
+          }
+        }
+      }
+    },
+    "Drag the handles to arrange cards and use the switches to hide cards you do not need. Model-specific limits appear automatically when OpenAI reports them.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faites glisser les poignées pour réorganiser les cartes et utilisez les interrupteurs pour les masquer. Les quotas propres aux modèles apparaissent lorsqu’OpenAI les fournit."
+          }
+        }
+      }
+    },
+    "Enabled cards still appear only when data is available. Edit dashboard also controls order and individual model-specific limits.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les cartes activées apparaissent uniquement si des données sont disponibles. La personnalisation du tableau de bord gère aussi l’ordre et les quotas propres aux modèles."
+          }
+        }
+      }
+    },
+    "Estimated exhaustion %@.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Épuisement estimé %@."
+          }
+        }
+      }
+    },
+    "Files": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers"
+          }
+        }
+      }
+    },
+    "Five-hour allowance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota de 5 heures"
+          }
+        }
+      }
+    },
+    "Highlights to show": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informations à afficher"
+          }
+        }
+      }
+    },
+    "How to read the charts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lire les graphiques"
+          }
+        }
+      }
+    },
+    "Insights": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Statistiques"
+          }
+        }
+      }
+    },
+    "Last updated August 14, 2026": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernière mise à jour : 14 août 2026"
+          }
+        }
+      }
+    },
+    "Latest model names from your chosen provider.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noms des derniers modèles du fournisseur choisi."
+          }
+        }
+      }
+    },
+    "Logs stay on this device as sanitized JSONL. Credentials, emails, JWTs, and OAuth query parameters are redacted. Nothing is uploaded.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les journaux restent sur cet appareil au format JSONL expurgé. Les identifiants, e-mails, JWT et paramètres OAuth sont masqués. Rien n’est envoyé."
+          }
+        }
+      }
+    },
+    "Next expires %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prochaine expiration %@"
+          }
+        }
+      }
+    },
+    "No dashboard items are available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune carte disponible"
+          }
+        }
+      }
+    },
+    "No usage yet": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune utilisation pour le moment"
+          }
+        }
+      }
+    },
+    "On-device burn trends improve pace estimates as samples accumulate.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les tendances locales améliorent les estimations du rythme à mesure que les relevés s’accumulent."
+          }
+        }
+      }
+    },
+    "Open Models Meter to sign in": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrez Models Meter pour vous connecter"
+          }
+        }
+      }
+    },
+    "Open dashboard": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir le tableau de bord"
+          }
+        }
+      }
+    },
+    "Open the app to refresh": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrez l’app pour actualiser"
+          }
+        }
+      }
+    },
+    "Opens Models Meter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvre Models Meter"
+          }
+        }
+      }
+    },
+    "Opt-in tracing writes sanitized JSONL logs on this device. Credentials, emails, JWTs, and OAuth query parameters are redacted.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La journalisation facultative écrit des fichiers JSONL expurgés sur cet appareil. Les identifiants, e-mails, JWT et paramètres OAuth sont masqués."
+          }
+        }
+      }
+    },
+    "Refresh usage or choose cards in Edit dashboard.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisez les quotas ou choisissez des cartes dans Modifier le tableau de bord."
+          }
+        }
+      }
+    },
+    "Reset unavailable": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réinitialisation indisponible"
+          }
+        }
+      }
+    },
+    "Rough community estimates comparing plan allowances with API pricing; not a billing statement.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimations communautaires approximatives comparant les quotas aux tarifs API ; il ne s’agit pas d’un relevé de facturation."
+          }
+        }
+      }
+    },
+    "See both Codex allowance windows or focus on one responsive usage dial.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affichez les deux quotas ou un seul cadran adaptatif."
+          }
+        }
+      }
+    },
+    "Series": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Séries"
+          }
+        }
+      }
+    },
+    "Settings exports contain preferences and dashboard choices, never credentials or usage samples.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les exports contiennent les préférences et les choix du tableau de bord, jamais les identifiants ni les relevés d’utilisation."
+          }
+        }
+      }
+    },
+    "Settings transfer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfert des réglages"
+          }
+        }
+      }
+    },
+    "Show %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher %@"
+          }
+        }
+      }
+    },
+    "Show both allowance windows or focus this accessory widget on one.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affichez les deux quotas ou un seul dans ce widget."
+          }
+        }
+      }
+    },
+    "Sign in or explore demo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se connecter ou découvrir la démo"
+          }
+        }
+      }
+    },
+    "Sign in to Models Meter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se connecter à Models Meter"
+          }
+        }
+      }
+    },
+    "Size": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taille"
+          }
+        }
+      }
+    },
+    "Stored logs": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journaux enregistrés"
+          }
+        }
+      }
+    },
+    "Tap repeatedly to unlock diagnostics.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touchez plusieurs fois pour déverrouiller le diagnostic."
+          }
+        }
+      }
+    },
+    "The charts and clear-history action always stay available. Turning a highlight off declutters this page without deleting samples.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les graphiques et l’effacement de l’historique restent disponibles. Masquer une statistique allège cette page sans supprimer les relevés."
+          }
+        }
+      }
+    },
+    "The last successful usage response and bounded allowance samples are stored locally for offline display, burn charts, and pace estimates. You can clear history separately; signing out removes credentials, cached account data, history, background requests, and scheduled notifications.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La dernière réponse reçue et un nombre limité de relevés sont conservés localement pour l’affichage hors connexion, les graphiques et les estimations. L’historique peut être effacé séparément. La déconnexion supprime les identifiants, le cache du compte, l’historique, les requêtes en arrière-plan et les notifications prévues."
+          }
+        }
+      }
+    },
+    "The solid line is this window's usage, faint lines are previous windows, the dotted diagonal is a sustainable pace, and the dashed line is the projection. Drag a chart to inspect any moment. Samples are recorded after each successful refresh and stay on this device.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La ligne pleine représente la période actuelle, les lignes pâles les périodes précédentes, la diagonale pointillée un rythme soutenable et les tirets la projection. Faites glisser le graphique pour explorer un instant. Les relevés sont enregistrés après chaque actualisation réussie et restent sur cet appareil."
+          }
+        }
+      }
+    },
+    "This deletes every locally stored diagnostic log file.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tous les journaux de diagnostic locaux seront supprimés."
+          }
+        }
+      }
+    },
+    "This removes every locally stored usage sample. Your latest allowance and account sign-in stay intact.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tous les relevés d’utilisation locaux seront supprimés. Le dernier quota reçu et la connexion au compte sont conservés."
+          }
+        }
+      }
+    },
+    "Unavailable": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indisponible"
+          }
+        }
+      }
+    },
+    "Usage display": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affichage de l’utilisation"
+          }
+        }
+      }
+    },
+    "Usage samples stay on this device. Settings exports include dashboard order, visibility, and hidden model-specific sections, but never credentials or usage data.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les relevés restent sur cet appareil. Les exports de réglages comprennent l’ordre et la visibilité des cartes, jamais les identifiants ni les données d’utilisation."
+          }
+        }
+      }
+    },
+    "View usage history": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voir l’historique d’utilisation"
+          }
+        }
+      }
+    },
+    "Weekly / Monthly only": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hebdomadaire / mensuel uniquement"
+          }
+        }
+      }
+    },
+    "Window": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Période"
+          }
+        }
+      }
+    },
+    "Write diagnostic logs": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer les journaux de diagnostic"
+          }
+        }
+      }
+    },
+    "percent remaining": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pour cent restants"
+          }
+        }
+      }
+    },
+    "percent used": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pour cent utilisés"
+          }
+        }
+      }
+    },
+    "reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "crédit"
+          }
+        }
+      }
+    },
+    "Usage, quotas and new models for ChatGPT, Anthropic, Cursor and OpenCode Go.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilisation, quotas et nouveaux modèles pour ChatGPT, Anthropic, Cursor et OpenCode Go."
+          }
+        }
+      }
+    },
+    "Models Meter is an independent fork of Codex Meter.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models Meter est un fork indépendant de Codex Meter."
+          }
+        }
+      }
+    },
+    "Theo · scorpion7slayer — Models Meter developer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo · scorpion7slayer — développeur de Models Meter"
+          }
+        }
+      }
+    },
+    "BenIt Buhner — original project developer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BenIt Buhner — développeur du projet original"
+          }
+        }
+      }
+    },
+    "That Josh Guy — original project developer and designer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That Josh Guy — développeur et designer du projet original"
+          }
+        }
+      }
+    },
+    "Original project developers": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Développeurs du projet original"
+          }
+        }
+      }
+    },
+    "Models Meter is not affiliated with OpenAI, Anthropic, Cursor or OpenCode. Provider names and logos belong to their respective owners. Account routes may change without notice.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models Meter n’est affilié ni à OpenAI, ni à Anthropic, Cursor ou OpenCode. Les noms et logos appartiennent à leurs propriétaires respectifs. Les interfaces des comptes peuvent changer sans préavis."
+          }
+        }
+      }
+    },
+    "Models Meter has no analytics, advertising, app account or relay server. Authentication and usage requests go directly to the provider you connect. The public Anthropic model catalog comes from models.dev.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models Meter ne contient ni analyse d’audience, ni publicité, ni compte propre à l’app, ni serveur relais. Les demandes de connexion et de quotas vont directement au fournisseur connecté. Le catalogue public de modèles Anthropic provient de models.dev."
+          }
+        }
+      }
+    },
+    "Tokens, API keys and session credentials are stored in Apple Keychain on this device. Login pages use a temporary browser session. Widgets receive only display data, never credentials or account identifiers.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les jetons, clés API et identifiants de session sont stockés dans le trousseau Apple de cet appareil. Les pages de connexion utilisent une session de navigation temporaire. Les widgets ne reçoivent que des données d’affichage, jamais d’identifiants de connexion ou de compte."
+          }
+        }
+      }
+    },
+    "Last updated September 7, 2026": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernière mise à jour le 7 septembre 2026"
+          }
+        }
+      }
+    },
+    "Open the app to connect": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrez l’app pour connecter"
+          }
+        }
+      }
+    },
+    "Codex allowance refilled": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota Codex rechargé"
+          }
+        }
+      }
+    },
+    "5-hour Codex allowance refilled": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota Codex de 5 heures rechargé"
+          }
+        }
+      }
+    },
+    "Monthly Codex allowance refilled": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota Codex mensuel rechargé"
+          }
+        }
+      }
+    },
+    "Weekly Codex allowance refilled": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota Codex hebdomadaire rechargé"
+          }
+        }
+      }
+    },
+    "New model alerts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertes de nouveaux modèles"
+          }
+        }
+      }
+    },
+    "Models Meter connects directly to each selected provider for account data. The public Anthropic model catalog comes from models.dev. There is no Models Meter backend.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models Meter contacte directement chaque fournisseur sélectionné pour les données du compte. Le catalogue public Anthropic provient de models.dev. Models Meter n’a pas de serveur relais."
+          }
+        }
+      }
+    },
+    "Tokens, session credentials and API keys are encrypted with Android Keystore on this device.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les jetons, identifiants de session et clés API sont chiffrés avec Android Keystore sur cet appareil."
+          }
+        }
+      }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

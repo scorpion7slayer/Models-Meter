@@ -40,14 +40,14 @@ public enum UsageFormat {
         showsPercentSymbol: Bool = true
     ) -> String {
         guard let window else {
-            return compact ? "—" : "Unavailable"
+            return compact ? "—" : MeterL10n.text("Unavailable", "Indisponible")
         }
         let value = display == .used ? window.usedPercent : window.remainingPercent
         let number = showsPercentSymbol ? "\(value)%" : "\(value)"
         guard !compact else {
             return number
         }
-        return "\(number) \(display == .used ? "used" : "left")"
+        return "\(number) \(display == .used ? MeterL10n.text("used", "utilisés") : MeterL10n.text("left", "restants"))"
     }
 
     public static func reset(
@@ -56,14 +56,14 @@ public enum UsageFormat {
         fetchedAt: Date,
         now: Date = Date(),
         calendar: Calendar = .current,
-        locale: Locale = .current,
+        locale: Locale = MeterL10n.language.locale,
         uses24HourClock: Bool = false
     ) -> String {
         guard let window, display != .hidden, window.showsResetCountdown else {
             return ""
         }
         guard let resetAt = window.effectiveResetDate(relativeTo: fetchedAt) else {
-            return "Reset time unavailable"
+            return MeterL10n.text("Reset time unavailable", "Date de réinitialisation indisponible")
         }
 
         let absolute = absolute(
@@ -78,11 +78,11 @@ public enum UsageFormat {
         case .hidden:
             return ""
         case .relative:
-            return "Resets \(relative)"
+            return MeterL10n.text("Resets ", "Réinitialisation ") + relative
         case .both:
-            return "Resets \(absolute) (\(relative))"
+            return MeterL10n.text("Resets ", "Réinitialisation ") + "\(absolute) (\(relative))"
         case .absolute:
-            return "Resets \(absolute)"
+            return MeterL10n.text("Resets ", "Réinitialisation ") + absolute
         }
     }
 
@@ -90,21 +90,21 @@ public enum UsageFormat {
         _ date: Date,
         relativeTo now: Date,
         calendar: Calendar = .current,
-        locale: Locale = .current,
+        locale: Locale = MeterL10n.language.locale,
         uses24HourClock: Bool = false
     ) -> String {
         let prefix: String
         if calendar.isDate(date, inSameDayAs: now) {
-            prefix = "today at"
+            prefix = MeterL10n.text("today at", "aujourd’hui à")
         } else if let tomorrow = calendar.date(byAdding: .day, value: 1, to: now),
                   calendar.isDate(date, inSameDayAs: tomorrow) {
-            prefix = "tomorrow at"
+            prefix = MeterL10n.text("tomorrow at", "demain à")
         } else {
             let dayFormatter = DateFormatter()
             dayFormatter.calendar = calendar
             dayFormatter.locale = locale
             dayFormatter.dateFormat = "EEE, MMM d"
-            prefix = "\(dayFormatter.string(from: date)) at"
+            prefix = dayFormatter.string(from: date) + MeterL10n.text(" at", " à")
         }
 
         let timeFormatter = DateFormatter()
@@ -120,26 +120,26 @@ public enum UsageFormat {
         let hours = (totalMinutes % 1_440) / 60
         let minutes = totalMinutes % 60
         if days > 0 {
-            return "in \(days)d \(hours)h"
+            return MeterL10n.text("in \(days)d \(hours)h", "dans \(days) j \(hours) h")
         }
         if hours > 0 {
-            return "in \(hours)h \(minutes)m"
+            return MeterL10n.text("in \(hours)h \(minutes)m", "dans \(hours) h \(minutes) min")
         }
-        return totalMinutes > 0 ? "in \(totalMinutes)m" : "now"
+        return totalMinutes > 0 ? MeterL10n.text("in \(totalMinutes)m", "dans \(totalMinutes) min") : MeterL10n.text("now", "maintenant")
     }
 
     public static func updated(fetchedAt: Date?, now: Date = Date()) -> String {
         guard let fetchedAt else {
-            return "Not updated yet"
+            return MeterL10n.text("Not updated yet", "Pas encore actualisé")
         }
         let minutes = Int64(max(0, now.timeIntervalSince(fetchedAt)) / 60)
         if minutes < 1 {
-            return "Updated just now"
+            return MeterL10n.text("Updated just now", "Actualisé à l’instant")
         }
         if minutes < 60 {
-            return "Updated \(minutes)m ago"
+            return MeterL10n.text("Updated \(minutes)m ago", "Actualisé il y a \(minutes) min")
         }
         let hours = minutes / 60
-        return hours < 24 ? "Updated \(hours)h ago" : "Updated \(hours / 24)d ago"
+        return hours < 24 ? MeterL10n.text("Updated \(hours)h ago", "Actualisé il y a \(hours) h") : MeterL10n.text("Updated \(hours / 24)d ago", "Actualisé il y a \(hours / 24) j")
     }
 }

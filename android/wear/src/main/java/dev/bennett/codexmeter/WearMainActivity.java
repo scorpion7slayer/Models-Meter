@@ -20,6 +20,10 @@ import dev.bennett.codexmeter.wear.WearSyncPaths;
 import dev.bennett.codexmeter.wear.WearSyncStatus;
 
 public final class WearMainActivity extends Activity implements DataClient.OnDataChangedListener {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private static final int REQUEST_NOTIFICATIONS = 8714;
     private TextView accountValue;
     private TextView creditsValue;
@@ -40,18 +44,26 @@ public final class WearMainActivity extends Activity implements DataClient.OnDat
         toggleMonitorButton = findViewById(R.id.toggle_monitor_button);
         findViewById(R.id.refresh_button).setOnClickListener(view -> {
             WearPhoneSync.sendMessageToPhone(this, WearSyncPaths.MSG_REFRESH);
-            statusValue.setText(R.string.wear_refresh_requested);
+            statusValue.setText(dev.bennett.codexmeter.Translations.t(R.string.wear_refresh_requested));
         });
         toggleMonitorButton.setOnClickListener(view -> toggleMonitor());
         findViewById(R.id.settings_button)
                 .setOnClickListener(view -> startActivity(new Intent(this,
                         WearSettingsActivity.class)));
+        findViewById(R.id.provider_button).setOnClickListener(view -> new android.app.AlertDialog.Builder(this)
+                .setTitle(dev.bennett.codexmeter.Translations.t(L10n.text(this, "Provider", "Fournisseur")))
+                .setSingleChoiceItems(Provider.labels(), WearProviders.selected(this).ordinal(), (dialog, which) -> {
+                    WearProviders.select(this, Provider.values()[which]); dialog.dismiss(); refreshUi();
+                }).show());
         refreshUi();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (!getResources().getConfiguration().getLocales().get(0).getLanguage().equals(L10n.locale(this).getLanguage())) {
+            recreate(); return;
+        }
         refreshUi();
         WearPhoneSync.syncFromPhone(this, this::refreshUi);
         Wearable.getNodeClient(this).getConnectedNodes()
@@ -101,19 +113,21 @@ public final class WearMainActivity extends Activity implements DataClient.OnDat
         WearPhoneSync.pushSettings(this);
         WearPhoneSync.sendMessageToPhone(this, WearSyncPaths.MSG_START_MONITOR);
         if (!WearOngoingMonitor.start(this)) {
-            statusValue.setText(R.string.wear_monitor_waiting);
+            statusValue.setText(dev.bennett.codexmeter.Translations.t(R.string.wear_monitor_waiting));
         }
     }
 
     private void refreshUi() {
+        ((Button) findViewById(R.id.provider_button)).setText(dev.bennett.codexmeter.Translations.t(WearProviders.selected(this).label + " ▾"));
+        ((TextView) findViewById(R.id.models_value)).setText(dev.bennett.codexmeter.Translations.t(WearProviders.modelNames(this)));
         UsageSnapshot snapshot = WearPreferences.loadSnapshot(this);
         UsageWindow fiveHour = WearGlanceFormat.currentFiveHour(snapshot);
         UsageWindow longWindow = WearGlanceFormat.currentLongWindow(snapshot);
-        fiveHourValue.setText(WearGlanceFormat.remainingPercentText(fiveHour));
-        weeklyValue.setText(getString(R.string.wear_long_window_value,
+        fiveHourValue.setText(dev.bennett.codexmeter.Translations.t(WearGlanceFormat.remainingPercentText(fiveHour)));
+        weeklyValue.setText(dev.bennett.codexmeter.Translations.t(getString(R.string.wear_long_window_value,
                 WearGlanceFormat.longWindowShortLabel(snapshot),
-                WearGlanceFormat.remainingPercentText(longWindow)));
-        accountValue.setText(WearGlanceFormat.accountStatus(snapshot));
+                WearGlanceFormat.remainingPercentText(longWindow))));
+        accountValue.setText(dev.bennett.codexmeter.Translations.t(WearGlanceFormat.accountStatus(snapshot)));
         String details = WearGlanceFormat.resetCreditsText(snapshot);
         WearSettingsState settings = WearPreferences.settingsState(this, 0L,
                 WearSettingsState.SOURCE_WEAR);
@@ -123,16 +137,23 @@ public final class WearMainActivity extends Activity implements DataClient.OnDat
         if (!pace.isEmpty()) {
             details = details.isEmpty() ? pace : details + " · " + pace;
         }
-        creditsValue.setText(details);
+        creditsValue.setText(dev.bennett.codexmeter.Translations.t(details));
         creditsValue.setVisibility(details.isEmpty() ? View.GONE : View.VISIBLE);
-        toggleMonitorButton.setText(WearOngoingMonitor.isActive(this)
-                ? R.string.wear_stop_monitor : R.string.wear_start_monitor);
-        statusValue.setText(statusText());
+        toggleMonitorButton.setText(dev.bennett.codexmeter.Translations.t(WearOngoingMonitor.isActive(this)
+                ? R.string.wear_stop_monitor : R.string.wear_start_monitor));
+        statusValue.setText(dev.bennett.codexmeter.Translations.t(statusText()));
     }
 
     private String statusText() {
         if (!WearPreferences.isConnected(this)) {
             return getString(R.string.wear_waiting_phone);
+        }
+        if (WearProviders.selected(this) != Provider.CHATGPT) {
+            org.json.JSONObject provider = WearProviders.data(this, WearProviders.selected(this));
+            if (provider == null || !provider.optBoolean("connected")) return getString(R.string.wear_sign_in_phone);
+            UsageSnapshot snapshot = WearProviders.usage(this, WearProviders.selected(this));
+            return snapshot == null ? getString(R.string.wear_waiting_sync)
+                    : L10n.text(this, "Updated ", "Actualisé ") + dev.bennett.codexmeter.LocalizedTime.relative(snapshot.fetchedAtMillis);
         }
         WearSyncStatus status = WearPreferences.syncStatus(this);
         if (status.updatedAtMillis > 0L && !status.signedIn) {
@@ -150,7 +171,7 @@ public final class WearMainActivity extends Activity implements DataClient.OnDat
             return getString(R.string.wear_enable_notifications);
         }
         long last = Math.max(WearPreferences.lastUsageAt(this), status.lastSuccessAtMillis);
-        String ago = last <= 0L ? "synced" : DateUtils.getRelativeTimeSpanString(
+        String ago = last <= 0L ? "synced" : dev.bennett.codexmeter.LocalizedTime.relative(
                 last, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS).toString();
         WearSettingsState settings = WearPreferences.settingsState(this, 0L,
                 WearSettingsState.SOURCE_WEAR);

@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Portable Codex Meter transfer document. Pure JSON — no Android APIs — so the
+ * Portable Models Meter transfer document. Pure JSON — no Android APIs — so the
  * format can be round-tripped in {@link ParserSelfTest}.
  *
  * <p>Authentication sections contain usable ChatGPT OAuth tokens and must never
@@ -87,7 +87,7 @@ public final class SettingsTransfer {
         }
         String format = json.optString("format", "");
         if (!FORMAT.equals(format)) {
-            throw new IllegalArgumentException("Not a Codex Meter transfer file.");
+            throw new IllegalArgumentException("Not a Models Meter transfer file.");
         }
         int version = json.optInt("version", 0);
         if (version < 1 || version > VERSION) {

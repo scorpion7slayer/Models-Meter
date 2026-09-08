@@ -203,6 +203,7 @@ public final class SettingsTransferStore {
         json.put("metric", ResetAlertPreferences.getMetric(context));
         json.put("threshold", ResetAlertPreferences.getThreshold(context));
         json.put("unexpected_refills", ResetAlertPreferences.unexpectedRefillsEnabled(context));
+        json.put("new_models", ResetAlertPreferences.newModelsEnabled(context));
         json.put("reset_credit_increases",
                 ResetAlertPreferences.resetCreditIncreasesEnabled(context));
         json.put("reset_credit_expiry", ResetAlertPreferences.resetCreditExpiryEnabled(context));
@@ -294,6 +295,8 @@ public final class SettingsTransferStore {
         ResetAlertPreferences.setUnexpectedRefillsEnabled(context,
                 json.optBoolean("unexpected_refills",
                         ResetAlertPreferences.unexpectedRefillsEnabled(context)));
+        ResetAlertPreferences.setNewModelsEnabled(context,
+                json.optBoolean("new_models", ResetAlertPreferences.newModelsEnabled(context)));
         ResetAlertPreferences.setResetCreditIncreasesEnabled(context,
                 json.optBoolean("reset_credit_increases",
                         ResetAlertPreferences.resetCreditIncreasesEnabled(context)));

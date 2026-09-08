@@ -4,6 +4,61 @@ import XCTest
 @testable import CodexMeter
 
 final class LiveCodexServiceTests: XCTestCase {
+    func testModelCatalogUsesCodexRouteAndThrottlesChecks() async throws {
+        CodexMeterURLProtocol.reset()
+        defer { CodexMeterURLProtocol.reset() }
+        let session = makeStubbedSession()
+        defer { session.invalidateAndCancel() }
+        let paths = makeCachePaths()
+        defer { paths.remove() }
+        let count = LockedBox(0)
+        CodexMeterURLProtocol.configure { request in
+            count.withValue { $0 += 1 }
+            XCTAssertEqual(request.url?.path, "/backend-api/codex/models")
+            XCTAssertEqual(URLComponents(url: request.url!, resolvingAgainstBaseURL: false)?
+                .queryItems?.first(where: { $0.name == "client_version" })?.value, "0.153.3")
+            XCTAssertEqual(request.value(forHTTPHeaderField: "ChatGPT-Account-Id"), "account-42")
+            XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "Bearer access-token")
+            return try .json(["models": [
+                ["slug": "model-a", "display_name": "Model A", "visibility": "list"],
+                ["slug": "hidden", "visibility": "hide"]
+            ]])
+        }
+        let service = makeLiveService(session: session,
+            store: MemoryTokenStore(validTokens(access: "access-token", account: "account-42")), paths: paths)
+        let catalog = try await service.refreshModels()
+        XCTAssertEqual(catalog?.accountID, "account-42")
+        XCTAssertEqual(catalog?.models.map(\.id), ["model-a"])
+        let throttled = try await service.refreshModels()
+        XCTAssertNil(throttled)
+        XCTAssertEqual(count.read(), 1)
+    }
+
+    func testModelCatalogFailureDoesNotPreventUsageRefresh() async throws {
+        CodexMeterURLProtocol.reset()
+        defer { CodexMeterURLProtocol.reset() }
+        let session = makeStubbedSession()
+        defer { session.invalidateAndCancel() }
+        let paths = makeCachePaths()
+        defer { paths.remove() }
+        CodexMeterURLProtocol.configure { request in
+            switch request.url?.path {
+            case "/backend-api/wham/usage": return try .json(usageResponse())
+            case "/backend-api/wham/rate-limit-reset-credits": return try .json(creditsResponse(count: 2))
+            default: return StubbedHTTPResponse(statusCode: 503)
+            }
+        }
+        let service = makeLiveService(session: session,
+            store: MemoryTokenStore(validTokens(account: "account-42")), paths: paths)
+        do {
+            _ = try await service.refreshModels()
+            XCTFail("Unavailable catalog should fail independently")
+        } catch { }
+        let usage = try await service.refresh()
+        XCTAssertTrue(usage.usage.hasDisplayableData)
+        XCTAssertEqual(usage.credits.availableCount, 2)
+    }
+
     func testRefreshSendsHeadersAndRetriesExactlyOnceAfterUnauthorized() async throws {
         CodexMeterURLProtocol.reset()
         defer { CodexMeterURLProtocol.reset() }

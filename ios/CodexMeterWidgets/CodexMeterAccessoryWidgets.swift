@@ -1,4 +1,5 @@
 import SwiftUI
+import CodexMeterCore
 import WidgetKit
 
 private enum AccessoryMetric {
@@ -80,6 +81,12 @@ private struct ConfiguredAccessoryUsageView: View {
 
     @ViewBuilder
     var body: some View {
+        content
+            .environment(\.locale, MeterL10n.language.locale)
+            .widgetURL(URL(string: "modelsmeter://dashboard?provider=" + entry.provider.rawValue))
+    }
+
+    @ViewBuilder private var content: some View {
         if family == .accessoryCircular {
             switch entry.allowance {
             case .both:
@@ -110,8 +117,7 @@ private struct AccessoryCircularUsageView: View {
         if snapshot.mode == .signedOut {
             Image(systemName: "person.crop.circle.badge.exclamationmark")
                 .font(.title2)
-                .widgetURL(URL(string: "codexmeter://dashboard"))
-                .accessibilityLabel("Sign in to Codex Meter")
+                .accessibilityLabel("Sign in to Models Meter")
         } else {
             Gauge(value: window.usedPercent ?? 0, in: 0...100) {
                 Text(metric.title(in: snapshot))
@@ -128,7 +134,6 @@ private struct AccessoryCircularUsageView: View {
             }
             .gaugeStyle(.accessoryCircularCapacity)
             .widgetAccentable()
-            .widgetURL(URL(string: "codexmeter://dashboard"))
             .accessibilityLabel(Text(metric.title(in: snapshot)))
             .accessibilityValue(percentText(window.usedPercent, symbol: true))
         }
@@ -142,8 +147,7 @@ private struct DualAccessoryCircularUsageView: View {
         if snapshot.mode == .signedOut {
             Image(systemName: "person.crop.circle.badge.exclamationmark")
                 .font(.title2)
-                .widgetURL(URL(string: "codexmeter://dashboard"))
-                .accessibilityLabel("Sign in to Codex Meter")
+                .accessibilityLabel("Sign in to Models Meter")
         } else {
             ZStack {
                 Circle()
@@ -179,7 +183,6 @@ private struct DualAccessoryCircularUsageView: View {
                 .lineLimit(1)
             }
             .padding(2)
-            .widgetURL(URL(string: "codexmeter://dashboard"))
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Both allowance windows")
             .accessibilityValue(
@@ -200,8 +203,7 @@ private struct DualAccessoryUsageView: View {
 
     var body: some View {
         if snapshot.mode == .signedOut {
-            Label("Open Codex Meter to sign in", systemImage: "person.crop.circle")
-                .widgetURL(URL(string: "codexmeter://dashboard"))
+            Label("Open Models Meter to sign in", systemImage: "person.crop.circle")
         } else if family == .accessoryInline {
             inlineContent
         } else {
@@ -232,7 +234,6 @@ private struct DualAccessoryUsageView: View {
             }
         }
         .widgetAccentable()
-        .widgetURL(URL(string: "codexmeter://dashboard"))
         .accessibilityElement(children: .combine)
     }
 
@@ -253,7 +254,6 @@ private struct DualAccessoryUsageView: View {
                     .frame(maxHeight: .infinity, alignment: .center)
             }
         }
-        .widgetURL(URL(string: "codexmeter://dashboard"))
     }
 
     private func inlineMetric(_ metric: AccessoryMetric) -> some View {

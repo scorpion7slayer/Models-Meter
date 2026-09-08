@@ -55,7 +55,7 @@ abstract class CodexComplicationService extends ComplicationDataSourceService {
                 .setMonochromaticImage(monochromaticImage())
                 .setTapAction(tapAction(this));
         if (title != null && !title.isEmpty()) {
-            builder.setTitle(plain(title));
+            builder.setTitle(plain(dev.bennett.codexmeter.Translations.t(title)));
         }
         return builder.build();
     }
@@ -72,11 +72,11 @@ abstract class CodexComplicationService extends ComplicationDataSourceService {
         float clamped = Math.max(0f, Math.min(100f, value));
         RangedValueComplicationData.Builder builder = new RangedValueComplicationData.Builder(
                 clamped, 0f, 100f, plain(description))
-                .setText(plain(text))
+                .setText(plain(dev.bennett.codexmeter.Translations.t(text)))
                 .setMonochromaticImage(monochromaticImage())
                 .setTapAction(tapAction(this));
         if (title != null && !title.isEmpty()) {
-            builder.setTitle(plain(title));
+            builder.setTitle(plain(dev.bennett.codexmeter.Translations.t(title)));
         }
         return builder.build();
     }
@@ -87,11 +87,11 @@ abstract class CodexComplicationService extends ComplicationDataSourceService {
         float clamped = Math.max(0f, Math.min(100f, value));
         GoalProgressComplicationData.Builder builder = new GoalProgressComplicationData.Builder(
                 clamped, 100f, plain(description))
-                .setText(plain(text))
+                .setText(plain(dev.bennett.codexmeter.Translations.t(text)))
                 .setMonochromaticImage(monochromaticImage())
                 .setTapAction(tapAction(this));
         if (title != null && !title.isEmpty()) {
-            builder.setTitle(plain(title));
+            builder.setTitle(plain(dev.bennett.codexmeter.Translations.t(title)));
         }
         return builder.build();
     }

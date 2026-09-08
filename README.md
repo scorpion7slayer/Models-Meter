@@ -1,108 +1,72 @@
-# Codex Meter
+# Models Meter
 
-Codex Meter is an unofficial open-source client for viewing the Codex allowance
-attached to a signed-in ChatGPT account. This repository is a **monorepo**:
+For signed APK/IPA distribution and releases triggered by version tags, see
+[the release setup guide](docs/RELEASING.md).
 
-| Path | Platform | Notes |
-|------|----------|--------|
-| Repository root | Shared | Docs, license, changelog, CI, convenience script wrappers |
-| [`android/`](android/) | **Android** | Phone app + Wear companion: One UI dashboard, home widgets, Samsung lock/AOD, notifications, optional live usage monitor |
-| [`ios/`](ios/) | **iPhone / iPad** | Native SwiftUI + WidgetKit client with portable 2.8.0 behavior (meters, monthly Free-tier windows, history analytics, diagnostics, widgets) |
+Models Meter is an independent fork of [Codex Meter](https://github.com/BenItBuhner/Codex-Meter), maintained by [Theo (scorpion7slayer)](https://github.com/scorpion7slayer). BenIt Buhner and That Josh Guy are the developers of the original project; Filip Bukovina contributed the original iOS app.
 
-There is no shared backend. Each platform talks to ChatGPT/Codex endpoints
-directly and stores credentials only on-device.
+[Source](https://github.com/scorpion7slayer/Models-Meter) · [Android and Wear OS downloads](https://github.com/scorpion7slayer/Models-Meter/actions/workflows/build-apk.yml) · [iOS builds](https://github.com/scorpion7slayer/Models-Meter/actions/workflows/ios-ci.yml)
 
-## Android — Version 2.8.0
+## Version 1.0.1
 
-Version 2.8.0 adapts to Free-tier monthly Codex limits when a paid plan expires, adds opt-in diagnostic log tracing/export, and declutters usage-history analytics with customizable highlights. This stable release consolidates the 2.8.0-alpha.1 channel build; alpha remains opt-in under Settings → Updates → Update channel.
+Track subscription usage, quota reset times and model names for **ChatGPT, Anthropic / Claude, Cursor and OpenCode Go**. Android, Wear OS and iOS are included. Each provider keeps its own connection and cache on the device; there is no backend, advertising or analytics.
 
-On compatible Galaxy Watches, those five standard AndroidX Tiles also advertise Samsung's private modular-card hints: the overview requests a 2×2 footprint and the focused usage, reset, and monitor Tiles request 2×1 footprints. Their diagonal One UI gradient cards use the same rounded 228-degree usage-dial geometry and One UI Sans typography as the phone's battery-style widgets. Other Wear OS tile hosts ignore the sizing hints and keep the normal full-screen carousel presentation. Samsung does not document third-party eligibility for modular placement, so final grid behavior remains firmware-dependent.
+- **Latest models** on the dashboard, with a full model list and new-model notifications. The first successful catalog establishes a silent baseline; later discoveries are deduplicated by model ID. Discovery dates mean first seen by the app, not official release dates.
+- **System / Français / English** in settings. System uses French when the first system language is French; other unsupported languages fall back to English.
+- **Provider choice for each Android and iOS widget**, independent of the dashboard. Add widgets using the normal home-screen picker. Android's models widget resizes horizontally and vertically from **2 × 1 cells** and shows more names as it grows. iOS uses the widget sizes offered by WidgetKit.
+- **Wear OS companion** with provider selection, latest model names, usage tiles, complications and the live monitor. Sanitized snapshots sync from the Android phone; credentials stay on the phone. Phone alerts can mirror through normal Wear OS notification settings.
+- Light/dark Models Meter icons, fork attribution and GitHub links. Android updates continue to use this fork and its persistent signing certificate.
 
-### Live countdowns
+The provider APIs have different capabilities. Claude's catalog is public provider data; Cursor's catalog is the Cloud Agents API catalog and needs an optional Cursor user API key. Neither implies that every listed model is available on every subscription. See [provider setup and limitations](docs/PROVIDERS.md).
 
-Samsung lock-screen widgets can display the remaining time until each usage window resets. The countdown is driven locally by Android `Chronometer` views using the reset timestamp already cached from the usage response; it does not repeatedly contact the server merely to update seconds or minutes.
+## Connect an account
 
-### Live usage monitor
+Open **Settings → Providers** and select a provider. Claude and Cursor offer an integrated provider login page plus manual session-token entry when embedded login is unavailable. OpenCode Go uses a workspace API key. ChatGPT retains its existing OAuth flow. Never share credentials in issues, screenshots or chat.
 
-Settings includes an optional, user-started live usage monitor that runs only until the next available usage reset. It shows the real five-hour and weekly allowance values, marks a missing window as unavailable, and refreshes whenever the app receives new usage data. Android 16 can promote the notification as a Live Update, while compatible Samsung firmware can also surface it in the Now Bar. The monitor can be stopped at any time and is cleared when the user signs out.
+Credentials are encrypted with Android Keystore or Apple Keychain. Widgets and the Wear companion receive display data only. Usage failures preserve the last successful response and show an error; a missing quota is displayed as unavailable, never as a full allowance.
 
-### Reset alerts
+ChatGPT-specific features remain available: usage history and pace estimates, reset credits, credit expiration reminders and confirmed credit redemption. They are not represented as supported actions for other providers.
 
-Users can choose silent, notification-sound, or alarm-sound alerts for the five-hour limit, weekly limit, or both. Alerts can be conditional on the most recently observed allowance being below a selected threshold. Android schedules the notification for the cached reset time and performs a normal background refresh after the alert fires.
+## Platforms and builds
 
-### Widget surfaces
+| Platform | Source | Requirements | Artifact |
+| --- | --- | --- | --- |
+| Android phone | `android/app`, `android/shared` | JDK 17+, SDK 36, Build Tools 36 | `android/dist/ModelsMeter-1.0.1.apk` |
+| Wear OS | `android/wear`, `android/shared` | SDK 37.0, paired Android phone, Wear OS API 30+ | `android/dist/ModelsMeter-Wear-1.0.1.apk` |
+| iPhone / iPad | `ios/` | Xcode 26+, iOS 26+ | Xcode app / simulator build |
 
-The app includes:
+Phone minimum: Android 8.0 (API 26). Samsung lock-screen and Now Bar features depend on compatible Galaxy firmware. Wear OS and phone builds share the same application ID and signing certificate for Data Layer communication.
 
-- Responsive home-screen widgets with ring, four-dial, and battery-list layouts, plus Adaptive / Dials / Progress bars layout preference and drag-reorderable meter slots (Codex 5-hour/weekly, next reset, reset credits).
-- Both-window, five-hour-only, and weekly-only configurations (legacy metric mode; meters checklist supersedes this when customized).
-- Optional reset-credit inventory, expiration, and redemption controls.
-- Transparent through opaque backgrounds, including a Background off toggle and three One UI-style opacity steps.
-- Samsung One UI presentation throughout the dashboard, settings, and widget configuration surfaces.
-- Samsung lock/AOD providers for both usage windows together or dedicated five-hour and weekly views.
-- High-resolution supersampled lock-screen geometry with native Android text overlays.
-- Optional live time-to-reset labels on supported lock-screen hosts.
-
-## Authentication and data handling
-
-- Browser-based ChatGPT sign-in using OAuth authorization code + PKCE and a localhost loopback callback.
-- Access-token refresh with refresh-token rotation preservation.
-- Android Keystore AES-GCM encryption for locally stored tokens.
-- Usage and reset-credit retrieval from the ChatGPT backend routes used by Codex.
-- No analytics, advertisements, WebView, or application-level relay server.
-
-## Compatibility
-
-- Phone minimum Android 8.0 (API 26); Wear companion minimum API 30
-- Phone compile SDK Android 16 (API 36); Wear compile SDK Android 17 (API 37.0)
-- Phone and Wear target Android 16 (API 36)
-- Universal DEX APK with no native ABI libraries
-- Standard Android home-screen widgets
-- Private Samsung One UI lock/AOD integration on compatible Galaxy firmware
-
-## Build from source
-
-### Android
-
-See [`android/README.md`](android/README.md). The Android project uses Gradle with the OneUI-Design and oneui-icons libraries so its dashboards use Samsung-style SESL components, typography, and iconography.
-
-Requirements:
-
-- JDK 17 or newer
-- Android SDK Platforms 36 and 37.0
-- Android Build Tools 36.x
-- `ANDROID_SDK_ROOT` or `ANDROID_HOME` configured
-- A GitHub Packages token in `GH_ACCESS_TOKEN` (with `read:packages`) and your username in `GH_USERNAME` when the OneUI-Design dependencies are not already cached
-
-From the repository root:
-
-```bash
+```sh
 ./run-tests.sh
+./lint.sh
 ./build.sh
 ```
 
-Or from `android/` directly. `build.sh` assembles the release APKs with Gradle and signs them with a local development key under `android/.local-signing/`. Those locally signed APKs will not install over the distributed release build. Artifacts land in `android/dist/`.
+The root wrappers run the Android project and build both APKs. Set `JAVA_HOME` and `ANDROID_SDK_ROOT` as needed. Vendored One UI dependencies allow builds without GitHub Packages credentials; see [Android development](android/README.md).
 
-### iOS
+On macOS:
 
-See [`ios/README.md`](ios/README.md). Requires Xcode 26+ and iOS/iPadOS 26+.
-The iOS client now carries portable Android 2.8.0 behavior: Free-tier monthly
-windows, scrubbable usage-history analytics with customize, and opt-in
-diagnostic log export.
-
-```bash
-cd ios
-swift test --package-path CodexMeterCore
-xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
+```sh
+swift test --package-path ios/CodexMeterCore
+xcodebuild -project ios/CodexMeter.xcodeproj -scheme CodexMeter \
   -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
 ```
 
-## Releases
+Open `ios/CodexMeter.xcodeproj` in Xcode, choose an iPhone simulator, then Run. A physical iPhone requires your Apple development team and provisioning; an unsigned simulator artifact cannot install on an iPhone. See [iOS development](ios/README.md).
 
-Creating a `v*` tag that matches the Gradle `versionName` in `android/app/build.gradle.kts` (for example `v2.6.5`) runs the full CI pipeline and publishes the signed phone APK, signed Wear OS APK, and their SHA-256 checksums to GitHub Releases. CI authenticates and decrypts the persistent PKCS#12 release keystore `android/ci/release-keystore.p12.enc` (alias `codexmeter`) using the `ANDROID_SIGNING_PASSWORD` repository Actions secret, so every release is signed with the same certificate and installs in place over previous releases. Release notes are taken from the root `CHANGELOG.md`.
+To test Android, start an AVD in Android Studio's Device Manager, build, then install with `adb install -r android/dist/ModelsMeter-1.0.1.apk`. On a phone, download and extract the Actions artifact and open the **phone** APK. Install the separate Wear APK on the watch, not the phone.
 
-## Platform stability
+## Distribution and signing
 
-The ChatGPT usage and reset-credit routes and Samsung's lock-screen metadata are implementation details rather than stable third-party Android SDK contracts. OpenAI or Samsung may change eligibility, routing, response fields, host behavior, or private metadata.
+Manually dispatched Android builds use the fork's persistent signing key from Actions secrets. APKs and `SHA256SUMS.txt` are retained for 30 days. Pull-request builds use a disposable test key and cannot update a distributed build. Version 1.0.1 uses Android code **2** and retains the 1.0.0 application ID and certificate for in-place upgrades.
 
-OpenAI, ChatGPT, Codex, Samsung, Galaxy, One UI, and related marks belong to their respective owners. This project is not affiliated with or endorsed by OpenAI or Samsung.
+`dev.scorpion7slayer.modelsmeter` installs alongside the original Codex Meter app. The updater reads [this fork's releases](https://github.com/scorpion7slayer/Models-Meter/releases). Tags matching the Gradle version publish signed releases only when explicitly requested; a workflow artifact alone is not an updater release.
+
+Keep `android/.local-signing/` private and backed up. [Signing details](docs/SIGNING.md) explain certificate verification. A valid signature does not guarantee that Google Play Protect will skip its scan or warning for an APK installed outside Google Play.
+
+## Development and localization
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). English source text and `localization/fr.json` generate native French resources with `python3 scripts/generate-localizations.py`. Export the opaque iOS icon variants with `swift scripts/export-ios-icons.swift` on macOS.
+
+Provider account endpoints and Samsung lock-screen metadata can change without notice. Models Meter is not affiliated with OpenAI, Anthropic, Cursor, OpenCode or Samsung. Names and marks belong to their respective owners.

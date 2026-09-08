@@ -67,7 +67,7 @@ struct SignInView: View {
             VStack(spacing: 8) {
                 Text("Sign in with ChatGPT")
                     .font(.title2.bold())
-                Text("Codex Meter uses OpenAI's device-code flow. Your password is entered only on the OpenAI-controlled page and is never visible to this app.")
+                Text("Models Meter uses OpenAI's device-code flow. Your password is entered only on the OpenAI-controlled page and is never visible to this app.")
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
             }

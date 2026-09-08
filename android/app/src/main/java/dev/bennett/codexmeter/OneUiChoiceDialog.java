@@ -25,7 +25,7 @@ final class OneUiChoiceDialog {
             RadioItemView row = new RadioItemView(context);
             ids[index] = View.generateViewId();
             row.setId(ids[index]);
-            row.setTitle(labels[index]);
+            row.setTitle(dev.bennett.codexmeter.Translations.t(labels[index]));
             row.setShowTopDivider(index > 0);
             group.addView(row);
         }
@@ -33,7 +33,7 @@ final class OneUiChoiceDialog {
         if (ids.length > 0) group.check(ids[safeSelected]);
 
         AlertDialog dialog = new AlertDialog.Builder(context)
-                .setTitle(title)
+                .setTitle(dev.bennett.codexmeter.Translations.t(title))
                 .setView(group)
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();

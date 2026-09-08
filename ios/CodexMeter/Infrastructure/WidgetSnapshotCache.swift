@@ -4,7 +4,7 @@ import Foundation
 /// Writes only `SharedWidgetSnapshot`, the deliberately sanitized schema from
 /// CodexMeterCore. This API cannot persist tokens or arbitrary app cache data.
 public actor WidgetSnapshotCache {
-    public nonisolated static let appGroupIdentifier = "group.com.bukovinafilip.CodexMeter"
+    public nonisolated static let appGroupIdentifier = "group.dev.scorpion7slayer.modelsmeter"
     public nonisolated static let shared = WidgetSnapshotCache()
 
     private let fileURL: URL?

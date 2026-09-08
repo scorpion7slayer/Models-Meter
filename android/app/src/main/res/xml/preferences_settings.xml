@@ -8,42 +8,42 @@
         app:allowDividerAbove="false"
         app:allowDividerBelow="false" />
 
-    <PreferenceCategory android:title="General">
+    <PreferenceCategory android:title="@string/localized_9239ee2cda84">
         <Preference
             android:key="settings_appearance"
-            android:title="Appearance"
+            android:title="@string/localized_41def7a0febe"
             app:iconSpaceReserved="false" />
         <Preference
             android:key="settings_refresh_usage"
-            android:title="Refresh &amp; usage"
+            android:title="@string/localized_903040520f58"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Features">
+    <PreferenceCategory android:title="@string/localized_fc338f87a058">
         <Preference
             android:key="settings_notifications"
-            android:title="Notifications"
+            android:title="@string/localized_753a22b2eb61"
             app:iconSpaceReserved="false" />
         <Preference
             android:key="settings_now_bar"
-            android:title="Now Bar"
+            android:title="@string/localized_a96362598042"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="App &amp; data">
+    <PreferenceCategory android:title="@string/localized_4d9bf95d5633">
         <Preference
             android:key="settings_updates"
-            android:title="Updates"
+            android:title="@string/localized_c76d18079a07"
             app:iconSpaceReserved="false" />
         <Preference
             android:key="settings_transfer"
-            android:summary="Move settings between devices"
-            android:title="Backup &amp; transfer"
+            android:summary="@string/localized_042d72d357d5"
+            android:title="@string/localized_84bb295b34fd"
             app:iconSpaceReserved="false" />
         <Preference
             android:key="settings_privacy"
-            android:summary="Local storage, encryption, and network access"
-            android:title="Privacy"
+            android:summary="@string/localized_8f0f752259b6"
+            android:title="@string/localized_cf01481f626d"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
@@ -51,7 +51,7 @@
 
     <Preference
         android:key="about_codex_meter"
-        android:title="About Codex Meter"
+        android:title="@string/localized_85df69278df6"
         app:iconSpaceReserved="false" />
 
     <dev.oneuiproject.oneui.preference.InsetPreferenceCategory app:height="28dp" />

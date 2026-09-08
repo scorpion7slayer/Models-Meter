@@ -9,7 +9,7 @@ final class CodexMeterUITests: XCTestCase {
     func testDemoDashboardAndSettings() throws {
         let app = launchDemo()
 
-        XCTAssertTrue(app.navigationBars["Codex Meter"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.navigationBars["Models Meter"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["5-hour"].exists)
         XCTAssertTrue(app.staticTexts["Weekly"].exists)
         XCTAssertTrue(app.staticTexts["Demo data — no OpenAI requests"].exists)
@@ -46,7 +46,7 @@ final class CodexMeterUITests: XCTestCase {
         app.switches["Show Usage history"].tap()
         app.buttons["Done"].tap()
 
-        XCTAssertTrue(app.navigationBars["Codex Meter"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.navigationBars["Models Meter"].waitForExistence(timeout: 3))
         XCTAssertFalse(app.staticTexts["Weekly"].exists)
         XCTAssertTrue(app.staticTexts["Reset credits"].exists)
     }
@@ -108,6 +108,30 @@ final class CodexMeterUITests: XCTestCase {
         app.buttons["Leave Demo"].tap()
         XCTAssertTrue(app.buttons["Sign in with ChatGPT"].waitForExistence(timeout: 3))
         XCTAssertTrue(app.buttons["Explore demo"].exists)
+    }
+
+    func testLanguageAndProviderSelection() throws {
+        let app = launchDemo()
+        app.buttons["Settings"].tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
+        app.buttons["language-picker"].tap()
+        app.buttons["Français"].tap()
+        let frenchSettings = XCTAttachment(screenshot: app.screenshot())
+        frenchSettings.name = "French settings"
+        frenchSettings.lifetime = .keepAlways
+        add(frenchSettings)
+        XCTAssertTrue(app.navigationBars["Réglages"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Fournisseurs"].exists)
+        app.buttons["language-picker"].tap()
+        app.buttons["English"].tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
+        app.buttons["Done"].tap()
+        app.buttons["provider-picker"].tap()
+        app.buttons["Cursor"].tap()
+        XCTAssertTrue(app.buttons["Connect Cursor"].waitForExistence(timeout: 5))
+        app.buttons["provider-picker"].tap()
+        app.buttons["ChatGPT"].tap()
+        XCTAssertTrue(app.staticTexts["Latest models"].waitForExistence(timeout: 5))
     }
 
     private func launchDemo() -> XCUIApplication {

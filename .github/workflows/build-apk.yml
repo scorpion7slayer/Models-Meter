@@ -1,4 +1,4 @@
-name: Build Codex Meter APK
+name: Build Models Meter Android and Wear OS APKs
 
 on:
   pull_request:
@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
   packages: read
+
+concurrency:
+  group: models-meter-release-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -41,7 +45,7 @@ jobs:
             android/**/*.gradle*
             android/**/gradle-wrapper.properties
 
-      - name: Install Android phone and Wear toolchains
+      - name: Install Android toolchain
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
@@ -79,8 +83,17 @@ jobs:
           # releases must strictly increase it.
           VERSION_CODE="$(awk '/versionCode = / { print $3; exit }' app/build.gradle.kts)"
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
-            LATEST_STABLE_TAG="$(git tag -l 'v*' | grep -v -- - \
-              | grep -vx "$GITHUB_REF_NAME" | sort -V | tail -n 1 || true)"
+            # Fork tags use a new applicationId. Inherited upstream tags are not releases of this app.
+            APP_ID="$(awk -F'"' '/applicationId = "/ { print $2; exit }' app/build.gradle.kts)"
+            LATEST_STABLE_TAG=""
+            while IFS= read -r CANDIDATE; do
+              CANDIDATE_APP_ID="$(git show "$CANDIDATE:android/app/build.gradle.kts" 2>/dev/null \
+                | awk -F'"' '/applicationId = "/ { print $2; exit }' || true)"
+              if [[ "$CANDIDATE_APP_ID" == "$APP_ID" ]]; then
+                LATEST_STABLE_TAG="$CANDIDATE"
+                break
+              fi
+            done < <(git tag -l 'v*' | grep -v -- - | grep -vx "$GITHUB_REF_NAME" | sort -Vr || true)
             if [[ -n "$LATEST_STABLE_TAG" ]]; then
               STABLE_CODE="$(git show "$LATEST_STABLE_TAG:android/app/build.gradle.kts" \
                 2>/dev/null | awk '/versionCode = / { print $3; exit }' || true)"
@@ -89,8 +102,8 @@ jobs:
               elif [[ "$PRERELEASE" == "true" && "$VERSION_CODE" -ne "$STABLE_CODE" ]]; then
                 echo "::error::Alpha tag $GITHUB_REF_NAME must keep versionCode $STABLE_CODE from $LATEST_STABLE_TAG (found $VERSION_CODE) so returning to stable stays an in-place install"
                 exit 1
-              elif [[ "$PRERELEASE" == "false" && "$VERSION_CODE" -le "$STABLE_CODE" ]]; then
-                echo "::error::Stable tag $GITHUB_REF_NAME must raise versionCode above $STABLE_CODE from $LATEST_STABLE_TAG (found $VERSION_CODE)"
+              elif [[ "$PRERELEASE" == "false" && "$VERSION_CODE" -ne "$((STABLE_CODE + 1))" ]]; then
+                echo "::error::Stable tag $GITHUB_REF_NAME must raise versionCode by exactly one from $STABLE_CODE at $LATEST_STABLE_TAG (found $VERSION_CODE)"
                 exit 1
               fi
             fi
@@ -110,42 +123,27 @@ jobs:
           set -euo pipefail
           ./lint.sh
 
-      - name: Configure release signing
-        if: github.ref_type == 'tag'
+      - name: Configure persistent fork signing
+        if: github.event_name != 'pull_request'
         shell: bash
         env:
-          ANDROID_SIGNING_PASSWORD: ${{ secrets.ANDROID_SIGNING_PASSWORD }}
+          MODELS_METER_KEYSTORE_BASE64: ${{ secrets.MODELS_METER_KEYSTORE_BASE64 }}
+          MODELS_METER_SIGNING_PASSWORD: ${{ secrets.MODELS_METER_SIGNING_PASSWORD }}
         run: |
           set -euo pipefail
-          if [[ -z "$ANDROID_SIGNING_PASSWORD" ]]; then
-            echo "::error::Add the ANDROID_SIGNING_PASSWORD repository Actions secret"
+          if [[ -z "$MODELS_METER_KEYSTORE_BASE64" || -z "$MODELS_METER_SIGNING_PASSWORD" ]]; then
+            echo "::error::Configure MODELS_METER_KEYSTORE_BASE64 and MODELS_METER_SIGNING_PASSWORD repository secrets"
             exit 1
           fi
+          umask 077
           mkdir -p .local-signing
-          INTEGRITY_KEY="$(
-            printf 'Codex Meter release integrity\n%s' "$ANDROID_SIGNING_PASSWORD" |
-              sha256sum | awk '{print $1}'
-          )"
-          EXPECTED_HMAC="$(tr -d '\n' < ci/release-keystore.p12.enc.hmac)"
-          ACTUAL_HMAC="$(
-            openssl dgst -sha256 -mac HMAC -macopt "hexkey:$INTEGRITY_KEY" \
-              ci/release-keystore.p12.enc | awk '{print $NF}'
-          )"
-          if [[ "$ACTUAL_HMAC" != "$EXPECTED_HMAC" ]]; then
-            echo "::error::Release keystore authentication failed"
-            exit 1
-          fi
-          openssl enc -d -aes-256-cbc -pbkdf2 -iter 600000 \
-            -in ci/release-keystore.p12.enc \
-            -out .local-signing/codex-meter-local.p12 \
-            -pass env:ANDROID_SIGNING_PASSWORD
-          printf '%s' "$ANDROID_SIGNING_PASSWORD" > .local-signing/password
-          chmod 600 .local-signing/codex-meter-local.p12 .local-signing/password
+          printf '%s' "$MODELS_METER_KEYSTORE_BASE64" | base64 --decode > .local-signing/models-meter-release.p12
+          printf '%s' "$MODELS_METER_SIGNING_PASSWORD" > .local-signing/models-meter-password
           "$JAVA_HOME/bin/keytool" -list \
-            -keystore .local-signing/codex-meter-local.p12 \
+            -keystore .local-signing/models-meter-release.p12 \
             -storetype PKCS12 \
-            -storepass:env ANDROID_SIGNING_PASSWORD \
-            -alias codexmeter >/dev/null
+            -storepass:env MODELS_METER_SIGNING_PASSWORD \
+            -alias modelsmeter >/dev/null
 
       - name: Build and verify APK
         shell: bash
@@ -157,14 +155,28 @@ jobs:
       - name: Upload APKs
         uses: actions/upload-artifact@v7
         with:
-          name: codex-meter-${{ steps.version.outputs.name }}-ci
-          path: android/dist/
+          name: models-meter-${{ steps.version.outputs.name }}-ci
+          path: |
+            android/dist/ModelsMeter-${{ steps.version.outputs.name }}.apk
+            android/dist/ModelsMeter-Wear-${{ steps.version.outputs.name }}.apk
+            android/dist/SHA256SUMS.txt
+            android/dist/build.log
           if-no-files-found: error
-          retention-days: 3
+          retention-days: 30
+
+      - name: Remove signing files
+        if: always()
+        shell: bash
+        run: rm -rf .local-signing
+
+  ios:
+    if: github.event_name != 'pull_request' && vars.IOS_RELEASE_ENABLED == 'true'
+    uses: ./.github/workflows/ios-release.yml
+    secrets: inherit
 
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
+    if: always() && startsWith(github.ref, 'refs/tags/v') && needs.build.result == 'success' && (needs.ios.result == 'success' || needs.ios.result == 'skipped')
+    needs: [build, ios]
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -176,7 +188,7 @@ jobs:
       - name: Download verified APKs
         uses: actions/download-artifact@v8
         with:
-          name: codex-meter-${{ needs.build.outputs.version }}-ci
+          name: models-meter-${{ needs.build.outputs.version }}-ci
           path: release-dist
 
       - name: Verify release checksum
@@ -185,6 +197,21 @@ jobs:
           set -euo pipefail
           cd release-dist
           sha256sum -c SHA256SUMS.txt
+
+      - name: Download signed iOS app
+        if: needs.ios.result == 'success'
+        uses: actions/download-artifact@v8
+        with:
+          name: models-meter-ios-signed
+          path: release-ios
+
+      - name: Verify signed iOS checksum
+        if: needs.ios.result == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd release-ios
+          shasum -a 256 -c SHA256SUMS-iOS.txt
 
       - name: Prepare release notes
         shell: bash
@@ -213,6 +240,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           VERSION_NAME: ${{ needs.build.outputs.version }}
           PRERELEASE: ${{ needs.build.outputs.prerelease }}
+          IOS_RESULT: ${{ needs.ios.result }}
         run: |
           set -euo pipefail
           if ! gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
@@ -221,20 +249,25 @@ jobs:
               --verify-tag \
               --prerelease="$PRERELEASE" \
               --notes-file release-notes.md \
-              --title "Codex Meter $VERSION_NAME"
+              --title "Models Meter $VERSION_NAME"
           else
             gh release edit "$GITHUB_REF_NAME" \
               --prerelease="$PRERELEASE" \
               --notes-file release-notes.md \
-              --title "Codex Meter $VERSION_NAME"
+              --title "Models Meter $VERSION_NAME"
           fi
           gh release upload "$GITHUB_REF_NAME" \
-            "release-dist/CodexMeter-$VERSION_NAME.apk#Codex Meter $VERSION_NAME APK" \
-            "release-dist/CodexMeter-Wear-$VERSION_NAME.apk#Codex Meter Wear OS $VERSION_NAME APK" \
+            "release-dist/ModelsMeter-$VERSION_NAME.apk#Models Meter $VERSION_NAME APK" \
+            "release-dist/ModelsMeter-Wear-$VERSION_NAME.apk#Models Meter $VERSION_NAME Wear OS APK" \
             "release-dist/SHA256SUMS.txt#SHA-256 checksums" \
             --clobber
+          if [[ "$IOS_RESULT" == "success" ]]; then
+            gh release upload "$GITHUB_REF_NAME" \
+              "release-ios/ModelsMeter-iOS-$VERSION_NAME.ipa#Models Meter $VERSION_NAME iOS Ad Hoc (registered devices only)" \
+              "release-ios/SHA256SUMS-iOS.txt#iOS SHA-256 checksum" --clobber
+          fi
           if [[ "$PRERELEASE" == "true" ]]; then
-            gh release edit "$GITHUB_REF_NAME" --draft=false
+            gh release edit "$GITHUB_REF_NAME" --draft=false --latest=false
           else
             gh release edit "$GITHUB_REF_NAME" --draft=false --latest
           fi

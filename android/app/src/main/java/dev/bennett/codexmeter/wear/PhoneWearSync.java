@@ -76,6 +76,7 @@ public final class PhoneWearSync {
     }
 
     public static void pushAll(Context context) {
+        pushProviders(context);
         if (context == null) return;
         Context app = context.getApplicationContext();
         pushUsage(app, AppPreferences.loadSnapshot(app));
@@ -178,6 +179,27 @@ public final class PhoneWearSync {
                 NowBarPreferences.isAcceleratedStartEnabled(context));
     }
 
+    public static void pushProviders(Context context) {
+        try {
+            org.json.JSONObject root = new org.json.JSONObject().put("updated", System.currentTimeMillis());
+            for (dev.bennett.codexmeter.Provider provider : dev.bennett.codexmeter.Provider.values()) {
+                org.json.JSONObject item = new org.json.JSONObject().put("connected",
+                        dev.bennett.codexmeter.ProviderRepository.connected(context, provider));
+                UsageSnapshot usage = dev.bennett.codexmeter.ProviderRepository.usage(context, provider);
+                if (usage != null) item.put("usage", usage.toJson());
+                dev.bennett.codexmeter.ModelCatalogSnapshot catalog = dev.bennett.codexmeter.ProviderRepository.catalog(context, provider);
+                if (catalog != null) {
+                    org.json.JSONArray models = new org.json.JSONArray();
+                    for (dev.bennett.codexmeter.CodexModelCatalog.Model model : catalog.models)
+                        models.put(new org.json.JSONObject().put("id", model.id).put("name", model.name));
+                    item.put("models", models).put("checked", catalog.checkedAt);
+                }
+                root.put(provider.id, item);
+            }
+            pushJson(context, WearSyncPaths.PATH_PROVIDERS, root);
+        } catch (Exception error) { DiagnosticLog.error(context, "wear", "provider_sync_failed", error); }
+    }
+
     private static void pushJson(Context context, String path, Object state) {
         try {
             String json;
@@ -189,6 +211,8 @@ public final class PhoneWearSync {
                 json = ((WearMonitorState) state).toJson().toString();
             } else if (state instanceof WearSyncStatus) {
                 json = ((WearSyncStatus) state).toJson().toString();
+            } else if (state instanceof org.json.JSONObject) {
+                json = state.toString();
             } else {
                 return;
             }

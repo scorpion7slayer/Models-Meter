@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="localized_042d72d357d5" formatted="false">Move settings between devices</string>
+    <string name="localized_05db09e353e6" formatted="false">Estimated usage time</string>
+    <string name="localized_07e989b75936" formatted="false">Warning sensitivity</string>
+    <string name="localized_09de4dee19f8" formatted="false">Sensitive data protection</string>
+    <string name="localized_0d702465d3a6" formatted="false">Samsung firmware and developer-option guidance</string>
+    <string name="localized_1e138bf814eb" formatted="false">Automatic updates</string>
+    <string name="localized_2295664fe9fd" formatted="false">Save a structured JSON Lines file</string>
+    <string name="localized_2537b3e0641c" formatted="false">Adapts to remaining usage, app attention, reset timing, and recent failures</string>
+    <string name="localized_254f901e00cc" formatted="false">Percentage shown</string>
+    <string name="localized_258d3d2c00df" formatted="false">Send test notification</string>
+    <string name="localized_26611f0ee012" formatted="false">Start when allowance is low</string>
+    <string name="localized_2664a21699cf" formatted="false">Shown only when OpenAI returns this window</string>
+    <string name="localized_285ec850c11d" formatted="false">Troubleshooting</string>
+    <string name="localized_2a8837785dff" formatted="false">Live monitor</string>
+    <string name="localized_2cccd46a3283" formatted="false">Show a notification with Open and Update actions</string>
+    <string name="localized_2cd72f257b98" formatted="false">Surprise limit refills</string>
+    <string name="localized_388fc3ba3078" formatted="false">Start when remaining reaches</string>
+    <string name="localized_3ad3c4eb8776" formatted="false">Allow notifications</string>
+    <string name="localized_3bb1bab9e8ba" formatted="false">Delivery style</string>
+    <string name="localized_41def7a0febe" formatted="false">Appearance</string>
+    <string name="localized_44374f780d57" formatted="false">Usage and account activity alerts</string>
+    <string name="localized_449c720b3cd9" formatted="false">Refresh on launch</string>
+    <string name="localized_47d8470a7612" formatted="false">Direct network access</string>
+    <string name="localized_4850b2b53aa3" formatted="false">Expiring reset credits</string>
+    <string name="localized_48cd18dabc14" formatted="false">Your data</string>
+    <string name="localized_492f59648e06" formatted="false">Available versions and downgrade requirements</string>
+    <string name="localized_4d031548fb30" formatted="false">Log tracing</string>
+    <string name="localized_4d9bf95d5633" formatted="false">App &amp; data</string>
+    <string name="localized_4e7ae2e67baf" formatted="false">Use the system color palette when available</string>
+    <string name="localized_4fb891e4f12d" formatted="false">Show remaining Codex allowance until the next usage reset</string>
+    <string name="localized_5044ba0a5cf6" formatted="false">Release history</string>
+    <string name="localized_5218af9e50f8" formatted="false">Check GitHub now</string>
+    <string name="localized_532ffc7ab096" formatted="false">Clear logs</string>
+    <string name="localized_56e3badc4e6c" formatted="false">Refresh</string>
+    <string name="localized_574ff9b0c49c" formatted="false">Display</string>
+    <string name="localized_5e67d3f79903" formatted="false">Model-specific limits such as GPT-5.3-Codex-Spark</string>
+    <string name="localized_5fd44f23f409" formatted="false">Export logs</string>
+    <string name="localized_60e2c3e64678" formatted="false">Usage-credit balance</string>
+    <string name="localized_66eb00011302" formatted="false">Material You</string>
+    <string name="localized_6ba711522f73" formatted="false">Restore selected sections from a transfer file</string>
+    <string name="localized_6d2ee26b1d0d" formatted="false">Permanently delete saved diagnostic events</string>
+    <string name="localized_6f1fed0a1ea6" formatted="false">Save diagnostic logs</string>
+    <string name="localized_71c25f52acfc" formatted="false">Start for accelerated usage</string>
+    <string name="localized_736b9062b336" formatted="false">Check for updates</string>
+    <string name="localized_753a22b2eb61" formatted="false">Notifications</string>
+    <string name="localized_798075510ebb" formatted="false">An allowance reaches 100% before its scheduled reset</string>
+    <string name="localized_79fd4abcf4a3" formatted="false">Arrange usage cards and choose which ones appear</string>
+    <string name="localized_7aaf676b8d26" formatted="false">Weekly limit</string>
+    <string name="localized_7cd229d28605" formatted="false">Check automatically</string>
+    <string name="localized_7e6ebce522a6" formatted="false">Check frequency</string>
+    <string name="localized_7f56753aaed1" formatted="false">5-hour limit</string>
+    <string name="localized_84bb295b34fd" formatted="false">Backup &amp; transfer</string>
+    <string name="localized_85df69278df6" formatted="false">About Models Meter</string>
+    <string name="localized_86c0a35ec883" formatted="false">More options</string>
+    <string name="localized_8f0f752259b6" formatted="false">Local storage, encryption, and network access</string>
+    <string name="localized_903040520f58" formatted="false">Refresh &amp; usage</string>
+    <string name="localized_91fb5a468fb9" formatted="false">Start sample preview</string>
+    <string name="localized_9239ee2cda84" formatted="false">General</string>
+    <string name="localized_9486f7405490" formatted="false">Usage estimates</string>
+    <string name="localized_9a09acd8b696" formatted="false">Save selected settings and optional sign-in data</string>
+    <string name="localized_9a5dc5877dab" formatted="false">System notification access</string>
+    <string name="localized_9c4477ce36f9" formatted="false">Check signed GitHub releases on a schedule</string>
+    <string name="localized_9c7f764b3aa5" formatted="false">Hidden automatically when no resets are available</string>
+    <string name="localized_9d8d3808063b" formatted="false">System default</string>
+    <string name="localized_a04343020b9b" formatted="false">Import settings</string>
+    <string name="localized_a0db3566afc6" formatted="false">Logs stay in private app storage until you export or clear them. Authentication tokens, cookies, authorization codes, email addresses, URL queries, and request/response bodies are never intentionally recorded. Review an export before sharing it.</string>
+    <string name="localized_a797e30923ac" formatted="false">Theme</string>
+    <string name="localized_a9281292e467" formatted="false">Verify alert delivery now</string>
+    <string name="localized_a96362598042" formatted="false">Now Bar</string>
+    <string name="localized_ae939b9593f1" formatted="false">Update channel</string>
+    <string name="localized_b082d7157de6" formatted="false">New model alerts</string>
+    <string name="localized_b1f3373232ac" formatted="false">2 resets · next expires in 3d</string>
+    <string name="localized_b2a3573e71c5" formatted="false">Usage history</string>
+    <string name="localized_b48c228428a2" formatted="false">Start the monitor when remaining allowance is low</string>
+    <string name="localized_b53294700392" formatted="false">Live display mode</string>
+    <string name="localized_b5682a7f2bcb" formatted="false">Notify when a new model becomes available in your Codex model picker</string>
+    <string name="localized_b7348b4b97ad" formatted="false">Automatic start</string>
+    <string name="localized_be65a401a8cf" formatted="false">Show a 20-minute sample activity for device testing</string>
+    <string name="localized_c22769cb8725" formatted="false">Manual interval</string>
+    <string name="localized_c32952c5982c" formatted="false">Use reset</string>
+    <string name="localized_c76d18079a07" formatted="false">Updates</string>
+    <string name="localized_cbb4cc49824b" formatted="false">Transfer</string>
+    <string name="localized_cc78226c5252" formatted="false">Hidden automatically at a zero or negative balance</string>
+    <string name="localized_cf01481f626d" formatted="false">Privacy</string>
+    <string name="localized_d16a0bfd45b7" formatted="false">Low usage</string>
+    <string name="localized_d18ef7b1738e" formatted="false">Export settings</string>
+    <string name="localized_d2bccf30e23e" formatted="false">Shown only when a 5-hour or weekly window is available</string>
+    <string name="localized_d2f61fcbc182" formatted="false">The available reset-credit count increases</string>
+    <string name="localized_d597120aef57" formatted="false">Notify when an update is available</string>
+    <string name="localized_d6fe4f39c067" formatted="false">Alert when remaining reaches</string>
+    <string name="localized_d87f47b47e4d" formatted="false">Dashboard</string>
+    <string name="localized_d9419d74bf9b" formatted="false">Samsung setup help</string>
+    <string name="localized_da09ffdbfefa" formatted="false">Tokens, session credentials and API keys are encrypted with Android Keystore on this device.</string>
+    <string name="localized_e0656033011e" formatted="false">Release channel</string>
+    <string name="localized_e0ef7f273318" formatted="false">Encrypted local storage</string>
+    <string name="localized_e32b3ebc0c5d" formatted="false">Refresh mode</string>
+    <string name="localized_e3392efde095" formatted="false">Additional limits</string>
+    <string name="localized_e6b7024f1590" formatted="false">Models Meter connects directly to each selected provider for account data. The public Anthropic model catalog comes from models.dev. There is no Models Meter backend.</string>
+    <string name="localized_e81499813170" formatted="false">New reset credits</string>
+    <string name="localized_e8cdf8500172" formatted="false">Account activity</string>
+    <string name="localized_e8d6a2474069" formatted="false">Project how long the current allowance may last</string>
+    <string name="localized_e8e0bd39b467" formatted="false">Remind me before an available reset credit expires</string>
+    <string name="localized_ec0f10698082" formatted="false">Monitor</string>
+    <string name="localized_eefc71e04c8d" formatted="false">Alert for</string>
+    <string name="localized_ef7c08b2a739" formatted="false">Reset credits</string>
+    <string name="localized_efc81cda7c19" formatted="false">Protect authentication exports</string>
+    <string name="localized_f1e6fbe94552" formatted="false">Live notification access</string>
+    <string name="localized_f25ce1b8a399" formatted="false">Security</string>
+    <string name="localized_f471dd05c53f" formatted="false">Start while usage is projected to run out early</string>
+    <string name="localized_f9f37253201c" formatted="false">Record detailed app, refresh, scheduler, and network events</string>
+    <string name="localized_fbfce4efbe14" formatted="false">Edit dashboard</string>
+    <string name="localized_fc338f87a058" formatted="false">Features</string>
+    <string name="localized_fe8fe5c31ee9" formatted="false">Saved logs</string>
+    <string name="localized_ff2ab92b6f12" formatted="false">Reminder times</string>
+    <string name="localized_ffe89ea7af34" formatted="false">Authentication exports include ChatGPT tokens. Anyone with the file can use your account, so keep it private.</string>
+</resources>

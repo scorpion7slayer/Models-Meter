@@ -12,7 +12,7 @@ struct CodexMeterHomeWidget: Widget {
         ) { entry in
             CodexMeterHomeWidgetView(entry: entry)
         }
-        .configurationDisplayName("Codex Meter")
+        .configurationDisplayName("Models Meter")
         .description("See both Codex allowance windows or focus on one responsive usage dial.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .systemExtraLarge])
     }
@@ -46,11 +46,14 @@ struct CodexMeterHomeWidgetView: View {
     }
 
     private var destination: URL {
+        if configuration.provider != .chatgpt {
+            return URL(string: "modelsmeter://dashboard?provider=" + configuration.provider.rawValue)!
+        }
         if entry.snapshot.mode == .signedOut {
-            return URL(string: "codexmeter://dashboard")!
+            return URL(string: "modelsmeter://dashboard")!
         }
         if entry.snapshot.freshness == .empty {
-            return URL(string: "codexmeter://refresh")!
+            return URL(string: "modelsmeter://refresh")!
         }
         return configuration.tapAction.url
     }
@@ -265,7 +268,7 @@ struct CodexMeterHomeWidgetView: View {
             Image(systemName: "gauge.with.dots.needle.33percent")
                 .foregroundStyle(configuration.accent.color)
                 .widgetAccentable()
-            Text("Codex Meter")
+            Text("Models Meter")
                 .font(.headline)
             if let plan = entry.snapshot.plan {
                 Text(plan)

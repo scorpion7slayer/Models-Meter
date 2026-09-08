@@ -45,7 +45,7 @@ struct WidgetDisplaySnapshot: Sendable, Equatable {
     let freshness: WidgetSnapshotFreshness
 
     var longWindowTitle: String {
-        longWindowIsMonthly ? "Monthly" : "Weekly"
+        longWindowIsMonthly ? MeterL10n.text("Monthly", "Mensuel") : MeterL10n.text("Weekly", "Hebdomadaire")
     }
 
     var longWindowShortTitle: String {
@@ -127,11 +127,20 @@ struct WidgetDisplaySnapshot: Sendable, Equatable {
 /// Reads only the sanitized widget snapshot from the shared App Group container.
 /// The extension intentionally has no authentication, Keychain, or networking code.
 struct WidgetSnapshotStore: Sendable {
-    static let appGroupIdentifier = "group.com.bukovinafilip.CodexMeter"
+    static let appGroupIdentifier = "group.dev.scorpion7slayer.modelsmeter"
     static let snapshotFilename = SharedWidgetSnapshot.defaultFileName
     static let staleAfter: TimeInterval = 2 * 60 * 60
 
-    func load(now: Date = .now) -> WidgetDisplaySnapshot {
+    func load(provider: WidgetProvider = .chatgpt, now: Date = .now) -> WidgetDisplaySnapshot {
+        if provider != .chatgpt {
+            guard let data = UserDefaults(suiteName: Self.appGroupIdentifier)?.data(forKey: "provider_" + provider.rawValue),
+                  let snapshot = try? JSONDecoder().decode(ProviderSnapshot.self, from: data),
+                  let usage = snapshot.usage else { return .signedOut }
+            let shared = SharedWidgetSnapshot(mode: .live, fetchedAt: usage.fetchedAt, planType: provider.provider.title,
+                    fiveHour: usage.fiveHour, weekly: usage.weekly, monthly: usage.monthly,
+                    resetCreditsAvailable: nil, freshness: .fresh)
+            return WidgetDisplaySnapshot(shared: shared, now: now)
+        }
         let fileManager = FileManager.default
         guard
             let container = fileManager.containerURL(

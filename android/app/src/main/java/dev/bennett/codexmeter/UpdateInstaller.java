@@ -175,7 +175,7 @@ public final class UpdateInstaller {
             throw new SecurityException("Android could not read the downloaded APK.");
         }
         if (!context.getPackageName().equals(archive.packageName)) {
-            throw new SecurityException("The APK package name is not Codex Meter.");
+            throw new SecurityException("The APK package name is not Models Meter.");
         }
         ReleaseVersion expected = ReleaseVersion.parse(release.version);
         ReleaseVersion actual = ReleaseVersion.parse(archive.versionName);

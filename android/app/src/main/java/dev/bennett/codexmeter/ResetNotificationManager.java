@@ -77,6 +77,30 @@ public final class ResetNotificationManager {
         }
     }
 
+    public static void onModelsUpdated(Context context, String accountId,
+            java.util.List<CodexModelCatalog.Model> models) {
+        if (models.isEmpty() || accountId.isEmpty()) return;
+        // Per-account, cumulative history avoids alerts when models disappear/reappear.
+        String key = "known_models." + accountId;
+        SharedPreferences preferences = state(context);
+        Set<String> known = new HashSet<>(preferences.getStringSet(key,
+                java.util.Collections.emptySet()));
+        java.util.List<CodexModelCatalog.Model> added = CodexModelCatalog.additions(known, models);
+        if (ResetAlertPreferences.enabled(context)
+                && ResetAlertPreferences.newModelsEnabled(context) && !added.isEmpty()) {
+            java.util.List<String> names = new java.util.ArrayList<>();
+            for (CodexModelCatalog.Model model : added) names.add(model.name);
+            String text = String.join(", ", names)
+                    + (added.size() == 1 ? " is" : " are")
+                    + " now available in your Codex model picker.";
+            if (!post(context, 74515,
+                    added.size() == 1 ? "New Codex model available" : "New Codex models available",
+                    text, 74515)) return;
+        }
+        for (CodexModelCatalog.Model model : models) known.add(model.id);
+        preferences.edit().putStringSet(key, known).apply();
+    }
+
     public static void onResetCreditsUpdated(Context context, ResetCreditsSnapshot snapshot) {
         if (context == null || snapshot == null) return;
         onResetCreditCountUpdated(context, snapshot.availableCount);
@@ -211,7 +235,7 @@ public final class ResetNotificationManager {
         if (context == null || !ResetAlertPreferences.enabled(context)) {
             return false;
         }
-        return post(context, NOTIFICATION_TEST, "Codex Meter notifications are working",
+        return post(context, NOTIFICATION_TEST, "Models Meter notifications are working",
                 "Low usage, scheduled resets, surprise refills, and reset-credit alerts are ready.",
                 NOTIFICATION_TEST);
     }
@@ -382,9 +406,9 @@ public final class ResetNotificationManager {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Notification notification = new Notification.Builder(context, channel)
                 .setSmallIcon(R.drawable.ic_oui_alarm)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setStyle(new Notification.BigTextStyle().bigText(text))
+                .setContentTitle(dev.bennett.codexmeter.Translations.t(title))
+                .setContentText(dev.bennett.codexmeter.Translations.t(text))
+                .setStyle(new Notification.BigTextStyle().bigText(dev.bennett.codexmeter.Translations.t(text)))
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(onlyAlertOnce)
@@ -407,7 +431,7 @@ public final class ResetNotificationManager {
         PendingIntent details = PendingIntent.getActivity(context, id, detailsIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Intent useIntent = new Intent(context, ResetCreditActivity.class)
-                .setAction("dev.bennett.codexmeter.action.USE_RESET_FROM_NOTIFICATION")
+                .setAction("dev.scorpion7slayer.modelsmeter.action.USE_RESET_FROM_NOTIFICATION")
                 .putExtra(AppConstants.EXTRA_PROMPT_USE_RESET, true)
                 .putExtra(AppConstants.EXTRA_NOTIFICATION_ID, id)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -415,9 +439,9 @@ public final class ResetNotificationManager {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Notification notification = new Notification.Builder(context, channel)
                 .setSmallIcon(R.drawable.ic_reset_notification)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setStyle(new Notification.BigTextStyle().bigText(text))
+                .setContentTitle(dev.bennett.codexmeter.Translations.t(title))
+                .setContentText(dev.bennett.codexmeter.Translations.t(text))
+                .setStyle(new Notification.BigTextStyle().bigText(dev.bennett.codexmeter.Translations.t(text)))
                 .setContentIntent(details)
                 .addAction(new Notification.Action.Builder(R.drawable.ic_reset_notification,
                         "Use reset", useReset).build())

@@ -1,4 +1,5 @@
 import SwiftUI
+import CodexMeterCore
 import UserNotifications
 
 extension Notification.Name {
@@ -39,12 +40,13 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
             route = nil
         }
 
-        guard let route else { return }
+        let provider = content.userInfo["provider"] as? String
+        guard route != nil || provider != nil else { return }
         await MainActor.run {
             NotificationCenter.default.post(
                 name: .codexMeterOpenRoute,
                 object: nil,
-                userInfo: ["route": route]
+                userInfo: ["route": route ?? "dashboard", "provider": provider ?? "chatgpt"]
             )
         }
     }
@@ -55,12 +57,16 @@ struct CodexMeterApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
     @State private var model = AppModel()
+    @AppStorage("language", store: UserDefaults(suiteName: MeterL10n.group)) private var language = "system"
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(model)
+                .environment(\.locale, (MeterLanguage(rawValue: language) ?? .system).locale)
                 .onReceive(NotificationCenter.default.publisher(for: .codexMeterOpenRoute)) { note in
+                    if let id = note.userInfo?["provider"] as? String,
+                       let provider = MeterProvider(rawValue: id) { ProviderStore.shared.selected = provider }
                     if let route = note.userInfo?["route"] as? String {
                         model.handle(route: route)
                     }

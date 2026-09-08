@@ -5,6 +5,8 @@ on:
     branches: [main, alpha]
     paths:
       - 'ios/**'
+      - 'scripts/*ios*'
+      - '.github/workflows/ios-release.yml'
       - '.github/workflows/ios-ci.yml'
   workflow_dispatch:
 
@@ -36,6 +38,12 @@ jobs:
         run: |
           set -euo pipefail
           swift test --package-path CodexMeterCore
+
+      - name: Validate release signing helpers
+        working-directory: .
+        run: |
+          python3 -m unittest discover -s scripts -p 'test_ios_signing.py'
+          python3 scripts/prepare-ios-signing.py --validate-version
 
   app-build-and-test:
     name: App build and simulator tests
@@ -103,6 +111,7 @@ jobs:
               -derivedDataPath DerivedData \
               -resultBundlePath TestResults.xcresult \
               -parallel-testing-enabled NO \
+              -testLanguage en -testRegion US \
               -retry-tests-on-failure -test-iterations 3 test \
               | xcbeautify --renderer github-actions
           else
@@ -111,8 +120,21 @@ jobs:
               -derivedDataPath DerivedData \
               -resultBundlePath TestResults.xcresult \
               -parallel-testing-enabled NO \
+              -testLanguage en -testRegion US \
               -retry-tests-on-failure -test-iterations 3 test
           fi
+
+      - name: Package simulator app
+        shell: bash
+        run: ditto -c -k --sequesterRsrc --keepParent DerivedData/Build/Products/Debug-iphonesimulator/CodexMeter.app ModelsMeter-iOS-Simulator.zip
+
+      - name: Upload simulator app
+        uses: actions/upload-artifact@v7
+        with:
+          name: ModelsMeter-iOS-Simulator
+          path: ios/ModelsMeter-iOS-Simulator.zip
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Upload test results on failure
         if: failure()

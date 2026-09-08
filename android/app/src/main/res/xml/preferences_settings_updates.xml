@@ -2,42 +2,42 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Release channel">
+    <PreferenceCategory android:title="@string/localized_e0656033011e">
         <ListPreference
             android:entries="@array/settings_update_channel_entries"
             android:entryValues="@array/settings_update_channel_values"
             android:key="update_channel_ui"
-            android:title="Update channel"
+            android:title="@string/localized_ae939b9593f1"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Automatic updates">
+    <PreferenceCategory android:title="@string/localized_1e138bf814eb">
         <SwitchPreferenceCompat
             android:key="automatic_update_checks_ui"
-            android:summary="Check signed GitHub releases on a schedule"
-            android:title="Check automatically" />
+            android:summary="@string/localized_9c4477ce36f9"
+            android:title="@string/localized_7cd229d28605" />
         <ListPreference
             android:entries="@array/settings_update_interval_entries"
             android:entryValues="@array/settings_update_interval_values"
             android:key="update_check_interval_ui"
-            android:title="Check frequency"
+            android:title="@string/localized_7e6ebce522a6"
             app:useSimpleSummaryProvider="true" />
         <SwitchPreferenceCompat
             android:key="notify_update_available_ui"
-            android:summary="Show a notification with Open and Update actions"
-            android:title="Notify when an update is available" />
+            android:summary="@string/localized_2cccd46a3283"
+            android:title="@string/localized_d597120aef57" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="More options">
+    <PreferenceCategory android:title="@string/localized_86c0a35ec883">
         <Preference
             android:key="check_for_updates"
-            android:summary="Check GitHub now"
-            android:title="Check for updates"
+            android:summary="@string/localized_5218af9e50f8"
+            android:title="@string/localized_736b9062b336"
             app:iconSpaceReserved="false" />
         <Preference
             android:key="release_history"
-            android:summary="Available versions and downgrade requirements"
-            android:title="Release history"
+            android:summary="@string/localized_492f59648e06"
+            android:title="@string/localized_5044ba0a5cf6"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 

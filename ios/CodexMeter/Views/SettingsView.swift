@@ -1,10 +1,13 @@
 import SwiftUI
+import CodexMeterCore
+import WidgetKit
 import UniformTypeIdentifiers
 
 struct SettingsView: View {
     @Environment(AppModel.self) private var model
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
+    @AppStorage("language", store: UserDefaults(suiteName: MeterL10n.group)) private var language = "system"
     @State private var confirmingSignOut = false
     @State private var isExportingSettings = false
     @State private var isImportingSettings = false
@@ -14,6 +17,19 @@ struct SettingsView: View {
         @Bindable var model = model
 
         Form {
+            Section {
+                NavigationLink(MeterL10n.text("Providers", "Fournisseurs")) { ProvidersView() }
+                Picker(MeterL10n.text("Language", "Langue"), selection: $language) {
+                    Text(MeterL10n.text("System language", "Langue système")).tag("system")
+                    Text("Français").tag("fr")
+                    Text("English").tag("en")
+                }.accessibilityIdentifier("language-picker")
+                    .onChange(of: language) { _, _ in
+                        WidgetCenter.shared.reloadAllTimelines()
+                        Task { await ProviderStore.shared.updateNotificationSettings() }
+                    }
+            }
+
             Section("Account") {
                 if model.mode == .live {
                     LabeledContent("ChatGPT account", value: model.accountEmail.isEmpty ? "Connected" : model.accountEmail)
@@ -107,6 +123,7 @@ struct SettingsView: View {
                     }
                 }
 
+                Toggle("New model alerts", isOn: $model.settings.newModelAlertsEnabled)
                 Toggle("New reset-credit alerts", isOn: $model.settings.creditIncreaseAlertsEnabled)
                 Toggle("Unexpected refill alerts", isOn: $model.settings.unexpectedRefillAlertsEnabled)
                 Toggle("Reset-credit expiry reminders", isOn: $model.settings.creditExpiryRemindersEnabled)
@@ -138,7 +155,7 @@ struct SettingsView: View {
                     Text("Includes low usage, scheduled resets, optional surprise refills, and reset-credit inventory changes.")
                 }
             }
-            .disabled(model.mode == .signedOut)
+            .disabled(model.mode == .signedOut && !MeterProvider.allCases.contains { ProviderStore.shared.connected($0) })
 
             Section {
                 NavigationLink {
@@ -173,7 +190,7 @@ struct SettingsView: View {
             }
 
             Section {
-                NavigationLink("About Codex Meter") {
+                NavigationLink("About Models Meter") {
                     AboutView()
                 }
                 NavigationLink("Privacy policy") {
@@ -181,7 +198,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .navigationTitle("Settings")
+        .navigationTitle(MeterL10n.text("Settings", "Réglages"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {

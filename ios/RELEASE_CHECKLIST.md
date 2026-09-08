@@ -1,5 +1,10 @@
 # Release checklist
 
+For distribution outside the App Store, use the [Ad Hoc signing and tag-release
+guide](../docs/RELEASING.md). It lists the four Apple secrets, Team ID, two
+provisioning profiles, and the registered-device limitation. The Store-specific
+checklist below applies only if Store distribution is chosen later.
+
 ## Completed in the repository
 
 - Swift 6 app, widget extension, local core package, unit tests, and UI tests.
@@ -24,4 +29,3 @@
   refresh afterward.
 - Verify the private endpoints and device-code contract immediately before each
   release; they are not stable public API surface.
-

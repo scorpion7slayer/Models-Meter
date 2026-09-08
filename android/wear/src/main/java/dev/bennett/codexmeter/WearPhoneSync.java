@@ -92,7 +92,9 @@ public final class WearPhoneSync {
         String path = uri == null ? "" : uri.getPath();
         String payload = payloadString(item);
         if (payload == null || payload.isEmpty()) return false;
-        if (WearSyncPaths.PATH_USAGE.equals(path)) {
+        if (WearSyncPaths.PATH_PROVIDERS.equals(path)) {
+            return WearProviders.apply(context, payload);
+        } else if (WearSyncPaths.PATH_USAGE.equals(path)) {
             return applyRemoteUsage(context, payload);
         } else if (WearSyncPaths.PATH_SETTINGS.equals(path)) {
             return applyRemoteSettings(context, payload);

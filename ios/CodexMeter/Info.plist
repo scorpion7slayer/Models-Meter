@@ -4,12 +4,12 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.bukovinafilip.CodexMeter.refresh</string>
+		<string>dev.scorpion7slayer.modelsmeter.refresh</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Codex Meter</string>
+	<string>Models Meter</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -26,10 +26,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.bukovinafilip.CodexMeter.navigation</string>
+			<string>dev.scorpion7slayer.modelsmeter.navigation</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>codexmeter</string>
+				<string>modelsmeter</string>
 			</array>
 		</dict>
 	</array>

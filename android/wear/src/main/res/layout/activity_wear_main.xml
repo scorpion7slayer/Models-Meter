@@ -18,6 +18,14 @@
             android:paddingEnd="@dimen/wear_screen_padding_horizontal"
             android:paddingBottom="@dimen/wear_screen_padding_bottom">
 
+            <Button android:id="@+id/provider_button" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="@string/localized_495265260f5b" />
+            <TextView android:id="@+id/models_title" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="@string/latest_models_title"
+                android:gravity="center" android:textStyle="bold" android:paddingTop="12dp" />
+            <TextView android:id="@+id/models_value" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:gravity="center" android:textSize="14sp"
+                android:paddingTop="8dp" android:paddingBottom="16dp" />
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"

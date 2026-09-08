@@ -29,9 +29,9 @@ import java.util.concurrent.TimeUnit;
  * configured threshold (same metric/threshold pattern as low-usage notifications).
  */
 public final class NowBarManager {
-    static final String ACTION_END = "dev.bennett.codexmeter.action.NOW_BAR_END";
-    static final String ACTION_REFRESH = "dev.bennett.codexmeter.action.NOW_BAR_REFRESH";
-    static final String ACTION_STOP = "dev.bennett.codexmeter.action.NOW_BAR_STOP";
+    static final String ACTION_END = "dev.scorpion7slayer.modelsmeter.action.NOW_BAR_END";
+    static final String ACTION_REFRESH = "dev.scorpion7slayer.modelsmeter.action.NOW_BAR_REFRESH";
+    static final String ACTION_STOP = "dev.scorpion7slayer.modelsmeter.action.NOW_BAR_STOP";
 
     private static final String CHANNEL_ID = "codex_live_monitor_v2";
     private static final String EXTRA_REQUEST_PROMOTED_ONGOING = "android.requestPromotedOngoing";
@@ -480,8 +480,8 @@ public final class NowBarManager {
         Notification.Builder builder = new Notification.Builder(context, CHANNEL_ID)
                 // Official Codex mark (white, no opaque square) — system tints status-bar icons.
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(text)
+                .setContentTitle(dev.bennett.codexmeter.Translations.t(title))
+                .setContentText(dev.bennett.codexmeter.Translations.t(text))
                 .setContentIntent(contentIntent)
                 .setDeleteIntent(stopIntent)
                 .setOngoing(true)

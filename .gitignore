@@ -13,6 +13,9 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+*.p12
+*.pfx
+*.mobileprovision
 
 # Android / Gradle build output
 build/
@@ -36,10 +39,4 @@ out/
 *.orig
 *.rej
 *.log
-
-# iOS / Xcode (ios/ package also has its own .gitignore)
-ios/**/DerivedData/
-ios/**/xcuserdata/
-ios/**/*.xcuserstate
-ios/**/.build/
-ios/**/.swiftpm/
+__pycache__/

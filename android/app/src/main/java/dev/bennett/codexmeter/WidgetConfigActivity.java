@@ -37,6 +37,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 public final class WidgetConfigActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
+    private Spinner providerSpinner;
     private Spinner accentSpinner;
     private CardItemView accentRow;
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -99,9 +104,13 @@ public final class WidgetConfigActivity extends AppCompatActivity {
         LinearLayout content = page.content;
         this.previewContainer = page.preview;
 
+        content.addView(Ui.separator(this, L10n.text(this, "Provider", "Fournisseur")));
+        providerSpinner = Ui.spinner(this, Provider.labels(), dark);
+        providerSpinner.setSelection(ProviderRepository.widgetProvider(this, appWidgetId).ordinal());
+        content.addView(providerSpinner);
         WidgetOptions saved = AppPreferences.loadWidgetOptions(this, this.appWidgetId);
         this.tapAction = AppPreferences.getWidgetTapAction(this, this.appWidgetId);
-        UsageSnapshot snapshot = AppPreferences.loadSnapshot(this);
+        UsageSnapshot snapshot = ProviderRepository.usage(this, ProviderRepository.widgetProvider(this, appWidgetId));
         loadMeterSelection(saved, snapshot);
 
         content.addView(Ui.separator(this, "Appearance"));
@@ -201,6 +210,17 @@ public final class WidgetConfigActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         };
+        this.providerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                UsageSnapshot snapshot = ProviderRepository.usage(WidgetConfigActivity.this, selectedProvider());
+                loadMeterSelection(currentOptions(), snapshot);
+                meterAdapter.snapshot = snapshot;
+                meterAdapter.notifyDataSetChanged();
+                updateMetersHint();
+                renderPreview();
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) { }
+        });
         this.styleSpinner.setOnItemSelectedListener(selectionListener);
         this.themeSpinner.setOnItemSelectedListener(selectionListener);
         this.accentSpinner.setOnItemSelectedListener(selectionListener);
@@ -238,7 +258,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
         RoundedLinearLayout card = Ui.seslRowCard(this, this.dark);
         RadioItemViewGroup group = new RadioItemViewGroup(this);
         group.setOrientation(LinearLayout.VERTICAL);
-        group.addView(radioRow(this.tapOpenId, "Open Codex Meter", false));
+        group.addView(radioRow(this.tapOpenId, "Open Models Meter", false));
         group.addView(radioRow(this.tapRefreshId, "Refresh usage", true));
         group.addView(radioRow(this.tapResetId, "Use reset if available", true));
         card.addView(group);
@@ -295,7 +315,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
     private RadioItemView radioRow(int id, String title, boolean divider) {
         RadioItemView row = new RadioItemView(this);
         row.setId(id);
-        row.setTitle(title);
+        row.setTitle(dev.bennett.codexmeter.Translations.t(title));
         row.setShowTopDivider(divider);
         return row;
     }
@@ -313,8 +333,8 @@ public final class WidgetConfigActivity extends AppCompatActivity {
     private CardItemView addOptionRow(RoundedLinearLayout card, String title, Spinner spinner,
             String[] labels, boolean divider) {
         CardItemView row = new CardItemView(this);
-        row.setTitle(title);
-        row.setSummary(labels[Math.max(0, spinner.getSelectedItemPosition())]);
+        row.setTitle(dev.bennett.codexmeter.Translations.t(title));
+        row.setSummary(dev.bennett.codexmeter.Translations.t(labels[Math.max(0, spinner.getSelectedItemPosition())]));
         row.setShowTopDivider(divider);
         row.setShowBottomDivider(false);
         row.setOnClickListener(view -> OneUiChoiceDialog.show(this, title, labels,
@@ -356,7 +376,8 @@ public final class WidgetConfigActivity extends AppCompatActivity {
     }
 
     private void loadMeterSelection(WidgetOptions saved, UsageSnapshot snapshot) {
-        List<String> available = WidgetMeters.availableKeys(snapshot);
+        List<String> available = new ArrayList<>(WidgetMeters.availableKeys(snapshot));
+        if (selectedProvider() != Provider.CHATGPT) available.remove(WidgetMeters.RESET_CREDITS);
         List<String> selected = WidgetMeters.resolveVisibleForWidget(
                 saved.effectiveVisibleMeters(), available, saved.metricMode);
         this.meterOrder.clear();
@@ -395,7 +416,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
 
     private final class MeterAdapter extends RecyclerView.Adapter<MeterHolder> {
         ItemTouchHelper touchHelper;
-        private final UsageSnapshot snapshot;
+        private UsageSnapshot snapshot;
 
         MeterAdapter(UsageSnapshot snapshot) {
             this.snapshot = snapshot;
@@ -416,7 +437,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
             row.addView(title, new LinearLayout.LayoutParams(0, -2, 1.0f));
 
             SwitchCompat toggle = new SwitchCompat(WidgetConfigActivity.this);
-            toggle.setContentDescription("Show on widget");
+            toggle.setContentDescription(dev.bennett.codexmeter.Translations.t("Show on widget"));
             LinearLayout.LayoutParams toggleParams = new LinearLayout.LayoutParams(-2, -2);
             toggleParams.setMargins(Ui.dp(WidgetConfigActivity.this, 8), 0,
                     Ui.dp(WidgetConfigActivity.this, 4), 0);
@@ -426,7 +447,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
             handle.setImageResource(R.drawable.ic_oui_reorder);
             handle.setImageTintList(ColorStateList.valueOf(
                     Ui.secondaryText(WidgetConfigActivity.this.dark)));
-            handle.setContentDescription("Reorder");
+            handle.setContentDescription(dev.bennett.codexmeter.Translations.t("Reorder"));
             int pad = Ui.dp(WidgetConfigActivity.this, 12);
             handle.setPadding(pad, pad, pad, pad);
             row.addView(handle, new LinearLayout.LayoutParams(
@@ -453,7 +474,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(MeterHolder holder, int position) {
             String key = meterOrder.get(position);
-            holder.title.setText(WidgetMeters.configLabel(key, snapshot));
+            holder.title.setText(dev.bennett.codexmeter.Translations.t(WidgetMeters.configLabel(key, snapshot)));
             holder.toggle.setOnCheckedChangeListener(null);
             boolean visible = selectedMeters.contains(key);
             holder.toggle.setChecked(visible);
@@ -567,15 +588,15 @@ public final class WidgetConfigActivity extends AppCompatActivity {
             return;
         }
         if (this.styleRow != null) {
-            this.styleRow.setSummary(WidgetOptionCatalog.STYLE_LABELS[
-                    this.styleSpinner.getSelectedItemPosition()]);
+            this.styleRow.setSummary(dev.bennett.codexmeter.Translations.t(WidgetOptionCatalog.STYLE_LABELS[
+                    this.styleSpinner.getSelectedItemPosition()]));
         }
-        this.themeRow.setSummary(WidgetOptionCatalog.THEME_LABELS[
-                this.themeSpinner.getSelectedItemPosition()]);
-        this.accentRow.setSummary(WidgetOptionCatalog.ACCENT_LABELS[
-                this.accentSpinner.getSelectedItemPosition()]);
-        this.displayRow.setSummary(WidgetOptionCatalog.DISPLAY_LABELS[
-                this.displaySpinner.getSelectedItemPosition()]);
+        this.themeRow.setSummary(dev.bennett.codexmeter.Translations.t(WidgetOptionCatalog.THEME_LABELS[
+                this.themeSpinner.getSelectedItemPosition()]));
+        this.accentRow.setSummary(dev.bennett.codexmeter.Translations.t(WidgetOptionCatalog.ACCENT_LABELS[
+                this.accentSpinner.getSelectedItemPosition()]));
+        this.displayRow.setSummary(dev.bennett.codexmeter.Translations.t(WidgetOptionCatalog.DISPLAY_LABELS[
+                this.displaySpinner.getSelectedItemPosition()]));
     }
 
     private void updateMetersHint() {
@@ -598,7 +619,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
                     + (selected - capacity == 1 ? " is" : "s are")
                     + " saved and appear when the widget is larger.";
         }
-        this.metersHint.setText(message);
+        this.metersHint.setText(dev.bennett.codexmeter.Translations.t(message));
     }
 
     private void renderPreview() {
@@ -614,7 +635,7 @@ public final class WidgetConfigActivity extends AppCompatActivity {
                 }
                 WidgetOptions options = currentOptions();
                 RemoteViews remote = WidgetRenderer.buildPreview(this, this.appWidgetId, options,
-                        this.widgetSize);
+                        this.widgetSize, selectedProvider());
                 FrameLayout surface = new FrameLayout(this);
                 surface.setClipToOutline(true);
                 GradientDrawable background = new GradientDrawable();
@@ -649,9 +670,9 @@ public final class WidgetConfigActivity extends AppCompatActivity {
                         Gravity.CENTER);
                 this.previewContainer.removeAllViews();
                 ImageView backdrop = new ImageView(this);
-                backdrop.setImageResource(R.drawable.codex_meter_icon_bg);
+                backdrop.setImageResource(R.drawable.ic_launcher_background);
                 backdrop.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                backdrop.setContentDescription(null);
+                backdrop.setContentDescription(dev.bennett.codexmeter.Translations.t(null));
                 this.previewContainer.addView(backdrop, new FrameLayout.LayoutParams(-1, -1));
                 this.previewContainer.addView(surface, params);
             } catch (RuntimeException exception) {
@@ -708,7 +729,13 @@ public final class WidgetConfigActivity extends AppCompatActivity {
         });
     }
 
+    private Provider selectedProvider() {
+        return providerSpinner == null ? ProviderRepository.widgetProvider(this, appWidgetId)
+                : Provider.values()[Math.max(0, providerSpinner.getSelectedItemPosition())];
+    }
+
     private void save() {
+        ProviderRepository.setWidgetProvider(this, appWidgetId, Provider.values()[providerSpinner.getSelectedItemPosition()]);
         AppPreferences.saveWidgetOptions(this, this.appWidgetId, currentOptions());
         AppPreferences.saveWidgetTapAction(this, this.appWidgetId, this.tapAction);
         WidgetRenderer.update(this, AppWidgetManager.getInstance(this), this.appWidgetId);

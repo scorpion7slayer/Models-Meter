@@ -10,6 +10,5 @@ if [[ -z "${ANDROID_SDK_ROOT:-}" && -d "$HOME/Library/Android/sdk" ]]; then
 fi
 
 "$ROOT/gradlew" --project-dir "$ROOT" \
-  :app:lintRelease \
-  :wear:lintRelease \
+  :app:lintRelease :wear:lintRelease \
   --console=plain

@@ -124,6 +124,47 @@ public actor NotificationCoordinator {
         return try await center.requestAuthorization(options: [.alert, .badge, .sound])
     }
 
+    private static let modelDiscoveryKey = "codex-meter.notification.model-discovery"
+    private var processingModels = false
+    private var modelDiscoveryGeneration = 0
+
+    public func processModels(_ models: [CodexModel], accountID: String, settings: AppSettings) async {
+        guard !models.isEmpty, !accountID.isEmpty, !processingModels else { return }
+        processingModels = true
+        let generation = modelDiscoveryGeneration
+        defer { processingModels = false }
+        // Separate baselines for account switches; never persist credentials.
+        var states = defaults.data(forKey: Self.modelDiscoveryKey).flatMap {
+            try? JSONDecoder().decode([String: CodexModelDiscoveryState].self, from: $0)
+        } ?? [:]
+        var state = states[accountID] ?? CodexModelDiscoveryState()
+        let added = state.additions(in: models)
+        if settings.notificationsEnabled && settings.newModelAlertsEnabled && !added.isEmpty {
+            let permission = await permissionState()
+            guard generation == modelDiscoveryGeneration,
+                  [.authorized, .provisional, .ephemeral].contains(permission) else { return }
+            let content = UNMutableNotificationContent()
+            content.title = MeterL10n.text(added.count == 1 ? "New Codex model available" : "New Codex models available", added.count == 1 ? "Nouveau modèle Codex disponible" : "Nouveaux modèles Codex disponibles")
+            content.body = added.map(\.name).joined(separator: ", ") + MeterL10n.text(" — available in your Codex model picker.", " — disponible dans votre sélection de modèles Codex.")
+            content.sound = .default
+            do {
+                try await center.add(UNNotificationRequest(
+                    identifier: "codex-meter.new-models", content: content, trigger: nil
+                ))
+            } catch { return } // Retry on a later catalog refresh if delivery failed.
+            guard generation == modelDiscoveryGeneration else {
+                center.removeDeliveredNotifications(withIdentifiers: ["codex-meter.new-models"])
+                center.removePendingNotificationRequests(withIdentifiers: ["codex-meter.new-models"])
+                return
+            }
+        }
+        state.record(models)
+        states[accountID] = state
+        if let data = try? JSONEncoder().encode(states) {
+            defaults.set(data, forKey: Self.modelDiscoveryKey)
+        }
+    }
+
     public func process(
         usage: UsageSnapshot,
         previousUsage: UsageSnapshot? = nil,
@@ -223,8 +264,8 @@ public actor NotificationCoordinator {
             return false
         }
         let content = UNMutableNotificationContent()
-        content.title = "Codex Meter notifications are working"
-        content.body = "Low usage, scheduled resets, surprise refills, and reset-credit alerts are ready."
+        content.title = MeterL10n.text("Models Meter notifications are working", "Les notifications de Models Meter fonctionnent")
+        content.body = MeterL10n.text("Low usage, scheduled resets, surprise refills, and reset-credit alerts are ready.", "Les alertes de quota, réinitialisation, recharge et crédit sont prêtes.")
         content.sound = .default
         try await center.add(
             UNNotificationRequest(
@@ -234,6 +275,11 @@ public actor NotificationCoordinator {
             )
         )
         return true
+    }
+
+    public func clearModelDiscovery() {
+        modelDiscoveryGeneration += 1
+        defaults.removeObject(forKey: Self.modelDiscoveryKey)
     }
 
     public func clearAll() async {
@@ -267,8 +313,8 @@ public actor NotificationCoordinator {
         currentResetIdentifiers.insert(resetIdentifier)
 
         let resetContent = UNMutableNotificationContent()
-        resetContent.title = "Codex \(label) usage reset"
-        resetContent.body = "Your \(label.lowercased()) allowance should be available again. Open Codex Meter to refresh."
+        resetContent.title = MeterL10n.text("Codex \(label) usage reset", "Réinitialisation Codex · \(MeterL10n.translate(label))")
+        resetContent.body = MeterL10n.text("Your \(label.lowercased()) allowance should be available again. Open Models Meter to refresh.", "Votre quota devrait être à nouveau disponible. Ouvrez Models Meter pour l’actualiser.")
         resetContent.sound = .default
         let components = Calendar.current.dateComponents(
             [.year, .month, .day, .hour, .minute, .second],
@@ -299,8 +345,8 @@ public actor NotificationCoordinator {
             return
         }
         let lowContent = UNMutableNotificationContent()
-        lowContent.title = "\(label) Codex usage is low"
-        lowContent.body = "\(window.remainingPercent)% remaining in the current \(label.lowercased()) window."
+        lowContent.title = MeterL10n.text("\(label) Codex usage is low", "Quota Codex faible · \(MeterL10n.translate(label))")
+        lowContent.body = MeterL10n.text("\(window.remainingPercent)% remaining in the current \(label.lowercased()) window.", "\(window.remainingPercent) % restants dans la période en cours.")
         lowContent.sound = .default
         do {
             try await center.add(
@@ -381,8 +427,9 @@ public actor NotificationCoordinator {
         }
 
         let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
+        content.title = MeterL10n.translate(title)
+        content.body = MeterL10n.language.resolved() == "fr"
+            ? "Votre quota a été rechargé avant la réinitialisation prévue." : body
         content.sound = .default
         try? await center.add(
             UNNotificationRequest(
@@ -411,10 +458,11 @@ public actor NotificationCoordinator {
         guard enabled, added > 0 else { return }
 
         let content = UNMutableNotificationContent()
-        content.title = added == 1 ? "Codex reset credit added" : "Codex reset credits added"
+        content.title = MeterL10n.text(added == 1 ? "Codex reset credit added" : "Codex reset credits added", "Crédit de réinitialisation Codex ajouté")
         content.body = added == 1
             ? "One Codex reset credit was added. You now have \(count)."
             : "\(added) Codex reset credits were added. You now have \(count)."
+        if MeterL10n.language.resolved() == "fr" { content.body = "\(added) crédit(s) ajouté(s). Vous en avez maintenant \(count)." }
         content.sound = .default
         content.userInfo = [NotificationDeduplication.routeUserInfoKey: "reset"]
         try? await center.add(
@@ -462,8 +510,11 @@ public actor NotificationCoordinator {
             guard fireDate < reminder.expiresAt else { continue }
 
             let content = UNMutableNotificationContent()
-            content.title = "Codex reset credit expires soon"
+            content.title = MeterL10n.text("Codex reset credit expires soon", "Un crédit de réinitialisation Codex expire bientôt")
             content.body = "One reset credit expires \(UsageFormat.absolute(reminder.expiresAt, relativeTo: now)) (\(UsageFormat.relative(until: reminder.expiresAt, from: now))). Use it before it expires."
+            if MeterL10n.language.resolved() == "fr" {
+                content.body = "Un crédit expire \(UsageFormat.relative(until: reminder.expiresAt, from: now)). Utilisez-le avant son expiration."
+            }
             content.sound = .default
             content.categoryIdentifier = NotificationDeduplication.expiryCategoryIdentifier
             content.userInfo = [

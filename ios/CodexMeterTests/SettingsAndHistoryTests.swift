@@ -4,6 +4,16 @@ import XCTest
 @testable import CodexMeter
 
 final class SettingsAndHistoryTests: XCTestCase {
+    func testModelAlertPreferenceMigratesAndRoundTrips() throws {
+        let oldSettings = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
+        XCTAssertTrue(oldSettings.newModelAlertsEnabled)
+        XCTAssertFalse(oldSettings.notificationsEnabled)
+        var settings = oldSettings
+        settings.newModelAlertsEnabled = false
+        let restored = try SettingsTransferDocument.decode(JSONEncoder().encode(settings))
+        XCTAssertFalse(restored.newModelAlertsEnabled)
+    }
+
     func testDashboardSettingsOrderVisibilityAndTransferRoundTrip() throws {
         let spark = "limit:codex-spark"
         var settings = AppSettings()

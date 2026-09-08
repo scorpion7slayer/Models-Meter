@@ -27,6 +27,10 @@ import dev.oneuiproject.oneui.widget.RoundedLinearLayout;
 import dev.oneuiproject.oneui.utils.EdgeToEdge;
 
 public final class AboutActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private static final int MENU_GITHUB = 8201;
     private static final int MENU_APP_INFO = 8202;
     private static final int DIAGNOSTIC_TAPS = 7;
@@ -44,7 +48,7 @@ public final class AboutActivity extends AppCompatActivity {
         setupToolbar();
         setupCollapsingContent();
         TextView version = findViewById(R.id.about_header_version);
-        version.setText(getString(R.string.about_version, Ui.versionName(this)));
+        version.setText(dev.bennett.codexmeter.Translations.t(getString(R.string.about_version, Ui.versionName(this))));
         version.setOnClickListener(this::onVersionTap);
         findViewById(R.id.about_header_icon).setOnClickListener(this::onVersionTap);
         build(findViewById(R.id.about_content));
@@ -52,10 +56,10 @@ public final class AboutActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(Menu.NONE, MENU_GITHUB, 0, "GitHub")
+        menu.add(Menu.NONE, MENU_GITHUB, 0, Translations.t("GitHub"))
                 .setIcon(R.drawable.ic_github_24)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, MENU_APP_INFO, 1, "App info")
+        menu.add(Menu.NONE, MENU_APP_INFO, 1, Translations.t("App info"))
                 .setIcon(R.drawable.ic_oui_info_outline)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
@@ -83,11 +87,25 @@ public final class AboutActivity extends AppCompatActivity {
         content.addView(buildAppCard());
         content.addView(sectionTitle("Credits"));
         RoundedLinearLayout credits = Ui.cardGroup(this, dark);
-        credits.addView(personRow("BenIt Buhner", "App creator and AI geek", R.drawable.benit_github_avatar, false,
-                "https://github.com/BenItBuhner"));
-        credits.addView(personRow("That Josh Guy", "App and Icon designer", R.drawable.codex_profile_avatar, true,
-                "https://tjg.gg"));
+        credits.addView(personRow("Theo · scorpion7slayer", "Models Meter developer and fork maintainer",
+                R.drawable.ic_models_meter, false, "https://github.com/scorpion7slayer"));
+        credits.addView(personRow("BenIt Buhner", "Developer of Codex Meter, the original project forked by Models Meter",
+                R.drawable.benit_github_avatar, true, "https://github.com/BenItBuhner"));
+        credits.addView(personRow("That Josh Guy", "Developer and designer of Codex Meter, the original project",
+                R.drawable.codex_profile_avatar, true, "https://tjg.gg"));
         content.addView(credits);
+
+        content.addView(sectionTitle("About this fork"));
+        RoundedLinearLayout fork = Ui.cardGroup(this, dark);
+        fork.addView(Ui.actionRow(this, "Models Meter on GitHub",
+                "An independent fork of Codex Meter, maintained by Theo (scorpion7slayer).",
+                R.drawable.ic_github_24, view -> openUrl(GitHubReleaseSource.REPOSITORY_URL)));
+        CardItemView original = Ui.actionRow(this, "Original project · Codex Meter",
+                "View the source project by BenIt Buhner and That Josh Guy.",
+                R.drawable.ic_github_24, view -> openUrl(GitHubReleaseSource.ORIGINAL_REPOSITORY_URL));
+        original.setShowTopDivider(true);
+        fork.addView(original);
+        content.addView(fork);
 
         content.addView(sectionTitle("Dependencies"));
         RoundedLinearLayout dependencies = Ui.cardGroup(this, dark);
@@ -112,7 +130,7 @@ public final class AboutActivity extends AppCompatActivity {
         card.addView(icon, new LinearLayout.LayoutParams(Ui.dp(this, 44), Ui.dp(this, 44)));
         LinearLayout text = new LinearLayout(this);
         text.setOrientation(LinearLayout.VERTICAL);
-        text.addView(Ui.text(this, "Codex Meter", 18, Ui.mainText(dark)));
+        text.addView(Ui.text(this, "Models Meter", 18, Ui.mainText(dark)));
         text.addView(Ui.text(this, getString(R.string.about_version, Ui.versionName(this)), 14, Ui.secondaryText(dark)));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, -2, 1);
         params.setMargins(Ui.dp(this, 20), 0, 0, 0);

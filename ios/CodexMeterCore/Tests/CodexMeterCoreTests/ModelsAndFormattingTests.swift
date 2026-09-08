@@ -237,6 +237,11 @@ final class ModelsAndFormattingTests: XCTestCase {
     }
 
     func testUsageFormattingMatchesUpstreamLabelsAndDurations() {
+        let preferences = UserDefaults(suiteName: MeterL10n.group)!
+        let previousLanguage = preferences.string(forKey: "language")
+        preferences.set("en", forKey: "language")
+        defer { if let previousLanguage { preferences.set(previousLanguage, forKey: "language") } else { preferences.removeObject(forKey: "language") } }
+
         XCTAssertEqual(UsageFormat.planLabel(" pro-lite "), "Pro 5x")
         XCTAssertEqual(UsageFormat.planLabel("pro_20x"), "Pro 20x")
         XCTAssertEqual(UsageFormat.planLabel("team"), "")

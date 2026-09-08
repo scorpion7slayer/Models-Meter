@@ -2,33 +2,33 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Log tracing">
+    <PreferenceCategory android:title="@string/localized_4d031548fb30">
         <SwitchPreferenceCompat
             android:key="diagnostic_logging_enabled"
-            android:summary="Record detailed app, refresh, scheduler, Wear, and network events"
-            android:title="Save diagnostic logs"
+            android:summary="@string/localized_f9f37253201c"
+            android:title="@string/localized_6f1fed0a1ea6"
             app:iconSpaceReserved="false" />
         <Preference
             android:key="diagnostic_log_status"
-            android:title="Saved logs"
+            android:title="@string/localized_fe8fe5c31ee9"
             app:iconSpaceReserved="false"
             app:selectable="false" />
         <Preference
             android:key="export_diagnostic_logs"
-            android:summary="Save a structured JSON Lines file"
-            android:title="Export logs"
+            android:summary="@string/localized_2295664fe9fd"
+            android:title="@string/localized_5fd44f23f409"
             app:iconSpaceReserved="false" />
         <Preference
             android:key="clear_diagnostic_logs"
-            android:summary="Permanently delete saved diagnostic events"
-            android:title="Clear logs"
+            android:summary="@string/localized_6d2ee26b1d0d"
+            android:title="@string/localized_532ffc7ab096"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Privacy">
+    <PreferenceCategory android:title="@string/localized_cf01481f626d">
         <Preference
-            android:summary="Logs stay in private app storage until you export or clear them. Authentication tokens, cookies, authorization codes, email addresses, URL queries, and request/response bodies are never intentionally recorded. Review an export before sharing it."
-            android:title="Sensitive data protection"
+            android:summary="@string/localized_a0db3566afc6"
+            android:title="@string/localized_09de4dee19f8"
             app:iconSpaceReserved="false"
             app:selectable="false" />
     </PreferenceCategory>

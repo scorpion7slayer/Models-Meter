@@ -1,6 +1,7 @@
 package dev.bennett.codexmeter.wear;
 
 public final class WearSyncPaths {
+    public static final String PATH_PROVIDERS = "/codex/providers";
     public static final String CAPABILITY_PHONE = "codex_meter_phone";
     public static final String CAPABILITY_WEAR = "codex_meter_wear";
     public static final String MSG_REFRESH = "/codex/msg/refresh";

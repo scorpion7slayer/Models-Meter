@@ -1,9 +1,5 @@
 package dev.bennett.codexmeter;
 
-import dev.bennett.codexmeter.wear.WearSettingsState;
-import dev.bennett.codexmeter.wear.WearSurfaceMode;
-import dev.bennett.codexmeter.wear.WearSyncStatus;
-import dev.bennett.codexmeter.wear.WearUsageState;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -12,7 +8,74 @@ import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 public final class ParserSelfTest {
+    private static void testModelCatalog() throws Exception {
+        List<CodexModelCatalog.Model> models = CodexModelCatalog.parse("""
+                {"models":[
+                  {"slug":"a","display_name":"Model A","visibility":"list"},
+                  {"slug":"a","visibility":"list"},
+                  {"slug":"hidden","visibility":"hide"},
+                  {"slug":"disabled","visibility":"none"},
+                  {"slug":" ","visibility":"list"},
+                  {"slug":"b","display_name":" ","visibility":"list"}
+                ]}
+                """);
+        assert models.size() == 2;
+        assert models.get(0).name.equals("Model A");
+        assert models.get(1).name.equals("b");
+        java.util.Set<String> known = new java.util.HashSet<>();
+        assert CodexModelCatalog.additions(known, models).isEmpty();
+        known.add("a");
+        assert CodexModelCatalog.additions(known, models).size() == 1;
+        assert CodexModelCatalog.additions(known, models).get(0).id.equals("b");
+        known.add("b");
+        assert CodexModelCatalog.additions(known, java.util.Collections.emptyList()).isEmpty();
+        assert CodexModelCatalog.additions(known, models).isEmpty();
+        for (String input : new String[]{"{}", "not json", "{\"models\":null}",
+                "{\"models\":[{\"slug\":\"a\"}]}"}) {
+            boolean rejected = false;
+            try { CodexModelCatalog.parse(input); }
+            catch (org.json.JSONException expected) { rejected = true; }
+            assert rejected : "Malformed catalog must not replace discovery history";
+        }
+    }
+
+    private static void testModelDiscoveryHistory() throws Exception {
+        CodexModelCatalog.Model a = new CodexModelCatalog.Model("a", "Model A");
+        CodexModelCatalog.Model b = new CodexModelCatalog.Model("b", "Model B");
+        CodexModelCatalog.Model c = new CodexModelCatalog.Model("c", "Model C");
+        ModelCatalogSnapshot baseline = ModelCatalogSnapshot.update(null, "account-a",
+                Arrays.asList(a, b), 1000);
+        check(baseline.discoveredAt(a) == 0, "initial catalog has no invented release dates");
+        ModelCatalogSnapshot added = ModelCatalogSnapshot.update(baseline, "account-a",
+                Arrays.asList(a, b, c, c), 2000);
+        check(added.models.size() == 3 && added.models.get(0).id.equals("c"),
+                "new model is first, duplicate IDs are removed");
+        check(added.discoveredAt(c) == 2000, "new model keeps its local discovery time");
+        ModelCatalogSnapshot restored = ModelCatalogSnapshot.fromJson(added.toJson());
+        check(restored.models.get(0).name.equals("Model C") && restored.discoveredAt(c) == 2000,
+                "names and discovery order survive a process restart");
+        ModelCatalogSnapshot removed = ModelCatalogSnapshot.update(restored, "account-a",
+                Arrays.asList(a), 3000);
+        check(removed.models.size() == 1, "unavailable models leave the visible catalog");
+        ModelCatalogSnapshot returned = ModelCatalogSnapshot.update(removed, "account-a",
+                Arrays.asList(a, b, new CodexModelCatalog.Model("c", "Renamed C")), 4000);
+        check(returned.discoveredAt(c) == 2000 && returned.models.get(0).name.equals("Renamed C"),
+                "reappearing IDs preserve discovery dates and refresh their names");
+        ModelCatalogSnapshot switched = ModelCatalogSnapshot.update(returned, "account-b",
+                Arrays.asList(a, c), 5000);
+        check(switched.discoveredAt(c) == 0 && switched.models.get(0).id.equals("a"),
+                "another account establishes its own baseline");
+        ModelCatalogSnapshot empty = ModelCatalogSnapshot.update(null, "account-a",
+                java.util.Collections.emptyList(), 1000);
+        check(ModelCatalogSnapshot.update(empty, "account-a", Arrays.asList(a), 6000)
+                .discoveredAt(a) == 0, "empty initial responses do not create false discoveries");
+        check(added.models.size() == 3, "updates leave earlier immutable snapshots intact");
+        System.out.println("Model catalog: discovery order, restart, renames, removals, and account isolation passed.");
+    }
+
     public static void main(String[] args) throws Exception {
+        testModelCatalog();
+        testModelDiscoveryHistory();
         testStandardUsage();
         testMonthlyWindow();
         testWindowIdentification();
@@ -39,10 +102,6 @@ public final class ParserSelfTest {
         testAdaptiveRefreshPolicy();
         testNowBarAutoStart();
         testNowBarDisplayModes();
-        testWearSurfaceModes();
-        testWearSettingsState();
-        testWearSyncState();
-        testWearGlanceFormat();
         testNowBarPercentModes();
         testNowBarCopy();
         testJwtMerge();
@@ -394,160 +453,6 @@ public final class ParserSelfTest {
         System.out.println("Now Bar display mode isolates Android and Samsung notification paths.");
     }
 
-    private static void testWearSurfaceModes() {
-        check(WearSurfaceMode.ONGOING_ACTIVITY == WearSurfaceMode.resolve(
-                        NowBarDisplayMode.SAMSUNG_COMPATIBILITY, 36, true),
-                "Samsung compatibility maps to Wear Ongoing Activity");
-        check(WearSurfaceMode.LIVE_UPDATE == WearSurfaceMode.resolve(
-                        NowBarDisplayMode.ANDROID_LIVE_UPDATE, 36, true),
-                "Wear OS 7 local Live Updates can be used when available");
-        check(WearSurfaceMode.ONGOING_ACTIVITY == WearSurfaceMode.resolve(
-                        NowBarDisplayMode.ANDROID_LIVE_UPDATE, 35, true),
-                "pre-36 Wear falls back to Ongoing Activity");
-        check(WearSurfaceMode.ONGOING_ACTIVITY == WearSurfaceMode.resolve(
-                        NowBarDisplayMode.AUTO, 36, false),
-                "automatic Wear mode falls back when Live Updates are unavailable");
-        check(WearSurfaceMode.LIVE_UPDATE == WearSurfaceMode.resolve(
-                        NowBarDisplayMode.AUTO, 36, true),
-                "automatic Wear mode uses local Live Updates on API 36+");
-        System.out.println("Wear surface mode maps phone Now Bar choices to Wear-native surfaces.");
-    }
-
-    private static void testWearSettingsState() throws Exception {
-        WearSettingsState phone = new WearSettingsState(
-                NowBarDisplayMode.SAMSUNG_COMPATIBILITY,
-                NowBarPercentMode.WEEKLY,
-                true,
-                NowBarAutoStart.METRIC_WEEKLY,
-                50,
-                true,
-                15,
-                1000L,
-                WearSettingsState.SOURCE_PHONE);
-        WearSettingsState roundTrip = WearSettingsState.fromJson(phone.toJson());
-        check(phone.equals(roundTrip), "Wear settings round trip preserves content");
-        WearSettingsState newerSameContent = new WearSettingsState(
-                NowBarDisplayMode.SAMSUNG_COMPATIBILITY,
-                NowBarPercentMode.WEEKLY,
-                true,
-                NowBarAutoStart.METRIC_WEEKLY,
-                50,
-                true,
-                15,
-                2000L,
-                WearSettingsState.SOURCE_PHONE);
-        check(phone.equals(newerSameContent), "Wear settings equality ignores update time");
-        WearSettingsState normalized = WearSettingsState.fromJson(new org.json.JSONObject()
-                .put("display_mode", "bad")
-                .put("percent_mode", "bad")
-                .put("metric", "bad")
-                .put("threshold", 3)
-                .put("refresh_minutes", 7)
-                .put("source_node", "wear"));
-        check(NowBarDisplayMode.AUTO.equals(normalized.displayMode), "Wear settings normalize display mode");
-        check(NowBarPercentMode.AUTO.equals(normalized.percentMode), "Wear settings normalize percent mode");
-        check(NowBarAutoStart.METRIC_BOTH.equals(normalized.metric), "Wear settings normalize metric");
-        check(normalized.threshold == 25, "Wear settings normalize threshold");
-        check(normalized.refreshMinutes == 30, "Wear settings normalize refresh interval");
-        check(WearSettingsState.SOURCE_WEAR.equals(normalized.sourceNode), "Wear settings preserve Wear source");
-        WearSettingsState pace = new WearSettingsState(
-                NowBarDisplayMode.AUTO, NowBarPercentMode.AUTO, true,
-                NowBarAutoStart.METRIC_BOTH, 25, false, 30, 3000L,
-                WearSettingsState.SOURCE_PHONE, "dev.bennett.codexmeter",
-                true, UsagePace.SENSITIVE, true);
-        WearSettingsState paceRoundTrip = WearSettingsState.fromJson(pace.toJson());
-        check(pace.equals(paceRoundTrip), "Wear settings preserve pace and accelerated start");
-        check(paceRoundTrip.acceleratedStartEnabled,
-                "Wear accelerated monitor preference survives sync");
-        check(UsagePace.SENSITIVE.equals(paceRoundTrip.usagePaceSensitivity),
-                "Wear pace sensitivity survives sync");
-        System.out.println("Wear settings JSON preserves normalized sync preferences.");
-    }
-
-    private static void testWearSyncState() throws Exception {
-        WearUsageState clear = new WearUsageState(null, 4000L,
-                WearSettingsState.SOURCE_PHONE, false);
-        WearUsageState clearRoundTrip = WearUsageState.fromJson(clear.toJson());
-        check(clearRoundTrip != null && clearRoundTrip.snapshot == null,
-                "Wear usage clear payload preserves an empty snapshot");
-        check(!clearRoundTrip.signedIn,
-                "Wear usage clear payload preserves signed-out state");
-        WearSyncStatus status = new WearSyncStatus(true, true, 3000L,
-                "Network unavailable", "2.6.10", 4000L);
-        WearSyncStatus statusRoundTrip = WearSyncStatus.fromJson(status.toJson());
-        check(statusRoundTrip != null && statusRoundTrip.signedIn,
-                "Wear status preserves phone sign-in state");
-        check(statusRoundTrip.refreshInProgress,
-                "Wear status preserves refresh progress");
-        check("Network unavailable".equals(statusRoundTrip.lastError),
-                "Wear status preserves safe refresh errors");
-        System.out.println("Wear sync status covers clear, sign-in, refresh, and error states.");
-    }
-
-    private static void testWearGlanceFormat() {
-        UsageWindow five = new UsageWindow(62, TimeUnit.HOURS.toSeconds(5),
-                TimeUnit.MINUTES.toSeconds(84), 2_000_000_000L);
-        UsageWindow weekly = new UsageWindow(41, TimeUnit.DAYS.toSeconds(7),
-                TimeUnit.DAYS.toSeconds(3), 2_100_000_000L);
-        UsageSnapshot snapshot = new UsageSnapshot("demo", true, false, five, weekly,
-                System.currentTimeMillis());
-        check("38%".equals(WearGlanceFormat.remainingPercentText(five)),
-                "five-hour remaining percent text");
-        check("59%".equals(WearGlanceFormat.remainingPercentText(weekly)),
-                "weekly remaining percent text");
-        check("--".equals(WearGlanceFormat.remainingPercentText(null)),
-                "missing window shows placeholder");
-        check(Math.abs(WearGlanceFormat.remainingProgress(five) - 0.38f) < 0.001f,
-                "remaining progress fraction matches percent");
-        check("38·59".equals(WearGlanceFormat.dualShortText(snapshot)),
-                "dual short complication text");
-        check(WearGlanceFormat.dualLongText(snapshot).contains("5h 38%"),
-                "dual long text includes five-hour");
-        check(WearGlanceFormat.dualLongText(snapshot).contains("Week 59%"),
-                "dual long text includes weekly");
-        long now = System.currentTimeMillis();
-        UsageSnapshot timed = new UsageSnapshot("demo", true, false,
-                new UsageWindow(10, 18000L, 600L, (now + TimeUnit.HOURS.toMillis(2)) / 1000L),
-                new UsageWindow(20, 604800L, 600L, (now + TimeUnit.DAYS.toMillis(2)) / 1000L),
-                now);
-        check("5h reset".equals(WearGlanceFormat.nextResetWindowLabel(timed, now)),
-                "next reset prefers the sooner five-hour window");
-        check(WearGlanceFormat.nextResetRelativeText(timed, now).contains("h"),
-                "next reset relative text includes hours");
-        check(WearGlanceFormat.nextResetLongText(timed, now).startsWith("Resets in "),
-                "next reset long text is prefixed");
-        UsageSnapshot fallbackTimed = new UsageSnapshot("demo", true, false,
-                new UsageWindow(10, 18000L, TimeUnit.HOURS.toSeconds(2), 0L),
-                null, now);
-        check("5h reset".equals(WearGlanceFormat.nextResetWindowLabel(fallbackTimed, now)),
-                "Wear reset label uses observation-based reset-after fallback");
-        check(WearGlanceFormat.nextResetRelativeText(fallbackTimed, now).contains("h"),
-                "Wear fallback reset countdown remains finite");
-        UsageSnapshot unused = new UsageSnapshot("demo", true, false,
-                new UsageWindow(0, 18000L, 0L, 0L),
-                new UsageWindow(0, 604800L, 0L, 0L), now);
-        check("--".equals(WearGlanceFormat.nextResetWindowLabel(unused, now)),
-                "unused windows without API reset have no next-reset label");
-        check("No reset yet".equals(WearGlanceFormat.nextResetLongText(unused, now)),
-                "unused windows without API reset show no reset timeframe");
-        UsageSnapshot unusedWithReset = new UsageSnapshot("demo", true, false,
-                new UsageWindow(0, 18000L, 0L,
-                        (now + TimeUnit.HOURS.toMillis(3)) / 1000L),
-                null, now);
-        check("5h reset".equals(WearGlanceFormat.nextResetWindowLabel(unusedWithReset, now)),
-                "100% remaining still surfaces an API reset timeline");
-        UsageSnapshot account = new UsageSnapshot("plus", true, true, five, weekly, 2, now);
-        check("Limit reached".equals(WearGlanceFormat.accountStatus(account)),
-                "Wear account status surfaces a reached limit");
-        check("2 reset credits".equals(WearGlanceFormat.resetCreditsText(account)),
-                "Wear displays reset-credit count");
-        check(WearGlanceFormat.isStale(now - TimeUnit.HOURS.toMillis(2), 30, now),
-                "Wear marks old phone data stale");
-        check(!WearGlanceFormat.isStale(now - TimeUnit.MINUTES.toMillis(10), 30, now),
-                "Wear keeps recent phone data fresh");
-        System.out.println("Wear glance formatting covers tiles and complication text.");
-    }
-
     private static void testNowBarPercentModes() {
         UsageWindow high = new UsageWindow(10, 18000L, 600L, 2000000000L); // 90% remaining
         UsageWindow mid = new UsageWindow(80, 18000L, 600L, 2000000000L); // 20% remaining
@@ -586,10 +491,10 @@ public final class ParserSelfTest {
                 "auto trigger picks lower remaining when both crossed threshold");
         check(NowBarPercentMode.FIVE_HOUR.equals(
                         NowBarPercentMode.triggeredFocus("five_hour", 25, mid, low)),
-                "auto trigger respects five-hour-only watch metric");
+                "auto trigger respects five-hour-only selected metric");
         check(NowBarPercentMode.WEEKLY.equals(
                         NowBarPercentMode.triggeredFocus("weekly", 25, mid, low)),
-                "auto trigger respects weekly-only watch metric");
+                "auto trigger respects weekly-only selected metric");
 
         check(NowBarPercentMode.WEEKLY.equals(
                         NowBarPercentMode.resolveFocus("auto", mid, low, "weekly")),
@@ -669,11 +574,6 @@ public final class ParserSelfTest {
                         NowBarCopy.limitText("5-hour", null, observed, now)),
                 "missing window stays unavailable");
 
-        check("5h 60%".equals(NowBarCopy.wearLimitText("5h", remaining, observed, now)),
-                "Wear limit text keeps remaining percentage");
-        check("Week resets 2d 4h".equals(
-                        NowBarCopy.wearLimitText("Week", exhaustedDays, observed, now)),
-                "Wear exhausted weekly text uses compact reset duration");
         check("2d 4h".equals(NowBarCopy.compactDuration(
                         TimeUnit.DAYS.toMillis(2) + TimeUnit.HOURS.toMillis(4))),
                 "compact duration prefers days and hours");
@@ -703,7 +603,7 @@ public final class ParserSelfTest {
 
     /**
      * Free-tier accounts report a single ~30-day Codex window. It must parse into the monthly
-     * slot, stay displayable, and adapt every long-window surface (widgets, Wear, Now Bar).
+     * slot, stay displayable, and adapt every long-window surface (widgets and Now Bar).
      */
     private static void testMonthlyWindow() throws Exception {
         long now = 2_000_000_000_000L;
@@ -751,7 +651,7 @@ public final class ParserSelfTest {
         check(pro.longWindow() == pro.weekly && !pro.longWindowIsMonthly(),
                 "weekly stays the long window whenever it is reported");
 
-        // Long-window consumers adapt: widgets and Wear surfaces label the monthly window.
+        // Long-window consumers adapt: widgets label the monthly window.
         check(WidgetMeters.meterWindow(WidgetMeters.WEEKLY, snapshot) == snapshot.monthly,
                 "weekly widget meter falls back to the monthly window");
         check("Mo".equals(WidgetMeters.shortLabel(WidgetMeters.WEEKLY, snapshot)),
@@ -761,19 +661,6 @@ public final class ParserSelfTest {
                 "widget config row names the monthly window");
         check("Wk".equals(WidgetMeters.shortLabel(WidgetMeters.WEEKLY, pro)),
                 "weekly widget meter keeps its label on paid tiers");
-        check("Monthly".equals(WearGlanceFormat.longWindowLabel(snapshot))
-                        && "Month".equals(WearGlanceFormat.longWindowShortLabel(snapshot)),
-                "Wear surfaces label the monthly long window");
-        check("Weekly".equals(WearGlanceFormat.longWindowLabel(pro)),
-                "Wear surfaces keep the weekly label on paid tiers");
-        check(WearGlanceFormat.dualLongText(snapshot).contains("Month 72%"),
-                "Wear dual text reports monthly remaining");
-        check(WearGlanceFormat.focusSummary(snapshot).contains("Month"),
-                "Wear focus summary includes the monthly window");
-        check("Month".equals(WearGlanceFormat.compactWindowLabel(snapshot.monthly, "5h")),
-                "compact window label recognizes month-length windows");
-        check("Month reset".equals(WearGlanceFormat.nextResetWindowLabel(snapshot, now)),
-                "next-reset label names the monthly window");
 
         // Refresh cadence and low-usage automation follow the monthly window too.
         check(AdaptiveRefreshPolicy.chooseMinutes(snapshot, 0.0d, 12, 0, now) == 30,
@@ -788,7 +675,7 @@ public final class ParserSelfTest {
         check(NowBarAutoStart.shouldStart(true, "both", 25, null, lowMonthly.longWindow()),
                 "monthly window triggers low-usage auto-start through the long slot");
         System.out.println("Monthly-window demo: Pro 20x expiring to Free swaps weekly for "
-                + "a monthly card, widgets/Wear relabel, and nothing errors.");
+                + "a monthly card, widgets relabel, and nothing errors.");
     }
 
     private static void testWindowIdentification() throws Exception {
@@ -940,7 +827,7 @@ public final class ParserSelfTest {
                         new UsageWindow(1, 18000L, 0L, 2_000_000_000L), null))),
                 "limit key falls back to the display name");
         List<String> defaults = DashboardSections.defaultOrder(Arrays.asList(spark));
-        check(defaults.equals(Arrays.asList(
+        check(defaults.equals(Arrays.asList(DashboardSections.LATEST_MODELS,
                         DashboardSections.FIVE_HOUR, DashboardSections.WEEKLY,
                         DashboardSections.MONTHLY, sparkKey,
                         DashboardSections.USAGE_CREDITS, DashboardSections.USAGE_HISTORY,
@@ -952,7 +839,7 @@ public final class ParserSelfTest {
                 "no saved order keeps the defaults");
         List<String> saved = DashboardSections.resolveOrder(
                 "usage_credits, limit:codex-spark ,five_hour,weekly", defaults);
-        check(saved.equals(Arrays.asList(DashboardSections.USAGE_CREDITS, sparkKey,
+        check(saved.equals(Arrays.asList(DashboardSections.LATEST_MODELS, DashboardSections.USAGE_CREDITS, sparkKey,
                         DashboardSections.FIVE_HOUR, DashboardSections.WEEKLY,
                         DashboardSections.MONTHLY,
                         DashboardSections.USAGE_HISTORY, DashboardSections.RESET_CREDITS)),
@@ -961,7 +848,7 @@ public final class ParserSelfTest {
         List<String> withoutSpark = DashboardSections.resolveOrder(
                 "weekly,five_hour,usage_credits",
                 DashboardSections.defaultOrder(Arrays.asList(spark)));
-        check(withoutSpark.equals(Arrays.asList(DashboardSections.WEEKLY,
+        check(withoutSpark.equals(Arrays.asList(DashboardSections.LATEST_MODELS, DashboardSections.WEEKLY,
                         DashboardSections.FIVE_HOUR, DashboardSections.MONTHLY, sparkKey,
                         DashboardSections.USAGE_CREDITS,
                         DashboardSections.USAGE_HISTORY, DashboardSections.RESET_CREDITS)),
@@ -973,7 +860,7 @@ public final class ParserSelfTest {
                         DashboardSections.FIVE_HOUR)),
                 "keys for limits no longer reported are dropped");
         check(DashboardSections.serialize(saved)
-                        .equals("usage_credits,limit:codex-spark,five_hour,weekly,monthly,"
+                        .equals("latest_models,usage_credits,limit:codex-spark,five_hour,weekly,monthly,"
                                 + "usage_history,reset_credits"),
                 "order round-trips through the stored CSV form");
         check(DashboardSections.resolveOrder(null,
@@ -1619,9 +1506,9 @@ public final class ParserSelfTest {
 
     private static void testOAuthBrowserPage() {
         String success = OAuthBrowserPage.render(
-                "Connected <securely> & ready.", true, "codexmeter://auth/complete");
+                "Connected <securely> & ready.", true, "modelsmeter://auth/complete");
         check(success.contains("You’re connected"), "browser success title");
-        check(success.contains("Codex Meter</a>"), "browser app return action");
+        check(success.contains("Models Meter</a>"), "browser app return action");
         check(success.contains("prefers-color-scheme:dark"), "browser One UI light and dark themes");
         check(success.contains("border-radius:28px"), "browser One UI rounded card");
         check(success.contains("Connected &lt;securely&gt; &amp; ready."),
@@ -1629,9 +1516,9 @@ public final class ParserSelfTest {
         check(success.contains("setTimeout"), "successful browser page automatically returns");
 
         String failure = OAuthBrowserPage.render(
-                "Denied", false, "codexmeter://auth/complete");
+                "Denied", false, "modelsmeter://auth/complete");
         check(failure.contains("Let’s try that again"), "browser failure title");
-        check(failure.contains("Back to Codex Meter"), "browser failure return action");
+        check(failure.contains("Back to Models Meter"), "browser failure return action");
         check(!failure.contains("setTimeout"), "failure page waits for user");
 
         String escapedScript = OAuthBrowserPage.javascriptString("x'\\\n\u2028");
@@ -1652,10 +1539,10 @@ public final class ParserSelfTest {
     }
 
     private static void testGitHubReleases() throws Exception {
-        check("https://github.com/BenItBuhner/Codex-Meter".equals( // pragma: allowlist secret
+        check("https://github.com/scorpion7slayer/Models-Meter".equals( // pragma: allowlist secret
                         GitHubReleaseSource.REPOSITORY_URL),
                 "canonical release repository");
-        check("https://api.github.com/repos/BenItBuhner/Codex-Meter/releases?per_page=30" // pragma: allowlist secret
+        check("https://api.github.com/repos/scorpion7slayer/Models-Meter/releases?per_page=30" // pragma: allowlist secret
                         .equals(GitHubReleaseSource.RELEASES_API_URL),
                 "canonical release API endpoint");
         String json = "["
@@ -1752,11 +1639,11 @@ public final class ParserSelfTest {
         String normalized = tag.startsWith("v") ? tag.substring(1) : tag;
         StringBuilder assets = new StringBuilder();
         if (apk) {
-            assets.append("{\"name\":\"CodexMeter-").append(normalized)
+            assets.append("{\"name\":\"ModelsMeter-").append(normalized)
                     .append(".apk\",\"size\":123,\"browser_download_url\":")
                     .append("\"").append(GitHubReleaseSource.REPOSITORY_URL)
                     .append("/releases/download/")
-                    .append(tag).append("/CodexMeter-").append(normalized).append(".apk\"}");
+                    .append(tag).append("/ModelsMeter-").append(normalized).append(".apk\"}");
         }
         if (checksum) {
             if (assets.length() > 0) assets.append(',');
@@ -1766,7 +1653,7 @@ public final class ParserSelfTest {
                     .append("/releases/download/")
                     .append(tag).append("/SHA256SUMS.txt\"}");
         }
-        return "{\"tag_name\":\"" + tag + "\",\"name\":\"Codex Meter " + normalized
+        return "{\"tag_name\":\"" + tag + "\",\"name\":\"Models Meter " + normalized
                 + "\",\"body\":\"Changes\",\"published_at\":\"2026-07-13T00:00:00Z\","
                 + "\"html_url\":\"" + GitHubReleaseSource.REPOSITORY_URL + "/releases/tag/"
                 + tag + "\",\"draft\":" + draft + ",\"prerelease\":" + prerelease
@@ -1775,18 +1662,18 @@ public final class ParserSelfTest {
 
     private static void testReleaseChecksums() {
         String digest = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
-        String checksums = digest + "  CodexMeter-2.2.0.apk\n"
+        String checksums = digest + "  ModelsMeter-2.2.0.apk\n"
                 + "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                 + "  other.apk\n";
         check(digest.equals(ReleaseIntegrity.expectedSha256(
-                        checksums, "CodexMeter-2.2.0.apk")),
+                        checksums, "ModelsMeter-2.2.0.apk")),
                 "matching APK checksum selected");
         check(ReleaseIntegrity.expectedSha256(checksums, "../other.apk").isEmpty(),
                 "unsafe checksum filename rejected");
         check(ReleaseIntegrity.expectedSha256("not-a-checksum", "app.apk").isEmpty(),
                 "malformed checksum rejected");
         check(ReleaseIntegrity.expectedSha256(checksums + digest
-                        + "  CodexMeter-2.2.0.apk\n", "CodexMeter-2.2.0.apk").isEmpty(),
+                        + "  ModelsMeter-2.2.0.apk\n", "ModelsMeter-2.2.0.apk").isEmpty(),
                 "duplicate APK checksum rejected");
     }
 
@@ -1837,15 +1724,15 @@ public final class ParserSelfTest {
     }
 
     private static void testReleaseUpdatePolicy() {
-        check(ReleaseUpdatePolicy.isIrreversible("2.2.0"),
-                "pre-2.3.0 release is irreversible");
-        check(ReleaseUpdatePolicy.isIrreversible("v2.1.0"),
-                "tagged pre-2.3.0 release is irreversible");
-        check(ReleaseUpdatePolicy.isIrreversible("2.2.9"),
+        check(ReleaseUpdatePolicy.isIrreversible("0.9.0"),
+                "pre-1.0.0 release is irreversible");
+        check(ReleaseUpdatePolicy.isIrreversible("v0.8.0"),
+                "tagged pre-1.0.0 release is irreversible");
+        check(ReleaseUpdatePolicy.isIrreversible("0.9.9"),
                 "latest pre-threshold release is irreversible");
-        check(!ReleaseUpdatePolicy.isIrreversible("2.3.0"),
+        check(!ReleaseUpdatePolicy.isIrreversible("1.0.0"),
                 "first in-app update release is reversible");
-        check(!ReleaseUpdatePolicy.isIrreversible("2.3.1"),
+        check(!ReleaseUpdatePolicy.isIrreversible("1.0.1"),
                 "post-threshold release is reversible");
         check(!ReleaseUpdatePolicy.isIrreversible("not-a-version"),
                 "invalid versions are not flagged irreversible");

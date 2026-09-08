@@ -79,6 +79,14 @@ public final class ResetAlertPreferences {
         prefs(context).edit().putBoolean(KEY_UNEXPECTED_REFILLS, enabled).apply();
     }
 
+    public static boolean newModelsEnabled(Context context) {
+        return prefs(context).getBoolean("new_models", true);
+    }
+
+    public static void setNewModelsEnabled(Context context, boolean enabled) {
+        prefs(context).edit().putBoolean("new_models", enabled).apply();
+    }
+
     public static boolean resetCreditIncreasesEnabled(Context context) {
         return prefs(context).getBoolean(KEY_RESET_CREDIT_INCREASES, true);
     }

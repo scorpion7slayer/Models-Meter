@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="preferences_darkmode_entries">
+        <item>Clair</item>
+        <item>Sombre</item>
+    </string-array>
+    <string-array name="settings_refresh_entries">
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>60 minutes</item>
+        <item>2 heures</item>
+    </string-array>
+    <string-array name="settings_refresh_mode_entries">
+        <item>Automatique</item>
+        <item>Manuel</item>
+    </string-array>
+    <string-array name="settings_update_channel_entries">
+        <item>Stable</item>
+        <item>Alpha (versions préliminaires)</item>
+    </string-array>
+    <string-array name="settings_update_interval_entries">
+        <item>Toutes les heures</item>
+        <item>Toutes les 6 heures</item>
+        <item>Toutes les 12 heures</item>
+        <item>Chaque jour</item>
+        <item>Hebdomadaire</item>
+    </string-array>
+    <string-array name="settings_metric_entries">
+        <item>Les deux</item>
+        <item>5 heures</item>
+        <item>Hebdomadaire</item>
+    </string-array>
+    <string-array name="settings_alert_style_entries">
+        <item>Silencieux</item>
+        <item>Son de notification</item>
+        <item>Son d’alarme</item>
+    </string-array>
+    <string-array name="settings_threshold_entries">
+        <item>Toujours</item>
+        <item>10 % ou moins</item>
+        <item>25 % ou moins</item>
+        <item>50 % ou moins</item>
+        <item>75 % ou moins</item>
+    </string-array>
+    <string-array name="usage_pace_sensitivity_entries">
+        <item>Désactivé</item>
+        <item>Sensible</item>
+        <item>Équilibré</item>
+        <item>Tolérant</item>
+    </string-array>
+</resources>

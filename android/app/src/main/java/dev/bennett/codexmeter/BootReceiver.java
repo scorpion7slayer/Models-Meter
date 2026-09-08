@@ -13,6 +13,7 @@ public final class BootReceiver extends BroadcastReceiver {
             DiagnosticLog.info(context, "process", "boot_receiver",
                     "action", action);
             RefreshScheduler.schedulePeriodic(context);
+            ProviderResetReceiver.scheduleAll(context);
             ReleaseUpdateScheduler.ensureScheduled(context);
             ResetAlertScheduler.scheduleFromSnapshot(context, AppPreferences.loadSnapshot(context));
             ResetCreditExpiryScheduler.scheduleFromSnapshot(context,

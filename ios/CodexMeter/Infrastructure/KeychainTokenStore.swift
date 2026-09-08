@@ -10,7 +10,7 @@ nonisolated public protocol TokenStoring: Sendable {
 /// App-only credential persistence. This type is intentionally absent from the
 /// widget target and does not use an access group shared with extensions.
 public actor KeychainTokenStore: TokenStoring {
-    public nonisolated static let defaultService = "com.bukovinafilip.CodexMeter.auth"
+    public nonisolated static let defaultService = "dev.scorpion7slayer.modelsmeter.auth"
 
     private let service: String
     private let account: String

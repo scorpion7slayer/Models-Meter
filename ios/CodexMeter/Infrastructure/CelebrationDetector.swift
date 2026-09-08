@@ -2,7 +2,7 @@ import CodexMeterCore
 import Foundation
 
 /// Pure decision logic for unexpected allowance refills and reset-credit increases
-/// (parity with upstream CelebrationDetector from Codex Meter 2.1+).
+/// (parity with upstream CelebrationDetector from Models Meter 2.1+).
 nonisolated public enum CelebrationDetector {
     public struct RefillMask: OptionSet, Sendable, Equatable {
         public let rawValue: Int

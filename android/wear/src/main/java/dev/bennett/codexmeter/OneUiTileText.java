@@ -30,7 +30,7 @@ final class OneUiTileText {
     }
 
     LayoutElement element(String value, float sizeSp, int color, int weight) {
-        String text = value == null ? "" : value;
+        String text = value == null ? "" : Translations.t(value);
         int numericWeight = weight == LayoutElementBuilders.FONT_WEIGHT_BOLD ? 700 : 400;
         float logicalSize = sizeSp * fontScale;
         float renderScale = MAX_RENDER_SCALE;
@@ -65,7 +65,7 @@ final class OneUiTileText {
                 .setContentScaleMode(LayoutElementBuilders.CONTENT_SCALE_MODE_FIT)
                 .setModifiers(new ModifiersBuilders.Modifiers.Builder()
                         .setSemantics(new ModifiersBuilders.Semantics.Builder()
-                                .setContentDescription(text)
+                                .setContentDescription(dev.bennett.codexmeter.Translations.t(text))
                                 .build())
                         .build())
                 .build();

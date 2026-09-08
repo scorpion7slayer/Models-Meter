@@ -1,4 +1,5 @@
 import SwiftUI
+import CodexMeterCore
 import WidgetKit
 
 struct MeterWidgetContainer<Content: View>: View {
@@ -7,6 +8,7 @@ struct MeterWidgetContainer<Content: View>: View {
 
     var body: some View {
         content
+            .environment(\.locale, MeterL10n.language.locale)
             .modifier(WidgetColorSchemeModifier(appearance: configuration.appearance))
             .containerBackground(for: .widget) {
                 WidgetBackground(
@@ -295,7 +297,7 @@ struct SignedOutWidgetView: View {
                 .font(.title)
                 .symbolRenderingMode(.hierarchical)
                 .widgetAccentable()
-            Text("Codex Meter")
+            Text("Models Meter")
                 .font(.headline)
             Text("Sign in or explore demo")
                 .font(.caption)
@@ -304,7 +306,7 @@ struct SignedOutWidgetView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accessibilityElement(children: .combine)
-        .accessibilityHint("Opens Codex Meter")
+        .accessibilityHint("Opens Models Meter")
     }
 }
 

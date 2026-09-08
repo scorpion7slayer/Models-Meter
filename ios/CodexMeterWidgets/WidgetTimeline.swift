@@ -24,7 +24,7 @@ struct MeterWidgetTimelineProvider: AppIntentTimelineProvider {
     ) async -> MeterWidgetEntry {
         MeterWidgetEntry(
             date: .now,
-            snapshot: context.isPreview ? .preview : store.load(),
+            snapshot: context.isPreview ? .preview : store.load(provider: configuration.provider),
             configuration: configuration
         )
     }
@@ -34,7 +34,7 @@ struct MeterWidgetTimelineProvider: AppIntentTimelineProvider {
         in context: Context
     ) async -> Timeline<MeterWidgetEntry> {
         let now = Date.now
-        let snapshot = store.load()
+        let snapshot = store.load(provider: configuration.provider)
         let entry = MeterWidgetEntry(
             date: now,
             snapshot: snapshot,
@@ -56,11 +56,13 @@ struct ConfiguredAccessoryWidgetEntry: TimelineEntry, Sendable {
     let date: Date
     let snapshot: WidgetDisplaySnapshot
     let allowance: WidgetAllowance
+    var provider: WidgetProvider = .chatgpt
 }
 
 private func accessoryTimeline(
     snapshot: WidgetDisplaySnapshot,
     allowance: WidgetAllowance,
+    provider: WidgetProvider,
     now: Date
 ) -> Timeline<ConfiguredAccessoryWidgetEntry> {
     let normalReload = now.addingTimeInterval(
@@ -75,7 +77,8 @@ private func accessoryTimeline(
             ConfiguredAccessoryWidgetEntry(
                 date: now,
                 snapshot: snapshot,
-                allowance: allowance
+                allowance: allowance,
+                provider: provider
             )
         ],
         policy: .after(reloadDate)
@@ -99,8 +102,9 @@ struct FiveHourAccessoryTimelineProvider: AppIntentTimelineProvider {
     ) async -> ConfiguredAccessoryWidgetEntry {
         ConfiguredAccessoryWidgetEntry(
             date: .now,
-            snapshot: context.isPreview ? .preview : store.load(),
-            allowance: configuration.allowance
+            snapshot: context.isPreview ? .preview : store.load(provider: configuration.provider),
+            allowance: configuration.allowance,
+            provider: configuration.provider
         )
     }
 
@@ -109,10 +113,11 @@ struct FiveHourAccessoryTimelineProvider: AppIntentTimelineProvider {
         in context: Context
     ) async -> Timeline<ConfiguredAccessoryWidgetEntry> {
         let now = Date.now
-        let snapshot = store.load()
+        let snapshot = store.load(provider: configuration.provider)
         return accessoryTimeline(
             snapshot: snapshot,
             allowance: configuration.allowance,
+            provider: configuration.provider,
             now: now
         )
     }
@@ -135,8 +140,9 @@ struct WeeklyAccessoryTimelineProvider: AppIntentTimelineProvider {
     ) async -> ConfiguredAccessoryWidgetEntry {
         ConfiguredAccessoryWidgetEntry(
             date: .now,
-            snapshot: context.isPreview ? .preview : store.load(),
-            allowance: configuration.allowance
+            snapshot: context.isPreview ? .preview : store.load(provider: configuration.provider),
+            allowance: configuration.allowance,
+            provider: configuration.provider
         )
     }
 
@@ -145,10 +151,11 @@ struct WeeklyAccessoryTimelineProvider: AppIntentTimelineProvider {
         in context: Context
     ) async -> Timeline<ConfiguredAccessoryWidgetEntry> {
         let now = Date.now
-        let snapshot = store.load()
+        let snapshot = store.load(provider: configuration.provider)
         return accessoryTimeline(
             snapshot: snapshot,
             allowance: configuration.allowance,
+            provider: configuration.provider,
             now: now
         )
     }
@@ -171,8 +178,9 @@ struct DualAccessoryTimelineProvider: AppIntentTimelineProvider {
     ) async -> ConfiguredAccessoryWidgetEntry {
         ConfiguredAccessoryWidgetEntry(
             date: .now,
-            snapshot: context.isPreview ? .preview : store.load(),
-            allowance: configuration.allowance
+            snapshot: context.isPreview ? .preview : store.load(provider: configuration.provider),
+            allowance: configuration.allowance,
+            provider: configuration.provider
         )
     }
 
@@ -181,10 +189,11 @@ struct DualAccessoryTimelineProvider: AppIntentTimelineProvider {
         in context: Context
     ) async -> Timeline<ConfiguredAccessoryWidgetEntry> {
         let now = Date.now
-        let snapshot = store.load()
+        let snapshot = store.load(provider: configuration.provider)
         return accessoryTimeline(
             snapshot: snapshot,
             allowance: configuration.allowance,
+            provider: configuration.provider,
             now: now
         )
     }

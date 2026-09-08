@@ -1,0 +1,89 @@
+name: Build signed iOS Ad Hoc IPA
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archive:
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      IOS_TEAM_ID: ${{ vars.IOS_TEAM_ID }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Test core and signing validation
+        run: |
+          set -euo pipefail
+          swift test --package-path ios/CodexMeterCore
+          python3 -m unittest discover -s scripts -p 'test_ios_signing.py'
+
+      - name: Validate version and prepare signing profiles
+        env:
+          IOS_CERTIFICATE_P12_BASE64: ${{ secrets.IOS_CERTIFICATE_P12_BASE64 }}
+          IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          IOS_APP_PROFILE_BASE64: ${{ secrets.IOS_APP_PROFILE_BASE64 }}
+          IOS_WIDGET_PROFILE_BASE64: ${{ secrets.IOS_WIDGET_PROFILE_BASE64 }}
+        run: python3 scripts/prepare-ios-signing.py
+
+      - name: Import distribution identity into temporary keychain
+        env:
+          IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          KEYCHAIN_PATH="$RUNNER_TEMP/models-meter-signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(openssl rand -hex 24)"
+          echo "::add-mask::$KEYCHAIN_PASSWORD"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$RUNNER_TEMP/models-meter-signing/distribution.p12" \
+            -P "$IOS_CERTIFICATE_PASSWORD" -k "$KEYCHAIN_PATH" -t cert -f pkcs12 -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH" >/dev/null
+          security list-keychains -d user -s "$KEYCHAIN_PATH"
+
+      - name: Archive app and widget with manual signing
+        run: |
+          set -euo pipefail
+          xcodebuild -project ios/CodexMeter.xcodeproj -scheme CodexMeter \
+            -configuration Release -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/ModelsMeter.xcarchive" \
+            DEVELOPMENT_TEAM="$IOS_TEAM_ID" CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY='Apple Distribution' \
+            APP_PROVISIONING_PROFILE="$APP_PROVISIONING_PROFILE" \
+            WIDGET_PROVISIONING_PROFILE="$WIDGET_PROVISIONING_PROFILE" archive
+
+      - name: Export and verify Ad Hoc IPA
+        run: |
+          set -euo pipefail
+          xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/ModelsMeter.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/models-meter-signing/ExportOptions.plist" \
+            -exportPath "$RUNNER_TEMP/models-meter-export"
+          python3 scripts/verify-ios-ipa.py "$RUNNER_TEMP/models-meter-export/CodexMeter.ipa" \
+            "$RUNNER_TEMP/models-meter-verified" "$IOS_TEAM_ID" "$IOS_VERSION"
+          mkdir -p ios/dist
+          cp "$RUNNER_TEMP/models-meter-export/CodexMeter.ipa" "ios/dist/ModelsMeter-iOS-$IOS_VERSION.ipa"
+          cd ios/dist
+          shasum -a 256 "ModelsMeter-iOS-$IOS_VERSION.ipa" > SHA256SUMS-iOS.txt
+
+      - name: Upload signed IPA
+        uses: actions/upload-artifact@v7
+        with:
+          name: models-meter-ios-signed
+          path: |
+            ios/dist/*.ipa
+            ios/dist/SHA256SUMS-iOS.txt
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Remove temporary credentials and profiles
+        if: always()
+        run: |
+          security delete-keychain "$RUNNER_TEMP/models-meter-signing.keychain-db" 2>/dev/null || true
+          python3 scripts/prepare-ios-signing.py --cleanup
+          rm -rf "$RUNNER_TEMP/models-meter-signing" "$RUNNER_TEMP/models-meter-export" \
+            "$RUNNER_TEMP/models-meter-verified" "$RUNNER_TEMP/ModelsMeter.xcarchive"

@@ -172,8 +172,8 @@ public final class WearOngoingMonitor {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle("Codex usage")
-                .setContentText(contentText)
+                .setContentTitle(dev.bennett.codexmeter.Translations.t("Codex usage"))
+                .setContentText(dev.bennett.codexmeter.Translations.t(contentText))
                 .setContentIntent(contentIntent)
                 .setDeleteIntent(stopIntent)
                 .setOngoing(true)

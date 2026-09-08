@@ -39,6 +39,11 @@ import dev.bennett.codexmeter.wear.PhoneWearSync;
 
 /* JADX INFO: loaded from: classes.dex */
 public final class MainActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
+    static final String EXTRA_OPEN_MODELS = "open_models";
     private static final int MENU_SETTINGS = 8101;
     private static final int MENU_REORDER = 8102;
     private String appliedTheme;
@@ -90,12 +95,13 @@ public final class MainActivity extends AppCompatActivity {
         this.appliedMaterialYou = AppPreferences.isMaterialYouEnabled(this);
         Ui.applySelectedTheme(this);
         super.onCreate(bundle);
+        if (getIntent().hasExtra("provider")) ProviderRepository.select(this, Provider.from(getIntent().getStringExtra("provider")));
         PhoneWearSync.pushAll(this);
         if (routeToOnboarding(getIntent())) {
             return;
         }
         this.dark = Ui.isDark(this);
-        Ui.Page page = Ui.installPage(this, "Codex Meter", false);
+        Ui.Page page = Ui.installPage(this, "Models Meter", false);
         this.content = page.content;
         this.swipeRefresh = findViewById(R.id.dashboard_refresh);
         int refreshAccent = Ui.accent(this, this.dark);
@@ -112,10 +118,10 @@ public final class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(Menu.NONE, MENU_REORDER, 0, "Edit dashboard")
+        menu.add(Menu.NONE, MENU_REORDER, 0, Translations.t("Edit dashboard"))
                 .setIcon(R.drawable.ic_oui_edit_outline)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, MENU_SETTINGS, 1, "Settings")
+        menu.add(Menu.NONE, MENU_SETTINGS, 1, Translations.t("Settings"))
                 .setIcon(R.drawable.ic_oui_settings_outline)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
@@ -140,6 +146,7 @@ public final class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
+        if (intent.hasExtra("provider")) ProviderRepository.select(this, Provider.from(intent.getStringExtra("provider")));
         if (routeToOnboarding(intent)) {
             return;
         }
@@ -175,9 +182,9 @@ public final class MainActivity extends AppCompatActivity {
         intentFilter.addAction(AppConstants.ACTION_RELEASES_UPDATED);
         try {
             if (Build.VERSION.SDK_INT >= 33) {
-                registerReceiver(this.authReceiver, intentFilter, "dev.bennett.codexmeter.permission.INTERNAL", null, 4);
+                registerReceiver(this.authReceiver, intentFilter, "dev.scorpion7slayer.modelsmeter.permission.INTERNAL", null, 4);
             } else {
-                registerReceiver(this.authReceiver, intentFilter, "dev.bennett.codexmeter.permission.INTERNAL", null);
+                registerReceiver(this.authReceiver, intentFilter, "dev.scorpion7slayer.modelsmeter.permission.INTERNAL", null);
             }
             this.receiverRegistered = true;
         } catch (RuntimeException e) {
@@ -188,6 +195,11 @@ public final class MainActivity extends AppCompatActivity {
         if (this.launchSignInRequested) {
             this.launchSignInRequested = false;
             startOrContinueSignIn();
+        }
+        if (ProviderRepository.anyConnected(this) && AppPreferences.getRefreshOnLaunch(this)) {
+            UsageSnapshot selected = ProviderRepository.usage(this, ProviderRepository.selected(this));
+            if (selected == null || System.currentTimeMillis() - selected.fetchedAtMillis > 300000)
+                RefreshScheduler.scheduleImmediate(this);
         }
         if (SecureTokenStore.isSignedIn(this)) {
             AppPreferences.setOAuthPending(this, false, "");
@@ -222,12 +234,16 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void handleLaunchIntent(Intent intent) {
+        if (intent != null && intent.getBooleanExtra(EXTRA_OPEN_MODELS, false)) {
+            intent.removeExtra(EXTRA_OPEN_MODELS);
+            if (content != null) content.post(this::showAllModels);
+        }
         if (intent != null && intent.getBooleanExtra("start_sign_in", false)) {
             this.launchSignInRequested = true;
             intent.removeExtra("start_sign_in");
         }
         Uri data = intent == null ? null : intent.getData();
-        if (data != null && "codexmeter".equals(data.getScheme()) && "auth".equals(data.getHost())) {
+        if (data != null && "modelsmeter".equals(data.getScheme()) && "auth".equals(data.getHost())) {
             if (SecureTokenStore.isSignedIn(this)) {
                 AppPreferences.setOAuthPending(this, false, "");
                 RefreshScheduler.scheduleImmediate(this);
@@ -266,7 +282,7 @@ public final class MainActivity extends AppCompatActivity {
     private static boolean isOAuthReturnIntent(Intent intent) {
         Uri data = intent == null ? null : intent.getData();
         return data != null
-                && "codexmeter".equals(data.getScheme())
+                && "modelsmeter".equals(data.getScheme())
                 && "auth".equals(data.getHost())
                 && data.getPath() != null
                 && data.getPath().startsWith("/complete");
@@ -275,6 +291,18 @@ public final class MainActivity extends AppCompatActivity {
     public void rebuild() {
         if (this.content != null) {
             this.content.removeAllViews();
+            Provider selectedProvider = ProviderRepository.selected(this);
+            Button providerPicker = Ui.button(this, selectedProvider.label + " ▾", false, dark);
+            providerPicker.setOnClickListener(view -> new AlertDialog.Builder(this)
+                    .setTitle(dev.bennett.codexmeter.Translations.t(L10n.text(this, "Provider", "Fournisseur")))
+                    .setSingleChoiceItems(Provider.labels(), ProviderRepository.selected(this).ordinal(), (dialog, which) -> {
+                        ProviderRepository.select(this, Provider.values()[which]); dialog.dismiss(); rebuild();
+                    }).show());
+            this.content.addView(providerPicker);
+            if (selectedProvider != Provider.CHATGPT) {
+                buildProviderDashboard(selectedProvider);
+                return;
+            }
             GitHubRelease update = UpdatePreferences.availableUpdate(this);
             if (update != null) {
                 this.content.addView(buildUpdateCard(update));
@@ -304,13 +332,56 @@ public final class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void buildProviderDashboard(Provider provider) {
+        if (!ProviderRepository.connected(this, provider)) {
+            Button connect = Ui.nativePrimaryButton(this, L10n.text(this, "Connect ", "Connecter ") + provider.label);
+            connect.setOnClickListener(view -> startActivity(new Intent(this, ProvidersActivity.class)));
+            content.addView(connect); return;
+        }
+        content.addView(buildLatestModelsCard());
+        UsageSnapshot snapshot = ProviderRepository.usage(this, provider);
+        if (snapshot != null) {
+            UsageWindow[] windows = {snapshot.fiveHour, snapshot.weekly, snapshot.monthly};
+            String[] labels = {L10n.text(this, "5-hour", "5 heures"), L10n.text(this, "Weekly", "Hebdomadaire"), L10n.text(this, "Monthly", "Mensuel")};
+            for (int i = 0; i < windows.length; i++) {
+                UsageWindow window = windows[i]; if (window == null) continue;
+                LinearLayout card = Ui.card(this, dark);
+                card.addView(Ui.text(this, labels[i], 18, Ui.mainText(dark)));
+                card.addView(Ui.text(this, window.remainingPercent() + L10n.text(this, "% remaining", "% restant"), 28, Ui.mainText(dark)));
+                long reset = window.effectiveResetAtMillis(snapshot.fetchedAtMillis);
+                if (reset > 0) card.addView(Ui.text(this, L10n.text(this, "Resets ", "Réinitialisation ")
+                        + dev.bennett.codexmeter.LocalizedTime.relative(reset), 14, Ui.secondaryText(dark)));
+                content.addView(card);
+            }
+            if (snapshot.fiveHour == null && snapshot.weekly == null && snapshot.monthly == null)
+                content.addView(Ui.text(this, L10n.text(this, "No numeric quota is reported for this account.", "Ce compte ne fournit aucun quota chiffré."), 15, Ui.secondaryText(dark)));
+            content.addView(Ui.text(this, L10n.text(this, "Updated ", "Actualisé ")
+                    + dev.bennett.codexmeter.LocalizedTime.relative(snapshot.fetchedAtMillis), 12, Ui.secondaryText(dark)));
+        }
+        String error = ProviderRepository.error(this, provider);
+        if (!error.isEmpty()) content.addView(Ui.text(this, error, 14, Ui.secondaryText(dark)));
+        Button refresh = Ui.nativePrimaryButton(this, L10n.text(this, "Refresh", "Actualiser"));
+        refresh.setOnClickListener(view -> { refresh.setEnabled(false); refreshProvider(); }); content.addView(refresh);
+    }
+
+    private void refreshProvider() {
+        executor.execute(() -> {
+            try { ProviderRepository.refreshAll(getApplicationContext()); } catch (Exception ignored) { }
+            runOnUiThread(() -> {
+                if (isDestroyed()) return;
+                if (swipeRefresh != null) swipeRefresh.setRefreshing(false);
+                rebuild();
+            });
+        });
+    }
+
     private LinearLayout buildUpdateCard(GitHubRelease release) {
         boolean returnToStable = UpdateChannel.isReturnToStable(release,
                 UpdatePreferences.installedVersion(this));
         LinearLayout card = Ui.card(this, this.dark);
         TextView title = Ui.text(this, returnToStable
-                        ? "Return to Codex Meter " + release.version
-                        : "Codex Meter " + release.version + " is ready", 18,
+                        ? "Return to Models Meter " + release.version
+                        : "Models Meter " + release.version + " is ready", 18,
                 Ui.mainText(this.dark));
         title.setTypeface(Ui.mediumTypeface(this));
         card.addView(title);
@@ -351,6 +422,9 @@ public final class MainActivity extends AppCompatActivity {
         }
         Map<String, List<UsageLimit>> limitsByKey = new LinkedHashMap<>();
         List<String> available = new ArrayList<>();
+        if (!AppPreferences.isDashboardSectionHidden(this, DashboardSections.LATEST_MODELS)) {
+            available.add(DashboardSections.LATEST_MODELS);
+        }
         if (snapshot != null) {
             for (UsageLimit limit : snapshot.additionalLimits) {
                 String key = DashboardSections.limitKey(limit);
@@ -397,7 +471,9 @@ public final class MainActivity extends AppCompatActivity {
         boolean inverted = false;
         for (String key : DashboardSections.resolveOrder(
                 AppPreferences.getDashboardOrder(this), available)) {
-            if (DashboardSections.FIVE_HOUR.equals(key)) {
+            if (DashboardSections.LATEST_MODELS.equals(key)) {
+                addDashboardCard(column, buildLatestModelsCard());
+            } else if (DashboardSections.FIVE_HOUR.equals(key)) {
                 addDashboardCard(column, buildMetricCard(
                         "5-hour", snapshot, snapshot.fiveHour, inverted));
                 inverted = !inverted;
@@ -534,6 +610,68 @@ public final class MainActivity extends AppCompatActivity {
         openParams.setMargins(Ui.dp(this, 10), Ui.dp(this, 4), Ui.dp(this, 10), 0);
         card.addView(open, openParams);
         return card;
+    }
+
+    private LinearLayout buildLatestModelsCard() {
+        LinearLayout card = Ui.card(this, dark);
+        TextView title = Ui.text(this, getString(R.string.latest_models_title), 18, Ui.mainText(dark));
+        title.setTypeface(Ui.mediumTypeface(this));
+        card.addView(title);
+        ModelCatalogSnapshot catalog = ProviderRepository.catalog(this, ProviderRepository.selected(this));
+        if (catalog == null || catalog.models.isEmpty()) {
+            card.addView(Ui.text(this, getString(catalog == null
+                    ? R.string.latest_models_waiting : R.string.latest_models_empty),
+                    14, Ui.secondaryText(dark)));
+        } else {
+            for (int i = 0; i < Math.min(3, catalog.models.size()); i++) {
+                CodexModelCatalog.Model model = catalog.models.get(i);
+                long discoveredAt = catalog.discoveredAt(model);
+                String detail = discoveredAt == 0 ? (ProviderRepository.selected(this) == Provider.CHATGPT
+                        ? L10n.text(this, "Available on your account", "Disponible sur votre compte")
+                        : L10n.text(this, "Provider catalog", "Catalogue du fournisseur"))
+                        : "Discovered " + dev.bennett.codexmeter.LocalizedTime.relative(
+                                discoveredAt, System.currentTimeMillis(),
+                                android.text.format.DateUtils.MINUTE_IN_MILLIS);
+                card.addView(buildIconDetailRow(R.drawable.ic_models_meter, model.name, detail));
+            }
+            TextView checked = Ui.text(this, getString(R.string.latest_models_checked,
+                    dev.bennett.codexmeter.LocalizedTime.relative(catalog.checkedAt,
+                            System.currentTimeMillis(), android.text.format.DateUtils.MINUTE_IN_MILLIS)),
+                    12, Ui.secondaryText(dark));
+            checked.setPadding(0, Ui.dp(this, 14), 0, Ui.dp(this, 4));
+            card.addView(checked);
+            Button all = Ui.button(this, "View all models (" + catalog.models.size() + ")", false, dark);
+            all.setOnClickListener(view -> showAllModels());
+            card.addView(all, new LinearLayout.LayoutParams(-1, Ui.dp(this, 52)));
+        }
+        Provider provider = ProviderRepository.selected(this);
+        String modelError = ProviderRepository.modelError(this, provider);
+        if (!modelError.isEmpty()) card.addView(Ui.text(this, modelError, 13, Ui.secondaryText(dark)));
+        else if (provider == Provider.CURSOR && !ProviderRepository.hasModelKey(this, provider))
+            card.addView(Ui.text(this, L10n.text(this, "Add a Cursor API key in Providers to load models.",
+                    "Ajoutez une clé API Cursor dans Fournisseurs pour charger les modèles."), 13, Ui.secondaryText(dark)));
+        return card;
+    }
+
+    private void showAllModels() {
+        if (isFinishing()) return;
+        ModelCatalogSnapshot catalog = ProviderRepository.catalog(this, ProviderRepository.selected(this));
+        StringBuilder message = new StringBuilder();
+        if (catalog == null || catalog.models.isEmpty()) {
+            message.append(getString(catalog == null
+                    ? R.string.latest_models_waiting : R.string.latest_models_empty));
+        } else {
+            message.append(ProviderRepository.selected(this) == Provider.CHATGPT
+                    ? L10n.text(this, "Available on your account.\n", "Disponibles sur votre compte.\n")
+                    : L10n.text(this, "Provider catalog. Availability depends on your plan.\n", "Catalogue du fournisseur. La disponibilité dépend de votre abonnement.\n"));
+            for (CodexModelCatalog.Model model : catalog.models) {
+                message.append("\n").append(model.name);
+                if (!model.name.equals(model.id)) message.append("\n").append(model.id);
+                message.append("\n");
+            }
+        }
+        new AlertDialog.Builder(this).setTitle(dev.bennett.codexmeter.Translations.t(R.string.latest_models_title))
+                .setMessage(dev.bennett.codexmeter.Translations.t(message.toString())).setPositiveButton("Done", null).show();
     }
 
     private LinearLayout buildUsageCreditsCard(UsageCredits credits) {
@@ -805,7 +943,7 @@ public final class MainActivity extends AppCompatActivity {
         LinearLayout linearLayoutCard = Ui.card(this, this.dark);
         int length = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, (Class<?>) CodexUsageWidget.class)).length + SamsungLockWidgetSupport.countAll(this);
         if (length == 0) {
-            str = "Add Codex Meter widgets";
+            str = "Add Models Meter widgets";
         } else {
             str = length + " widget" + (length == 1 ? "" : "s") + " active";
         }
@@ -862,6 +1000,11 @@ public final class MainActivity extends AppCompatActivity {
         String str;
         DiagnosticLog.info(this, "user", "sign_in_requested",
                 "already_signed_in", SecureTokenStore.isSignedIn(this));
+        if (ProviderRepository.anyConnected(this) && AppPreferences.getRefreshOnLaunch(this)) {
+            UsageSnapshot selected = ProviderRepository.usage(this, ProviderRepository.selected(this));
+            if (selected == null || System.currentTimeMillis() - selected.fetchedAtMillis > 300000)
+                RefreshScheduler.scheduleImmediate(this);
+        }
         if (SecureTokenStore.isSignedIn(this)) {
             AppPreferences.setOAuthPending(this, false, "");
             rebuild();
@@ -896,13 +1039,13 @@ public final class MainActivity extends AppCompatActivity {
     public void refreshNow(Button button) {
         DiagnosticLog.info(this, "user", "manual_refresh_requested", "source", "button");
         button.setEnabled(false);
-        button.setText(R.string.refreshing);
+        button.setText(dev.bennett.codexmeter.Translations.t(R.string.refreshing));
         final Context applicationContext = getApplicationContext();
         this.executor.execute(new Runnable() { // from class: dev.bennett.codexmeter.MainActivity.9
             @Override // java.lang.Runnable
             public void run() {
                 try {
-                    RefreshScheduler.scheduleAtNextReset(applicationContext, UsageApi.refreshAndCache(applicationContext));
+                    RefreshScheduler.scheduleAtNextReset(applicationContext, ProviderRepository.refreshAll(applicationContext));
                     WidgetRenderer.updateAll(applicationContext);
                     MainActivity.this.runOnUiThread(new Runnable() { // from class: dev.bennett.codexmeter.MainActivity.9.1
                         @Override // java.lang.Runnable
@@ -931,6 +1074,9 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void refreshFromPull() {
+        if (ProviderRepository.selected(this) != Provider.CHATGPT) {
+            refreshProvider(); return;
+        }
         DiagnosticLog.info(this, "user", "manual_refresh_requested", "source", "pull");
         if (!SecureTokenStore.isSignedIn(this)) {
             DiagnosticLog.warn(this, "user", "manual_refresh_rejected",
@@ -943,7 +1089,7 @@ public final class MainActivity extends AppCompatActivity {
         final Context applicationContext = getApplicationContext();
         this.executor.execute(() -> {
             try {
-                RefreshScheduler.scheduleAtNextReset(applicationContext, UsageApi.refreshAndCache(applicationContext));
+                RefreshScheduler.scheduleAtNextReset(applicationContext, ProviderRepository.refreshAll(applicationContext));
                 WidgetRenderer.updateAll(applicationContext);
                 runOnUiThread(() -> {
                     DiagnosticLog.info(applicationContext, "user",
@@ -966,7 +1112,7 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     public void confirmSignOut() {
-        AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Sign out?").setMessage("This removes encrypted ChatGPT tokens and cached usage from this device.").setNegativeButton("Cancel", (DialogInterface.OnClickListener) null).setPositiveButton("Sign out", new DialogInterface.OnClickListener() { // from class: dev.bennett.codexmeter.MainActivity.10
+        AlertDialog dialog = new AlertDialog.Builder(this).setTitle(dev.bennett.codexmeter.Translations.t("Sign out?")).setMessage(dev.bennett.codexmeter.Translations.t("This removes encrypted ChatGPT tokens and cached usage from this device.")).setNegativeButton("Cancel", (DialogInterface.OnClickListener) null).setPositiveButton("Sign out", new DialogInterface.OnClickListener() { // from class: dev.bennett.codexmeter.MainActivity.10
             @Override // android.content.DialogInterface.OnClickListener
             public void onClick(DialogInterface dialogInterface, int i) {
                 MainActivity.this.signOut();
@@ -1001,7 +1147,7 @@ public final class MainActivity extends AppCompatActivity {
             appWidgetManager.requestPinAppWidget(componentName, null, null);
             Toast.makeText(this, "Choose a size and place the widget on your home screen.", 1).show();
         } else {
-            AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Add from your launcher").setMessage("Long-press an empty area of the home screen, open Widgets, then choose Codex Meter.").setPositiveButton("OK", (DialogInterface.OnClickListener) null).create();
+            AlertDialog dialog = new AlertDialog.Builder(this).setTitle(dev.bennett.codexmeter.Translations.t("Add from your launcher")).setMessage(dev.bennett.codexmeter.Translations.t("Long-press an empty area of the home screen, open Widgets, then choose Models Meter.")).setPositiveButton("OK", (DialogInterface.OnClickListener) null).create();
             dialog.show();
         }
     }

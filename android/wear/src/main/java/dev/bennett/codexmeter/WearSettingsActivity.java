@@ -23,6 +23,10 @@ import dev.bennett.codexmeter.wear.WearSurfaceMode;
 import dev.bennett.codexmeter.wear.WearSyncPaths;
 
 public final class WearSettingsActivity extends Activity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private static final int REQUEST_NOTIFICATIONS = 8715;
     private Switch acceleratedStartSwitch;
     private Switch autoStartSwitch;
@@ -45,6 +49,28 @@ public final class WearSettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wear_settings);
+        android.widget.Button language = new android.widget.Button(this);
+        language.setText(dev.bennett.codexmeter.Translations.t(L10n.text(this, "Language", "Langue")));
+        android.view.ViewGroup panel = findViewById(R.id.settings_content);
+        panel.addView(language, 0);
+        language.setOnClickListener(view -> new android.app.AlertDialog.Builder(this)
+                .setTitle(dev.bennett.codexmeter.Translations.t(L10n.text(this, "Language", "Langue")))
+                .setSingleChoiceItems(new String[]{L10n.text(this, "System language", "Langue système"), "Français", "English"},
+                        java.util.Arrays.asList("system", "fr", "en").indexOf(L10n.choice(this)), (dialog, which) -> {
+                    L10n.select(this, new String[]{"system", "fr", "en"}[which]); dialog.dismiss(); recreate();
+                    WearSurfaceUpdater.requestAll(this);
+                }).show());
+        android.widget.Button about = new android.widget.Button(this);
+        about.setText(Translations.t("About this fork"));
+        panel.addView(about);
+        about.setOnClickListener(view -> new android.app.AlertDialog.Builder(this)
+                .setTitle("Models Meter 1.0.1")
+                .setMessage(Translations.t("Models Meter is an independent fork of Codex Meter.")
+                        + "\n\nTheo · scorpion7slayer\n" + Translations.t("Models Meter developer and fork maintainer")
+                        + "\n\nBenIt Buhner · That Josh Guy\n" + Translations.t("Original project developers")
+                        + "\n\nhttps://github.com/scorpion7slayer/Models-Meter"
+                        + "\nhttps://github.com/BenItBuhner/Codex-Meter")
+                .setPositiveButton(android.R.string.ok, null).show());
         displayModeValues = getResources().getStringArray(R.array.wear_display_modes);
         percentModeValues = getResources().getStringArray(R.array.wear_percent_modes);
         metricValues = getResources().getStringArray(R.array.wear_metrics);
@@ -197,7 +223,7 @@ public final class WearSettingsActivity extends Activity {
         } else {
             summary = getString(R.string.wear_surface_auto);
         }
-        displayModeSummary.setText(summary);
+        displayModeSummary.setText(dev.bennett.codexmeter.Translations.t(summary));
     }
 
     private void requestNotificationPermission() {

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <permission
-        android:name="dev.bennett.codexmeter.permission.INTERNAL"
+        android:name="dev.scorpion7slayer.modelsmeter.permission.INTERNAL"
         android:protectionLevel="signature"/>
-    <uses-permission android:name="dev.bennett.codexmeter.permission.INTERNAL"/>
+    <uses-permission android:name="dev.scorpion7slayer.modelsmeter.permission.INTERNAL"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -38,7 +37,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
-                    android:scheme="codexmeter"
+                    android:scheme="modelsmeter"
                     android:host="auth"
                     android:pathPrefix="/complete"/>
             </intent-filter>
@@ -87,6 +86,14 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
+        <receiver android:name="dev.bennett.codexmeter.LatestModelsWidget"
+            android:label="@string/latest_models_title" android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/latest_models_widget_info" />
+        </receiver>
         <receiver
             android:label="@string/widget_name"
             android:name="dev.bennett.codexmeter.CodexUsageWidget"
@@ -318,5 +325,11 @@
                     android:pathPrefix="/codex/msg"/>
             </intent-filter>
         </service>
+        <activity android:name=".ProviderSignInActivity" android:exported="false" />
+        <activity android:name=".ProvidersActivity" android:exported="false" />
+        <activity android:name=".ModelsWidgetConfigActivity" android:exported="true">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
+        </activity>
+        <receiver android:name="dev.bennett.codexmeter.ProviderResetReceiver" android:exported="false" />
     </application>
 </manifest>

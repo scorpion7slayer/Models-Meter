@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/latest_models_widget" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical" android:padding="4dp"
+    android:background="@drawable/latest_models_widget_background">
+    <TextView android:id="@+id/latest_models_header" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="@string/latest_models_title"
+        android:includeFontPadding="false" android:textSize="10sp" android:textStyle="bold" android:maxLines="1"
+        android:ellipsize="end" android:textColor="@color/models_widget_secondary" />
+    <LinearLayout android:id="@+id/latest_models_rows" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="vertical" />
+    <TextView android:id="@+id/latest_models_summary" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="@string/latest_models_waiting"
+        android:textSize="12sp" android:maxLines="1" android:ellipsize="end"
+        android:textColor="@color/models_widget_secondary" />
+    <TextView android:id="@+id/latest_models_checked" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="5dp"
+        android:text="@string/app_name" android:textSize="10sp" android:maxLines="1"
+        android:ellipsize="end" android:textColor="@color/models_widget_secondary" />
+</LinearLayout>

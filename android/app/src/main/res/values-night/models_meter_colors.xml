@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="models_icon_background">#0D1622</color>
+    <color name="models_icon_ink">#F1F7FF</color>
+    <color name="models_icon_accent">#5EE9CD</color>
+    <color name="models_icon_track">#293747</color>
+    <color name="models_widget_background">#121E2B</color>
+    <color name="models_widget_foreground">#F1F7FF</color>
+    <color name="models_widget_accent">#5EE9CD</color>
+    <color name="models_widget_secondary">#A6B9CC</color>
+    <color name="models_widget_border">#2C3C4B</color>
+</resources>

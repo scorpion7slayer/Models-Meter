@@ -26,7 +26,7 @@ public final class RefreshScheduler {
         if (contextAppContext == null) {
             return false;
         }
-        if (!SecureTokenStore.isSignedIn(contextAppContext)) {
+        if (!ProviderRepository.anyConnected(contextAppContext)) {
             DiagnosticLog.info(contextAppContext, "scheduler",
                     "refresh_schedule_skipped_signed_out");
             cancelAll(contextAppContext);
@@ -76,7 +76,7 @@ public final class RefreshScheduler {
         if (contextAppContext == null) {
             return false;
         }
-        if (!SecureTokenStore.isSignedIn(contextAppContext)) {
+        if (!ProviderRepository.anyConnected(contextAppContext)) {
             return true;
         }
         if (!AppPreferences.getAutomaticRefresh(contextAppContext)
@@ -133,7 +133,7 @@ public final class RefreshScheduler {
         if (contextAppContext == null) {
             return false;
         }
-        if (!SecureTokenStore.isSignedIn(contextAppContext)) {
+        if (!ProviderRepository.anyConnected(contextAppContext)) {
             WidgetRenderer.updateAll(contextAppContext);
             return true;
         }

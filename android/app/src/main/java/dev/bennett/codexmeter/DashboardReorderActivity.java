@@ -27,6 +27,10 @@ import java.util.List;
  * visibility are saved immediately so the dashboard rebuilds on return.
  */
 public final class DashboardReorderActivity extends AppCompatActivity {
+    @Override protected void attachBaseContext(android.content.Context context) {
+        super.attachBaseContext(L10n.localized(context));
+    }
+
     private final List<SectionItem> items = new ArrayList<>();
     private RecyclerView recycler;
     private boolean dark;
@@ -118,6 +122,9 @@ public final class DashboardReorderActivity extends AppCompatActivity {
             } else if (DashboardSections.RESET_CREDITS.equals(key)) {
                 items.add(new SectionItem(key, "Reset credits",
                         "Hidden automatically when no resets are available"));
+            } else if (DashboardSections.LATEST_MODELS.equals(key)) {
+                items.add(new SectionItem(key, "Latest models",
+                        "Available Codex models · new discoveries first"));
             } else {
                 UsageLimit match = null;
                 for (UsageLimit limit : limits) {
@@ -218,7 +225,7 @@ public final class DashboardReorderActivity extends AppCompatActivity {
             row.addView(labels, new LinearLayout.LayoutParams(0, -2, 1.0f));
 
             SwitchCompat toggle = new SwitchCompat(DashboardReorderActivity.this);
-            toggle.setContentDescription("Show on dashboard");
+            toggle.setContentDescription(dev.bennett.codexmeter.Translations.t("Show on dashboard"));
             LinearLayout.LayoutParams toggleParams = new LinearLayout.LayoutParams(-2, -2);
             toggleParams.setMargins(Ui.dp(DashboardReorderActivity.this, 8), 0,
                     Ui.dp(DashboardReorderActivity.this, 4), 0);
@@ -227,7 +234,7 @@ public final class DashboardReorderActivity extends AppCompatActivity {
             ImageView handle = new ImageView(DashboardReorderActivity.this);
             handle.setImageResource(R.drawable.ic_oui_reorder);
             handle.setImageTintList(ColorStateList.valueOf(Ui.secondaryText(dark)));
-            handle.setContentDescription("Reorder");
+            handle.setContentDescription(dev.bennett.codexmeter.Translations.t("Reorder"));
             int pad = Ui.dp(DashboardReorderActivity.this, 12);
             handle.setPadding(pad, pad, pad, pad);
             row.addView(handle, new LinearLayout.LayoutParams(
@@ -254,8 +261,8 @@ public final class DashboardReorderActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(SectionHolder holder, int position) {
             SectionItem item = items.get(position);
-            holder.title.setText(item.title);
-            holder.summary.setText(item.summary);
+            holder.title.setText(dev.bennett.codexmeter.Translations.t(item.title));
+            holder.summary.setText(dev.bennett.codexmeter.Translations.t(item.summary));
             holder.toggle.setOnCheckedChangeListener(null);
             boolean visible = isSectionVisible(item.key);
             holder.toggle.setChecked(visible);

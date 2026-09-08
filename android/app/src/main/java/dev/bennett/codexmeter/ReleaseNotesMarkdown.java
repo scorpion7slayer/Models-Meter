@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Converts the GitHub release-note Markdown subset used by Codex Meter into HTML that
+ * Converts the GitHub release-note Markdown subset used by Models Meter into HTML that
  * {@code android.text.Html} can render inside TextViews.
  */
 public final class ReleaseNotesMarkdown {
@@ -110,6 +110,8 @@ public final class ReleaseNotesMarkdown {
         }
         String repository = GitHubReleaseSource.REPOSITORY_URL;
         return source
+                .replace("https://github.com/[REDACTED]/Models-Meter", repository)
+                .replace("http://github.com/[REDACTED]/Models-Meter", repository)
                 .replace("https://github.com/[REDACTED]/Codex-Meter", repository)
                 .replace("http://github.com/[REDACTED]/Codex-Meter", repository);
     }

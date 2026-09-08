@@ -11,23 +11,23 @@ android {
     }
 
     defaultConfig {
-        applicationId = "dev.bennett.codexmeter"
+        applicationId = "dev.scorpion7slayer.modelsmeter"
         minSdk = 30
         targetSdk = 36
-        versionCode = 30
-        versionName = "2.8.0"
+        versionCode = 2
+        versionName = "1.0.1"
     }
 
     signingConfigs {
         create("localRelease") {
             val signingDir = rootProject.file(".local-signing")
-            val keyStore = signingDir.resolve("codex-meter-local.p12")
-            val passwordFile = signingDir.resolve("password")
+            val keyStore = signingDir.resolve("models-meter-release.p12")
+            val passwordFile = signingDir.resolve("models-meter-password")
             if (keyStore.isFile && passwordFile.isFile) {
                 storeFile = keyStore
                 storeType = "PKCS12"
                 storePassword = passwordFile.readText().trim()
-                keyAlias = "codexmeter"
+                keyAlias = "modelsmeter"
                 keyPassword = storePassword
             }
         }

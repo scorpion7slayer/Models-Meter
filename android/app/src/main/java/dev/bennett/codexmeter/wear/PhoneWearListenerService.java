@@ -86,7 +86,7 @@ public final class PhoneWearListenerService extends WearableListenerService {
             DiagnosticLog.info(app, "wear", "wear_refresh_started");
             PhoneWearSync.pushStatus(app, true, "");
             try {
-                UsageApi.refreshAndCache(app);
+                dev.bennett.codexmeter.ProviderRepository.refreshAll(app);
             } catch (Exception exception) {
                 DiagnosticLog.error(app, "wear", "wear_refresh_failed", exception);
                 AppPreferences.setLastError(app, exception.getMessage());

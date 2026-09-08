@@ -76,6 +76,11 @@ public final class UsageApi {
                             usageSnapshot.resetCreditsAvailable);
                     AppPreferences.setResetCreditsError(context, safeMessage(exception));
                 }
+                try {
+                    CodexModelsApi.refreshLocked(context, usableTokens(context));
+                } catch (Exception exception) {
+                    DiagnosticLog.error(context, "refresh", "model_catalog_side_refresh_failed", exception);
+                }
             }
         } catch (Exception exception) {
             DiagnosticLog.error(context, "refresh", "usage_refresh_failed", exception,
