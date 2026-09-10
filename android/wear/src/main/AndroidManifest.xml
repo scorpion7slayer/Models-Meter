@@ -11,7 +11,7 @@
         android:required="true" />
 
     <application
-        android:name="dev.bennett.codexmeter.WearApplication"
+        android:name="dev.scorpion7slayer.modelsmeter.WearApplication"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -31,12 +31,12 @@
             android:required="false" />
 
         <activity
-            android:name="dev.bennett.codexmeter.WearSettingsActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.WearSettingsActivity"
             android:exported="false"
             android:taskAffinity="" />
 
         <activity
-            android:name="dev.bennett.codexmeter.WearMainActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.WearMainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity="">
@@ -47,7 +47,7 @@
         </activity>
 
         <service
-            android:name="dev.bennett.codexmeter.WearDataLayerService"
+            android:name="dev.scorpion7slayer.modelsmeter.WearDataLayerService"
             android:exported="true">
             <intent-filter>
                 <action
@@ -71,7 +71,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.UsageOverviewTileService"
+            android:name="dev.scorpion7slayer.modelsmeter.UsageOverviewTileService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/tile_usage_overview"
@@ -104,7 +104,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.FiveHourTileService"
+            android:name="dev.scorpion7slayer.modelsmeter.FiveHourTileService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/tile_five_hour"
@@ -136,7 +136,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.WeeklyTileService"
+            android:name="dev.scorpion7slayer.modelsmeter.WeeklyTileService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/tile_weekly"
@@ -168,7 +168,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.ResetCountdownTileService"
+            android:name="dev.scorpion7slayer.modelsmeter.ResetCountdownTileService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/tile_reset"
@@ -200,7 +200,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.MonitorStatusTileService"
+            android:name="dev.scorpion7slayer.modelsmeter.MonitorStatusTileService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/tile_monitor"
@@ -232,7 +232,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.FiveHourComplicationService"
+            android:name="dev.scorpion7slayer.modelsmeter.FiveHourComplicationService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/complication_five_hour"
@@ -249,7 +249,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.WeeklyComplicationService"
+            android:name="dev.scorpion7slayer.modelsmeter.WeeklyComplicationService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/complication_weekly"
@@ -266,7 +266,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.DualUsageComplicationService"
+            android:name="dev.scorpion7slayer.modelsmeter.DualUsageComplicationService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/complication_dual_usage"
@@ -283,7 +283,7 @@
         </service>
 
         <service
-            android:name="dev.bennett.codexmeter.NextResetComplicationService"
+            android:name="dev.scorpion7slayer.modelsmeter.NextResetComplicationService"
             android:exported="true"
             android:icon="@drawable/ic_notification"
             android:label="@string/complication_next_reset"
@@ -300,11 +300,11 @@
         </service>
 
         <receiver
-            android:name="dev.bennett.codexmeter.WearMonitorActionReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.WearMonitorActionReceiver"
             android:exported="false" />
 
         <receiver
-            android:name="dev.bennett.codexmeter.WearBootReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.WearBootReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

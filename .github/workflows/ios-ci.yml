@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   core-tests:
-    name: CodexMeterCore package tests
+    name: ModelsMeterCore package tests
     runs-on: macos-26
     timeout-minutes: 20
     defaults:
@@ -33,11 +33,11 @@ jobs:
         shell: bash
         run: swift --version
 
-      - name: Run CodexMeterCore tests
+      - name: Run ModelsMeterCore tests
         shell: bash
         run: |
           set -euo pipefail
-          swift test --package-path CodexMeterCore
+          swift test --package-path ModelsMeterCore
 
       - name: Validate release signing helpers
         working-directory: .
@@ -84,13 +84,13 @@ jobs:
         run: |
           set -euo pipefail
           if command -v xcbeautify >/dev/null 2>&1; then
-            xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
+            xcodebuild -project ModelsMeter.xcodeproj -scheme ModelsMeter \
               -destination 'generic/platform=iOS Simulator' \
               -derivedDataPath DerivedData \
               CODE_SIGNING_ALLOWED=NO build \
               | xcbeautify --renderer github-actions
           else
-            xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
+            xcodebuild -project ModelsMeter.xcodeproj -scheme ModelsMeter \
               -destination 'generic/platform=iOS Simulator' \
               -derivedDataPath DerivedData \
               CODE_SIGNING_ALLOWED=NO build
@@ -106,7 +106,7 @@ jobs:
           # UI tests; deterministic failures still fail after 3 iterations, and
           # pass-on-retry results stay visible in the xcresult bundle.
           if command -v xcbeautify >/dev/null 2>&1; then
-            xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
+            xcodebuild -project ModelsMeter.xcodeproj -scheme ModelsMeter \
               -destination "platform=iOS Simulator,name=$DEVICE_NAME" \
               -derivedDataPath DerivedData \
               -resultBundlePath TestResults.xcresult \
@@ -115,7 +115,7 @@ jobs:
               -retry-tests-on-failure -test-iterations 3 test \
               | xcbeautify --renderer github-actions
           else
-            xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
+            xcodebuild -project ModelsMeter.xcodeproj -scheme ModelsMeter \
               -destination "platform=iOS Simulator,name=$DEVICE_NAME" \
               -derivedDataPath DerivedData \
               -resultBundlePath TestResults.xcresult \
@@ -126,7 +126,7 @@ jobs:
 
       - name: Package simulator app
         shell: bash
-        run: ditto -c -k --sequesterRsrc --keepParent DerivedData/Build/Products/Debug-iphonesimulator/CodexMeter.app ModelsMeter-iOS-Simulator.zip
+        run: ditto -c -k --sequesterRsrc --keepParent DerivedData/Build/Products/Debug-iphonesimulator/ModelsMeter.app ModelsMeter-iOS-Simulator.zip
 
       - name: Upload simulator app
         uses: actions/upload-artifact@v7

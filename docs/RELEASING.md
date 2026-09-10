@@ -114,8 +114,8 @@ requires the signing secrets, regardless of this flag.
    ```sh
    git switch main
    git pull --ff-only origin main
-   git tag -a v1.0.1 -m 'Models Meter 1.0.1'
-   git push origin v1.0.1
+   git tag -a v1.0.2 -m 'Models Meter 1.0.2'
+   git push origin v1.0.2
    ```
 
 The tag triggers tests, lint, signed Android/Wear builds and, when enabled, the

@@ -50,7 +50,7 @@ def release_version(root=ROOT):
     gradle = (root / "android/app/build.gradle.kts").read_text()
     version = re.search(r'versionName = "([0-9A-Za-z.-]+)"', gradle).group(1)
     build = re.search(r"versionCode = (\d+)", gradle).group(1)
-    project = (root / "ios/CodexMeter.xcodeproj/project.pbxproj").read_text()
+    project = (root / "ios/ModelsMeter.xcodeproj/project.pbxproj").read_text()
     blocks = re.findall(r"buildSettings = \{(.*?)\n\t\t\t\};", project, re.S)
     matched = 0
     for block in blocks:

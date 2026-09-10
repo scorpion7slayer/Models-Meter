@@ -1,4 +1,4 @@
-package dev.bennett.codexmeter;
+package dev.scorpion7slayer.modelsmeter;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -1683,7 +1683,7 @@ public final class ParserSelfTest {
                 + "- Restored in-app update discovery (#24).\n\n"
                 + "### Development\n\n"
                 + "- Centralized production GitHub release URLs (#24).\n\n"
-                + "**Full Changelog**: https://github.com/example/Codex-Meter/compare/v2.2.0...v2.3.0 "
+                + "**Full Changelog**: https://github.com/example/Models-Meter/compare/v2.2.0...v2.3.0 "
                 + "<!-- pragma: allowlist secret -->");
         check(html.contains("<p><b>Fixed</b></p>"), "markdown heading rendered");
         check(html.contains("<ul>"), "markdown list opened");
@@ -1693,7 +1693,7 @@ public final class ParserSelfTest {
                 "second markdown bullet rendered");
         check(html.contains("<p><b>Development</b></p>"), "second markdown heading rendered");
         check(html.contains("<b>Full Changelog</b>"), "markdown bold rendered");
-        check(html.contains("<a href=\"https://github.com/example/Codex-Meter/compare/v2.2.0...v2.3.0\">"),
+        check(html.contains("<a href=\"https://github.com/example/Models-Meter/compare/v2.2.0...v2.3.0\">"),
                 "markdown autolink rendered");
         check(!html.contains("pragma"), "html comments stripped from release notes");
         check(!html.contains("###"), "raw heading markers removed");

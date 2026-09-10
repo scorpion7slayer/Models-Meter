@@ -26,70 +26,70 @@ OUT="$ROOT/build/tests"
 rm -rf "$OUT" && mkdir -p "$OUT"
 
 javac -encoding UTF-8 -cp "$JSON_JAR" -d "$OUT" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/Provider.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/ProviderUsageParser.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/LocalizedTime.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/LanguageChoice.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WearGlanceFormat.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/Translations.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageWindow.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageCredits.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageLimit.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/DashboardSections.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/HistorySections.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WidgetMeters.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageSnapshot.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageSample.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageHistory.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsagePace.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/PlanPricing.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageStats.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/AdaptiveRefreshPolicy.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarAutoStart.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarDisplayMode.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarPercentMode.java" \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarCopy.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/CodexModelCatalog.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ModelCatalogSnapshot.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageParser.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/CelebrationDetector.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/RateLimitResetCredit.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetCreditsSnapshot.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetCreditExpiryReminder.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/Pkce.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/JwtClaims.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetOptions.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/OnboardingFlow.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/OAuthBrowserPage.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseVersion.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/GitHubReleaseSource.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/GitHubRelease.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/GitHubReleaseParser.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateChannel.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseIntegrity.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseNotesMarkdown.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseUpdatePolicy.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateCheckFrequency.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/DiagnosticSanitizer.java" \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransfer.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/Provider.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/ProviderUsageParser.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/LocalizedTime.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/LanguageChoice.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/WearGlanceFormat.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/Translations.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWindow.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageCredits.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageLimit.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardSections.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/HistorySections.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetMeters.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageSnapshot.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageSample.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistory.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsagePace.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/PlanPricing.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageStats.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/AdaptiveRefreshPolicy.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarAutoStart.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarDisplayMode.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarPercentMode.java" \
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarCopy.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/CodexModelCatalog.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ModelCatalogSnapshot.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageParser.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/CelebrationDetector.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/RateLimitResetCredit.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetCreditsSnapshot.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetCreditExpiryReminder.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/Pkce.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/JwtClaims.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetOptions.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/OnboardingFlow.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/OAuthBrowserPage.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseVersion.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/GitHubReleaseSource.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/GitHubRelease.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/GitHubReleaseParser.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateChannel.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseIntegrity.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseNotesMarkdown.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseUpdatePolicy.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateCheckFrequency.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/DiagnosticSanitizer.java" \
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransfer.java" \
   "$ROOT/tests/ParserSelfTest.java" \
   "$ROOT/tests/ProviderSelfTest.java"
 
-java -ea -cp "$OUT:$JSON_JAR" dev.bennett.codexmeter.ParserSelfTest
-java -ea -cp "$OUT:$JSON_JAR" dev.bennett.codexmeter.ProviderSelfTest
+java -ea -cp "$OUT:$JSON_JAR" dev.scorpion7slayer.modelsmeter.ParserSelfTest
+java -ea -cp "$OUT:$JSON_JAR" dev.scorpion7slayer.modelsmeter.ProviderSelfTest
 
 # Source-level release checks.
-grep -q 'VERSION_NAME = "1.0.1"' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'VERSION_CODE = 2' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'versionName = "1.0.1"' "$ROOT/app/build.gradle.kts"
-grep -q 'versionCode = 2' "$ROOT/app/build.gradle.kts"
-grep -q 'models-meter-android/1.0.1' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
-grep -q 'VERSION_NAME="1.0.1"' "$ROOT/build.sh"
-grep -q 'versionName = "1.0.1"' "$ROOT/wear/build.gradle.kts"
-grep -q 'versionCode = 2' "$ROOT/wear/build.gradle.kts"
-[[ "$(grep -c 'MARKETING_VERSION = 1.0.1;' "$ROOT/../ios/CodexMeter.xcodeproj/project.pbxproj")" -eq 4 ]]
-! grep 'CURRENT_PROJECT_VERSION =' "$ROOT/../ios/CodexMeter.xcodeproj/project.pbxproj" | grep -qv '= 2;'
-grep -q '^## 1.0.1' "$ROOT/../CHANGELOG.md"
+grep -q 'VERSION_NAME = "1.0.2"' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppConstants.java"
+grep -q 'VERSION_CODE = 3' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppConstants.java"
+grep -q 'versionName = "1.0.2"' "$ROOT/app/build.gradle.kts"
+grep -q 'versionCode = 3' "$ROOT/app/build.gradle.kts"
+grep -q 'models-meter-android/1.0.2' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppConstants.java"
+grep -q 'VERSION_NAME="1.0.2"' "$ROOT/build.sh"
+grep -q 'versionName = "1.0.2"' "$ROOT/wear/build.gradle.kts"
+grep -q 'versionCode = 3' "$ROOT/wear/build.gradle.kts"
+[[ "$(grep -c 'MARKETING_VERSION = 1.0.2;' "$ROOT/../ios/ModelsMeter.xcodeproj/project.pbxproj")" -eq 4 ]]
+! grep 'CURRENT_PROJECT_VERSION =' "$ROOT/../ios/ModelsMeter.xcodeproj/project.pbxproj" | grep -qv '= 3;'
+grep -q '^## 1.0.2' "$ROOT/../CHANGELOG.md"
 WORKFLOW="$ROOT/../.github/workflows/build-apk.yml"
 grep -q 'scorpion7slayer/Models-Meter/releases?per_page=30' "$ROOT/app/build.gradle.kts" # pragma: allowlist secret
 ! grep -R -q 'thatjoshguy67/Codex-Meter' \
@@ -101,160 +101,160 @@ grep -q 'testResetCreditsAutoHide' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'testDashboardSectionOrder' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'DashboardReorderActivity' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'snapshot.usageCredits.shouldDisplay()' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'shouldShowResetCreditsCard' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'public boolean shouldDisplay()' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetCreditsSnapshot.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetCreditsSnapshot.java"
 grep -q 'DashboardSections.resolveOrder' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'ItemTouchHelper' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/DashboardReorderActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardReorderActivity.java"
 grep -q 'ic_oui_reorder' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/DashboardReorderActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardReorderActivity.java"
 grep -q 'dashboard_reorder_ui' \
   "$ROOT/app/src/main/res/xml/preferences_settings_refresh_usage.xml"
 grep -q 'dashboard_reorder_ui' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 
 # Edit-dashboard visibility switches + sortable/hideable usage-history section.
 grep -q 'USAGE_HISTORY = "usage_history"' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/DashboardSections.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardSections.java"
 grep -q 'SwitchCompat' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/DashboardReorderActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardReorderActivity.java"
 grep -q 'setSectionVisible' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/DashboardReorderActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardReorderActivity.java"
 grep -q 'DashboardSections.USAGE_HISTORY.equals(key)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'setDashboardSectionHidden' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppPreferences.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppPreferences.java"
 grep -q 'dashboard_usage_history' \
   "$ROOT/app/src/main/res/xml/preferences_settings_refresh_usage.xml"
 grep -q 'dashboard_hidden_sections' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -q 'hidden-section keys round-trip' "$ROOT/tests/ParserSelfTest.java"
 # Usage-history analytics: scrubbable charts, per-window insights, and value estimates.
 grep -q 'testPlanPricing' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'testUsageStats' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'setScrubEnabled' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageBurnChartView.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageBurnChartView.java"
 grep -q 'requestDisallowInterceptTouchEvent' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageBurnChartView.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageBurnChartView.java"
 grep -q 'setOnScrubListener' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistoryActivity.java"
 grep -q 'PlanPricing.forPlan' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistoryActivity.java"
 grep -q 'UsageStats.windowBreakdown' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageHistoryActivity.java"
-test -f "$ROOT/shared/src/main/java/dev/bennett/codexmeter/PlanPricing.java"
-test -f "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageStats.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistoryActivity.java"
+test -f "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/PlanPricing.java"
+test -f "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageStats.java"
 
 # Usage-history declutter: customizable highlights with minimal defaults.
-test -f "$ROOT/shared/src/main/java/dev/bennett/codexmeter/HistorySections.java"
+test -f "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/HistorySections.java"
 grep -q 'testHistorySections' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'MENU_CUSTOMIZE' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistoryActivity.java"
 grep -q 'HistorySections.GUIDE' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistoryActivity.java"
 grep -q 'isHistorySectionVisible' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppPreferences.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppPreferences.java"
 grep -q 'history_section_overrides' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 # The old always-on explainer card and sample-count summary row must stay gone.
 ! grep -q 'Burn trends' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistoryActivity.java"
 ! grep -q 'completed window count' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistoryActivity.java"
 
 # Usage-history charts must be gated on real usage data instead of blank placeholders.
 grep -q 'fiveWindow != null && snapshot.fetchedAtMillis > 0L' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'weeklyWindow != null && snapshot.fetchedAtMillis > 0L' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'fiveWindow != null && snapshot.fetchedAtMillis > 0L' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistoryActivity.java"
 # The usage-history section itself also hides until a window can feed a chart.
 grep -q 'snapshot.fiveHour != null || snapshot.weekly != null' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 
 # Free-tier monthly Codex window: parsing, dashboard card, history, and the long-window
 # fallbacks that keep widgets and the live monitor adapting to subscription changes.
 grep -q 'testMonthlyWindow' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'MONTHLY = "monthly"' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/DashboardSections.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardSections.java"
 grep -q 'MONTHLY = "monthly"' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageHistory.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageHistory.java"
 grep -q 'public UsageWindow longWindow()' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageSnapshot.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageSnapshot.java"
 grep -q 'monthlyWindow != null && snapshot.fetchedAtMillis > 0L' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'DashboardSections.MONTHLY.equals(key)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'DashboardSections.MONTHLY.equals(key)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/DashboardReorderActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardReorderActivity.java"
 grep -q 'usage_history_monthly' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppPreferences.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppPreferences.java"
 grep -q 'dashboard_monthly' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -q 'WINDOW_MONTHLY' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsagePace.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsagePace.java"
 grep -q 'longWindowIsMonthly' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'meterWindow' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WidgetMeters.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetMeters.java"
 grep -q 'Hidden automatically when no resets are available' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/DashboardReorderActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardReorderActivity.java"
 # Dashboard auto-hide wiring remains; blank placeholders are widget-only.
 grep -q 'snapshot.usageCredits.shouldDisplay()' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'shouldShowResetCreditsCard' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 # Widget meter catalog excludes Spark / additional model limits; config supports drag reorder.
 grep -q 'Model-specific additional limits' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WidgetMeters.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetMeters.java"
 grep -q 'available meters exclude model-specific Spark limits' \
   "$ROOT/tests/ParserSelfTest.java" \
   "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'resolveVisibleForWidget' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WidgetMeters.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetMeters.java"
 grep -q 'resolvedSingleUsageMetric' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WidgetMeters.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetMeters.java"
 grep -q 'ItemTouchHelper' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetConfigActivity.java"
 grep -q 'orderedSelectedMeters' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetConfigActivity.java"
 grep -q 'ic_oui_reorder' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetConfigActivity.java"
 
 # Reset/usage-credit dashboard cards use bold in-card titles with left-aligned icon rows,
 # matching the other dashboard cards, instead of external One UI separators or centered blocks.
 grep -Fq 'Ui.text(this, "Reset credits", 18' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -Fq 'Ui.text(this, "Usage credits", 18' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'buildIconDetailRow' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'ic_oui_battery' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'ic_oui_credit_card_outline' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 ! grep -q 'Ui.separator' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -Fq 'Ui.separator(this, "Available credits")' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetCreditActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetCreditActivity.java"
 grep -Fq 'Ui.separator(this, "Credit expirations")' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetCreditActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetCreditActivity.java"
 ! grep -q 'ic_reset_credit_details' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 # Reset credits is an orderable dashboard section, not a card pinned below the dashboard.
 grep -q 'RESET_CREDITS = "reset_credits"' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/DashboardSections.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardSections.java"
 grep -q 'DashboardSections.RESET_CREDITS.equals(key)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'DashboardSections.RESET_CREDITS.equals(key)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/DashboardReorderActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/DashboardReorderActivity.java"
 ! grep -q 'this.content.addView(buildResetCreditsCard())' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 
 grep -q 'android.permission.ACCESS_NETWORK_STATE' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'android.permission.POST_NOTIFICATIONS' "$ROOT/app/src/main/AndroidManifest.xml"
@@ -271,21 +271,21 @@ grep -q 'WidgetRepairJobService' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'UpdateInstallReceiver' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'ReleaseHistoryActivity' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'ReleaseNotesMarkdown.toHtml' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseNotesUi.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseNotesUi.java"
 grep -q 'ReleaseNotesUi.create' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateActivity.java"
 grep -q 'ReleaseNotesUi.create' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseHistoryActivity.java"
 grep -q 'FIRST_IN_APP_UPDATE_VERSION = "1.0.0"' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseUpdatePolicy.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseUpdatePolicy.java"
 grep -q 'isIrreversible' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateActivity.java"
 grep -q 'Open on GitHub' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateActivity.java"
 grep -q 'Open on GitHub' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseHistoryActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseHistoryActivity.java"
 grep -q 'UpdateCheckFrequency' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ReleaseUpdateScheduler.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ReleaseUpdateScheduler.java"
 grep -q 'notify_update_available_ui' \
   "$ROOT/app/src/main/res/xml/preferences_settings_updates.xml"
 grep -q 'update_check_interval_ui' \
@@ -293,46 +293,46 @@ grep -q 'update_check_interval_ui' \
 grep -q 'settings_update_interval_entries' \
   "$ROOT/app/src/main/res/values/settings_arrays.xml"
 grep -q 'EXTRA_START_INSTALL' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateActivity.java"
 grep -q '"Open", open' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateNotificationManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateNotificationManager.java"
 grep -q '"Update", update' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateNotificationManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateNotificationManager.java"
 grep -q 'UpdateNotificationManager.onReleasesUpdated' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdatePreferences.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdatePreferences.java"
 grep -q 'testUpdateCheckFrequency' "$ROOT/tests/ParserSelfTest.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateCheckFrequency.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateCheckFrequency.java"
 
 # Alpha/stable release channels with in-place channel switching.
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateChannel.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateChannel.java"
 grep -q 'testUpdateChannel' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'UpdateChannel.selectUpdate' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdatePreferences.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdatePreferences.java"
 grep -q 'UpdateChannel.isReturnToStable' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateActivity.java"
 grep -q 'update_channel_ui' \
   "$ROOT/app/src/main/res/xml/preferences_settings_updates.xml"
 grep -q 'update_channel_ui' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'settings_update_channel_entries' \
   "$ROOT/app/src/main/res/values/settings_arrays.xml"
 grep -q '"update_channel"' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -Fq 'branches: [main, alpha]' "$WORKFLOW"
 grep -Fq -- '--prerelease="$PRERELEASE"' "$WORKFLOW"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/UpdateNotificationManager.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransfer.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UpdateNotificationManager.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransfer.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -q 'testSettingsTransfer' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'testDiagnosticSanitizer' "$ROOT/tests/ParserSelfTest.java"
-grep -q 'android:name="dev.bennett.codexmeter.CodexMeterApplication"' \
+grep -q 'android:name="dev.scorpion7slayer.modelsmeter.ModelsMeterApplication"' \
   "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'preferences_settings_diagnostics' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'application/x-ndjson' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'DiagnosticSanitizer.safeUrl' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageApi.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageApi.java"
 grep -q 'export_settings_transfer' \
   "$ROOT/app/src/main/res/xml/preferences_settings_transfer.xml"
 grep -q 'import_settings_transfer' \
@@ -340,13 +340,13 @@ grep -q 'import_settings_transfer' \
 grep -q 'transfer_security_notice' \
   "$ROOT/app/src/main/res/xml/preferences_settings_transfer.xml"
 grep -q 'SECURITY_WARNING' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransfer.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransfer.java"
 grep -q 'bindTransfer' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'SettingsTransferStore.collect' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'SettingsTransferStore.apply' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'Protect authentication exports' \
   "$ROOT/app/src/main/res/values/localized_display.xml"
 grep -q 'material_you' \
@@ -358,36 +358,36 @@ grep -q 'theme_system_ui' \
 grep -q 'preferences_darkmode_entries_image' \
   "$ROOT/app/src/main/res/values/settings_arrays.xml"
 grep -q 'HorizontalRadioPreference theme' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 test -f "$ROOT/app/src/main/res/drawable-xxhdpi/display_help_light_mode.webp"
 test -f "$ROOT/app/src/main/res/drawable-xxhdpi/display_help_dark_mode.webp"
 grep -q 'isMaterialYouEnabled' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppPreferences.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppPreferences.java"
 grep -q 'AppTheme_MaterialYou' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/Ui.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/Ui.java"
 grep -q 'oneUiAccent' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/Ui.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/Ui.java"
 grep -q 'oneui_primary' \
   "$ROOT/app/src/main/res/values/colors.xml"
 grep -q '#0381FE' \
   "$ROOT/app/src/main/res/values/colors.xml"
 grep -q 'material you preference restored' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'widgetOptionsFromJson(widget,' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -q 'requireLeadTimes' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -q 'applyNowBar && NowBarManager.isActive' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -q 'AppPreferences.setLastError(app, message)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -q 'partial widget keeps current theme' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'malformed lead times rejected' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'non-numeric lead time element rejected' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'parseLeadTimeEntry' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransfer.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransfer.java"
 python3 - <<PY
 from pathlib import Path
-text = (Path(r"""$ROOT""") / "app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java").read_text()
+text = (Path(r"""$ROOT""") / "app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java").read_text()
 start = text.index("private static void applyNotifications")
 end = text.index("private static void applyNowBar", start)
 block = text[start:end]
@@ -400,58 +400,58 @@ grep -q 'com.samsung.android.support.ongoing_activity' "$ROOT/app/src/main/Andro
 grep -q 'app:expanded="true"' "$ROOT/app/src/main/res/layout/activity_settings.xml"
 grep -q 'app:expandable="true"' "$ROOT/app/src/main/res/layout/activity_settings.xml"
 grep -q 'Ui.configureReachToolbar(toolbar, pageTitle(page), true);' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
-grep -q 'toolbar.setExpandable(false);' "$ROOT/app/src/main/java/dev/bennett/codexmeter/Ui.java"
-grep -q 'toolbar.setExpandable(true);' "$ROOT/app/src/main/java/dev/bennett/codexmeter/Ui.java"
-grep -q 'toolbar.setExpanded(true, false);' "$ROOT/app/src/main/java/dev/bennett/codexmeter/Ui.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
+grep -q 'toolbar.setExpandable(false);' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/Ui.java"
+grep -q 'toolbar.setExpandable(true);' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/Ui.java"
+grep -q 'toolbar.setExpanded(true, false);' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/Ui.java"
 
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetAlertPreferences.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetAlertScheduler.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetAlertReceiver.java"
-grep -q 'scheduleFromSnapshot' "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetAlertScheduler.java"
-grep -q 'POST_NOTIFICATIONS' "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetCreditExpiryScheduler.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetCreditExpiryReceiver.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetAlertPreferences.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetAlertScheduler.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetAlertReceiver.java"
+grep -q 'scheduleFromSnapshot' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetAlertScheduler.java"
+grep -q 'POST_NOTIFICATIONS' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetCreditExpiryScheduler.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetCreditExpiryReceiver.java"
 grep -q 'ResetCreditExpiryReceiver' "$ROOT/app/src/main/AndroidManifest.xml"
 grep -q 'reset_credit_expiry_times_ui' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q '"Use reset", useReset' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetNotificationManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetNotificationManager.java"
 grep -q 'EXTRA_PROMPT_USE_RESET' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/ResetCreditActivity.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarActionReceiver.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarPreferences.java"
-test -f "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarAutoStart.java"
-test -f "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarDisplayMode.java"
-test -f "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarPercentMode.java"
-test -f "$ROOT/shared/src/main/java/dev/bennett/codexmeter/NowBarCopy.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/ResetCreditActivity.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarActionReceiver.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarPreferences.java"
+test -f "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarAutoStart.java"
+test -f "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarDisplayMode.java"
+test -f "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarPercentMode.java"
+test -f "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarCopy.java"
 grep -q 'NowBarCopy.focusCriticalText' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'NowBarCopy.limitText' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'NowBarCopy.chipExpandedText' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'testNowBarCopy' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'exhausted five-hour focus shows hours until natural reset' \
   "$ROOT/tests/ParserSelfTest.java" \
   "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'Build.VERSION.SDK_INT >= 36' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'codex_live_monitor_v2' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'NotificationManager.IMPORTANCE_DEFAULT' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'setSmallIcon(R.drawable.ic_notification)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'ic_now_bar_progress_dot' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'ic_codex_logo_on_accent' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'themeAdaptiveCodexLogo' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'ic_codex_logo_dark' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 test -f "$ROOT/app/src/main/res/drawable/ic_now_bar_progress_dot.xml"
 test -f "$ROOT/app/src/main/res/drawable/ic_codex_logo.xml"
 test -f "$ROOT/app/src/main/res/drawable/ic_codex_logo_dark.xml"
@@ -466,35 +466,35 @@ grep -q 'fillColor="@android:color/transparent"' "$ROOT/app/src/main/res/drawabl
 grep -q '#FF142335' "$ROOT/app/src/main/res/drawable/ic_codex_logo.xml"
 grep -q '#FFF1F7FF' "$ROOT/app/src/main/res/drawable/ic_codex_logo_dark.xml"
 grep -q 'android.ongoingActivityNoti.' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'applySamsungCompatibility' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'NowBarDisplayMode.ANDROID_LIVE_UPDATE' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'setDeleteIntent(stopIntent)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'FLAG_PROMOTED_ONGOING' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'legacyColorizedFallback' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'builder.setColorized(true)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'NowBarManager.isPromoted' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'hasStoredActiveState' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'NowBarManager.onUsageUpdated' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageApi.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageApi.java"
 grep -q 'maybeAutoStart' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'now_bar_auto_start_ui' \
   "$ROOT/app/src/main/res/xml/preferences_settings_now_bar.xml"
 grep -q 'now_bar_threshold_ui' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'NowBarPreferences.isAutoStartEnabled' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'markSuppressedUntil' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'NowBarAutoStart.shouldStart' \
   "$ROOT/tests/ParserSelfTest.java" \
   "$ROOT/tests/ProviderSelfTest.java"
@@ -511,16 +511,16 @@ grep -q 'NowBarPercentMode.focusForSettingsChange' \
   "$ROOT/tests/ParserSelfTest.java" \
   "$ROOT/tests/ProviderSelfTest.java"
 grep -q 'KEY_AUTO_TRIGGER_FOCUS' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'sessionAutoTriggerFocus' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'focusForSettingsChange' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 # applyPercentModeChange must stop the monitor when post() fails (no zombie active state).
 python3 - <<PY
 from pathlib import Path
 root = Path(r"""$ROOT""")
-text = (root / "app/src/main/java/dev/bennett/codexmeter/NowBarManager.java").read_text()
+text = (root / "app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java").read_text()
 start = text.index("public static synchronized boolean applyPercentModeChange")
 end = text.index("public static synchronized void stop(Context context)", start)
 block = text[start:end]
@@ -534,18 +534,18 @@ grep -q 'now_bar_display_mode_ui' \
 grep -q 'now_bar_percent_mode_ui' \
   "$ROOT/app/src/main/res/xml/preferences_settings_now_bar.xml"
 grep -q 'NowBarPreferences.getPercentMode' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'applyPercentModeChange' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q 'KEY_FOCUS_METRIC' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'Live notifications for all apps' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 
 grep -R -q '<Chronometer' "$ROOT/app/src/main/res/layout/widget_lock_"*.xml
-grep -q 'setChronometerCountDown' "$ROOT/app/src/main/java/dev/bennett/codexmeter/SamsungLockWidgetSupport.java"
-grep -q 'show_countdown' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppPreferences.java"
-grep -q 'Show live time until reset' "$ROOT/app/src/main/java/dev/bennett/codexmeter/LockWidgetConfigActivity.java"
+grep -q 'setChronometerCountDown' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SamsungLockWidgetSupport.java"
+grep -q 'show_countdown' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppPreferences.java"
+grep -q 'Show live time until reset' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/LockWidgetConfigActivity.java"
 
 for style in rings dials bars; do
   for shape in square wide; do
@@ -561,83 +561,83 @@ for provider in \
   SamsungLockDialsSquareWidget SamsungLockDialsWideWidget \
   SamsungLockBarsSquareWidget SamsungLockBarsWideWidget \
   SamsungLockFiveHourWidget SamsungLockWeeklyWidget; do
-  grep -q "android:name=\"dev.bennett.codexmeter.$provider\"" \
+  grep -q "android:name=\"dev.scorpion7slayer.modelsmeter.$provider\"" \
     "$ROOT/app/src/main/AndroidManifest.xml"
   grep -q "$provider.class" \
-    "$ROOT/app/src/main/java/dev/bennett/codexmeter/SamsungLockWidgetSupport.java"
+    "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SamsungLockWidgetSupport.java"
 done
 
 grep -R -q 'android:widgetCategory="0x2000"' "$ROOT/app/src/main/res/xml/samsung_lock_"*_info.xml
 grep -R -q 'app:widgetStyle="monotone"' "$ROOT/app/src/main/res/xml/samsung_lock_"*_info.xml
 ! grep -R -q 'com.samsung.systemui.permission.FACE_WIDGET' "$ROOT/app/src/main"
 
-grep -q 'RESET_CREDITS_CONSUME_URL' "$ROOT/app/src/main/java/dev/bennett/codexmeter/AppConstants.java"
+grep -q 'RESET_CREDITS_CONSUME_URL' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/AppConstants.java"
 grep -q 'ResetCreditActivity' "$ROOT/app/src/main/AndroidManifest.xml"
-grep -q 'showResetAction' "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetOptions.java"
+grep -q 'showResetAction' "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetOptions.java"
 grep -q 'OPACITY_LEVELS = {56, 88, 100}' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetOptions.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetOptions.java"
 grep -q 'widget_background' "$ROOT/app/src/main/res/values/strings.xml"
 grep -q 'backgroundSwitch' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetConfigActivity.java"
 grep -q 'RadioItemViewGroup' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/OneUiChoiceDialog.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/OneUiChoiceDialog.java"
 grep -q 'OneUiChoiceDialog.show' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetConfigActivity.java"
 grep -q '"Both windows", "5-hour only", "Weekly only"' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetOptionCatalog.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetOptionCatalog.java"
 # Home widget layout picker exposes Auto / Dials / Progress bars.
 grep -q '"Adaptive by size", "Dials", "Progress bars"' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetOptionCatalog.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetOptionCatalog.java"
 grep -q 'styleSpinner' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetConfigActivity.java"
 # Home and lock config drive the shared meter catalog for per-meter visibility.
 grep -q 'WidgetMeters' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetConfigActivity.java"
 grep -q 'WidgetMeters' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/LockWidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/LockWidgetConfigActivity.java"
 grep -q 'selectedMeters' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/LockWidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/LockWidgetConfigActivity.java"
 # Renderer honors the layout preference and binds ordered meter slots.
 grep -q 'resolveHomeVisualStyle' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/WidgetMeters.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetMeters.java"
 grep -q 'resolveSlots' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetRenderer.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetRenderer.java"
 ! grep -q 'ListPopupWindow' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/WidgetConfigActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/WidgetConfigActivity.java"
 grep -q 'android:max="2"' "$ROOT/app/src/main/res/layout/view_widget_opacity.xml"
 ! grep -q 'opacity_tick_3' "$ROOT/app/src/main/res/layout/view_widget_opacity.xml"
 grep -q 'One UI widget opacity uses three levels' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'dev.oneuiproject.oneui.widget.CardItemView' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/OnboardingActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/OnboardingActivity.java"
 grep -q 'Ui.nativePrimaryButton' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/OnboardingActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/OnboardingActivity.java"
 grep -q 'Ui.addSpacer(this.content, 20)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/OnboardingActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/OnboardingActivity.java"
 python3 - <<PY
 from pathlib import Path
 text = (Path(r"""$ROOT""") / "app/src/main/res/xml/preferences_settings.xml").read_text()
-about = text.index('android:key="about_codex_meter"')
+about = text.index('android:key="about_models_meter"')
 assert text.rfind('InsetPreferenceCategory', 0, about) != -1, "missing inset before About"
 assert text.find('InsetPreferenceCategory', about) != -1, "missing bottom inset after About"
 assert 'app:height="28dp"' in text[about:], "bottom settings inset should be 28dp"
 print("settings list keeps spacing before About and bottom padding after it.")
 PY
 grep -q 'OAuthBrowserPage.render' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/OAuthService.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/OAuthService.java"
 grep -q 'titlePaint.setColor(foreground);' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageWaveView.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWaveView.java"
 grep -q 'resetPaint.setColor(foreground);' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageWaveView.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWaveView.java"
 grep -q 'showsResetCountdown' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageWindow.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWindow.java"
 grep -q 'testResetCountdownFollowsApiTimeline' "$ROOT/tests/ParserSelfTest.java"
 ! grep -q 'remainingPercent() <= 99' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsageWindow.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWindow.java"
 grep -q 'testUsagePace' "$ROOT/tests/ParserSelfTest.java"
 grep -q 'UsagePace.mostAcceleratedWindow' "$ROOT/tests/ParserSelfTest.java"
-test -f "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsagePace.java"
-test -f "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsagePacePreferences.java"
-test -f "$ROOT/app/src/debug/java/dev/bennett/codexmeter/UsagePaceDemoActivity.java"
+test -f "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsagePace.java"
+test -f "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsagePacePreferences.java"
+test -f "$ROOT/app/src/debug/java/dev/scorpion7slayer/modelsmeter/UsagePaceDemoActivity.java"
 grep -q 'UsagePaceDemoActivity' "$ROOT/app/src/debug/AndroidManifest.xml"
 grep -q 'usage_pace_enabled_ui' \
   "$ROOT/app/src/main/res/xml/preferences_settings_refresh_usage.xml"
@@ -646,31 +646,31 @@ grep -q 'usage_pace_sensitivity_ui' \
 grep -q '<item>off</item>' \
   "$ROOT/app/src/main/res/values/settings_arrays.xml"
 grep -q 'public static final String OFF = "off"' \
-  "$ROOT/shared/src/main/java/dev/bennett/codexmeter/UsagePace.java"
+  "$ROOT/shared/src/main/java/dev/scorpion7slayer/modelsmeter/UsagePace.java"
 grep -q 'areWarningsEnabled' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsagePacePreferences.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsagePacePreferences.java"
 grep -q 'now_bar_accelerated_ui' \
   "$ROOT/app/src/main/res/xml/preferences_settings_now_bar.xml"
 grep -q 'accelerated_enabled' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsTransferStore.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsTransferStore.java"
 grep -q 'START_ACCELERATED' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/NowBarManager.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/NowBarManager.java"
 grep -q 'Color.rgb(230, 91, 23)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/Ui.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/Ui.java"
 grep -q 'WARNING_WAVE_DURATION_MS = 950L' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageWaveView.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWaveView.java"
 grep -q '"· " + pace' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageWaveView.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWaveView.java"
 grep -q 'card.setMinimumHeight(Ui.dp(this, 103.0f))' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/MainActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/MainActivity.java"
 grep -q 'onPaceSettingsChanged' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/SettingsActivity.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/SettingsActivity.java"
 grep -q '!usageWindow.showsResetCountdown()' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageFormat.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageFormat.java"
 ! grep -q 'resetPaint.setColor(Ui.secondaryText(dark));' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageWaveView.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWaveView.java"
 ! grep -q 'titlePaint.setColor(0xFF000000)' \
-  "$ROOT/app/src/main/java/dev/bennett/codexmeter/UsageWaveView.java"
+  "$ROOT/app/src/main/java/dev/scorpion7slayer/modelsmeter/UsageWaveView.java"
 
 # Vendored SESL dependencies support phone builds without GitHub Packages auth.
 test -f "$ROOT/vendor/m2/sesl/androidx/appcompat/appcompat/1.7.1+1.0.21-sesl8+rev8/appcompat-1.7.1+1.0.21-sesl8+rev8.aar"

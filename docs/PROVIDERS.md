@@ -23,7 +23,7 @@ No credential is sent to a model catalog host that does not need it. Redirects o
 
 The global notification setting controls new-model, low-quota and reset reminders; the new-model toggle can disable model alerts separately. New providers support low-quota crossings, detected refills, and reminders for the reset timestamps supplied by the provider. Background work and reminders follow OS scheduling limits; a reset reminder asks the user to refresh and does not claim a fresh server response. Android's additional-provider reset reminders are inexact alarms; they do not request exact-alarm access. Wear receives the phone's regular mirrored alerts when enabled in the companion settings.
 
-Missing limits are absent rather than 100% available. Percentages such as `0.6` mean 0.6 percent, not 60 percent. The UI rounds to whole percentages consistently with existing Codex meters. Catalog errors do not discard successful quota data. An old successful catalog retains its check timestamp until another successful response arrives.
+Missing limits are absent rather than 100% available. Percentages such as `0.6` mean 0.6 percent, not 60 percent. The UI rounds to whole percentages consistently with the Codex quota indicators. Catalog errors do not discard successful quota data. An old successful catalog retains its check timestamp until another successful response arrives.
 
 The original ChatGPT usage-history, reset-credit redemption and detailed pace features continue to use the ChatGPT account. Other providers have their own usage dashboard and widgets; they do not expose ChatGPT's credit actions.
 

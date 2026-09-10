@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-    namespace = "dev.bennett.codexmeter"
+    namespace = "dev.scorpion7slayer.modelsmeter"
     compileSdk = 36
 
     defaultConfig {
         applicationId = "dev.scorpion7slayer.modelsmeter"
         minSdk = 26
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.0.1"
+        versionCode = 3
+        versionName = "1.0.2"
         providers.gradleProperty("demoVersionCode").orNull?.toIntOrNull()?.let {
             versionCode = it
         }

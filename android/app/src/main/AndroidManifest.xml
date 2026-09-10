@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <application
-        android:name="dev.bennett.codexmeter.CodexMeterApplication"
+        android:name="dev.scorpion7slayer.modelsmeter.ModelsMeterApplication"
         android:theme="@style/AppTheme"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -25,7 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:dataExtractionRules="@xml/data_extraction_rules">
         <activity
-            android:name="dev.bennett.codexmeter.MainActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.MainActivity"
             android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
@@ -43,36 +43,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="dev.bennett.codexmeter.OnboardingActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.OnboardingActivity"
             android:exported="false"
             android:launchMode="singleTop"/>
         <activity
-            android:name="dev.bennett.codexmeter.SettingsActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.SettingsActivity"
             android:exported="false"/>
         <activity
-            android:name="dev.bennett.codexmeter.UpdateActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.UpdateActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"/>
         <activity
-            android:name="dev.bennett.codexmeter.ReleaseHistoryActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.ReleaseHistoryActivity"
             android:exported="false"/>
         <activity
-            android:name="dev.bennett.codexmeter.UsageHistoryActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.UsageHistoryActivity"
             android:exported="false"/>
         <activity
-            android:name="dev.bennett.codexmeter.DashboardReorderActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.DashboardReorderActivity"
             android:exported="false"/>
         <activity
-            android:name="dev.bennett.codexmeter.AboutActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.AboutActivity"
             android:exported="false"/>
         <activity
-            android:name="dev.bennett.codexmeter.ResetCreditActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.ResetCreditActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:excludeFromRecents="true"/>
         <activity
             android:theme="@style/AppTheme"
-            android:name="dev.bennett.codexmeter.WidgetConfigActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.WidgetConfigActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
@@ -80,13 +80,13 @@
         </activity>
         <activity
             android:theme="@style/AppTheme"
-            android:name="dev.bennett.codexmeter.LockWidgetConfigActivity"
+            android:name="dev.scorpion7slayer.modelsmeter.LockWidgetConfigActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
-        <receiver android:name="dev.bennett.codexmeter.LatestModelsWidget"
+        <receiver android:name="dev.scorpion7slayer.modelsmeter.LatestModelsWidget"
             android:label="@string/latest_models_title" android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -96,7 +96,7 @@
         </receiver>
         <receiver
             android:label="@string/widget_name"
-            android:name="dev.bennett.codexmeter.CodexUsageWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.CodexUsageWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -110,7 +110,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_square_name"
-            android:name="dev.bennett.codexmeter.SamsungLockSquareWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockSquareWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -124,7 +124,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_wide_name"
-            android:name="dev.bennett.codexmeter.SamsungLockWideWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockWideWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -138,7 +138,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_rings_square_name"
-            android:name="dev.bennett.codexmeter.SamsungLockRingsSquareWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockRingsSquareWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -152,7 +152,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_rings_wide_name"
-            android:name="dev.bennett.codexmeter.SamsungLockRingsWideWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockRingsWideWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -166,7 +166,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_dials_square_name"
-            android:name="dev.bennett.codexmeter.SamsungLockDialsSquareWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockDialsSquareWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -180,7 +180,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_dials_wide_name"
-            android:name="dev.bennett.codexmeter.SamsungLockDialsWideWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockDialsWideWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -194,7 +194,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_bars_square_name"
-            android:name="dev.bennett.codexmeter.SamsungLockBarsSquareWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockBarsSquareWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -208,7 +208,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_bars_wide_name"
-            android:name="dev.bennett.codexmeter.SamsungLockBarsWideWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockBarsWideWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -222,7 +222,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_five_hour_name"
-            android:name="dev.bennett.codexmeter.SamsungLockFiveHourWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockFiveHourWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -236,7 +236,7 @@
         </receiver>
         <receiver
             android:label="@string/lock_widget_weekly_name"
-            android:name="dev.bennett.codexmeter.SamsungLockWeeklyWidget"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockWeeklyWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -249,29 +249,29 @@
                 android:resource="@xml/samsung_lock_weekly_oneui_info"/>
         </receiver>
         <receiver
-            android:name="dev.bennett.codexmeter.SamsungLockServiceBoxReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.SamsungLockServiceBoxReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.samsung.android.intent.action.REQUEST_SERVICEBOX_REMOTEVIEWS"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name="dev.bennett.codexmeter.WidgetRefreshReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.WidgetRefreshReceiver"
             android:exported="false"/>
         <receiver
-            android:name="dev.bennett.codexmeter.ResetAlertReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.ResetAlertReceiver"
             android:exported="false"/>
         <receiver
-            android:name="dev.bennett.codexmeter.UpdateInstallReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.UpdateInstallReceiver"
             android:exported="false"/>
         <receiver
-            android:name="dev.bennett.codexmeter.ResetCreditExpiryReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.ResetCreditExpiryReceiver"
             android:exported="false"/>
         <receiver
-            android:name="dev.bennett.codexmeter.NowBarActionReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.NowBarActionReceiver"
             android:exported="false"/>
         <receiver
-            android:name="dev.bennett.codexmeter.BootReceiver"
+            android:name="dev.scorpion7slayer.modelsmeter.BootReceiver"
             android:exported="false"
             android:directBootAware="false">
             <intent-filter>
@@ -286,24 +286,24 @@
             android:name="com.samsung.android.support.ongoing_activity"
             android:value="true"/>
         <service
-            android:name="dev.bennett.codexmeter.UsageRefreshJobService"
+            android:name="dev.scorpion7slayer.modelsmeter.UsageRefreshJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false"/>
         <service
-            android:name="dev.bennett.codexmeter.ReleaseUpdateJobService"
+            android:name="dev.scorpion7slayer.modelsmeter.ReleaseUpdateJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false"/>
         <service
-            android:name="dev.bennett.codexmeter.WidgetRepairJobService"
+            android:name="dev.scorpion7slayer.modelsmeter.WidgetRepairJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false"/>
         <service
-            android:name="dev.bennett.codexmeter.OAuthService"
+            android:name="dev.scorpion7slayer.modelsmeter.OAuthService"
             android:exported="false"
             android:stopWithTask="false"
             android:foregroundServiceType="dataSync"/>
         <service
-            android:name="dev.bennett.codexmeter.wear.PhoneWearListenerService"
+            android:name="dev.scorpion7slayer.modelsmeter.wear.PhoneWearListenerService"
             android:exported="true">
             <intent-filter>
                 <action
@@ -330,6 +330,6 @@
         <activity android:name=".ModelsWidgetConfigActivity" android:exported="true">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
         </activity>
-        <receiver android:name="dev.bennett.codexmeter.ProviderResetReceiver" android:exported="false" />
+        <receiver android:name="dev.scorpion7slayer.modelsmeter.ProviderResetReceiver" android:exported="false" />
     </application>
 </manifest>
