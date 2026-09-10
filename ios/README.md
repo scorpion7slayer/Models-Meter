@@ -32,10 +32,10 @@ log export, and widgets that follow the weekly or monthly long window.
 From this `ios/` directory:
 
 ```sh
-swift test --package-path CodexMeterCore
-xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
+swift test --package-path ModelsMeterCore
+xcodebuild -project ModelsMeter.xcodeproj -scheme ModelsMeter \
   -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project CodexMeter.xcodeproj -scheme CodexMeter \
+xcodebuild -project ModelsMeter.xcodeproj -scheme ModelsMeter \
   -destination 'platform=iOS Simulator,name=iPhone 17e' \
   -parallel-testing-enabled NO test
 ```
@@ -47,11 +47,11 @@ contact OpenAI.
 
 | Path | Role |
 |------|------|
-| `CodexMeter/` | Main app target |
-| `CodexMeterWidgets/` | WidgetKit extension |
-| `CodexMeterCore/` | Shared models/parsers (local Swift package) |
-| `CodexMeterTests/` | Unit tests |
-| `CodexMeterUITests/` | UI tests |
+| `ModelsMeter/` | Main app target |
+| `ModelsMeterWidgets/` | WidgetKit extension |
+| `ModelsMeterCore/` | Shared models/parsers (local Swift package) |
+| `ModelsMeterTests/` | Unit tests |
+| `ModelsMeterUITests/` | UI tests |
 
 ## Data and stability
 

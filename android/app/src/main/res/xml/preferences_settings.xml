@@ -50,7 +50,7 @@
     <dev.oneuiproject.oneui.preference.InsetPreferenceCategory app:height="20dp" />
 
     <Preference
-        android:key="about_codex_meter"
+        android:key="about_models_meter"
         android:title="@string/localized_85df69278df6"
         app:iconSpaceReserved="false" />
 

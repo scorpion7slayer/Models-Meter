@@ -76,8 +76,21 @@ a disposable local key. Never commit a keystore or its password.
 
 ## Restored targets in 1.0.1
 
-`./build.sh` and `./lint.sh` include both phone and Wear OS modules. Install SDK platforms 36 and 37.0. Keep the phone and watch application IDs, version code/name and signing certificate aligned so Data Layer trust works. Version 1.0.1 uses code 2 on Android and build 2 on iOS. Include `android/wear/build.gradle.kts` and `ios/CodexMeter.xcodeproj/project.pbxproj` in explicitly requested version bumps.
+`./build.sh` and `./lint.sh` include both phone and Wear OS modules. Install SDK platforms 36 and 37.0. Keep the phone and watch application IDs, version code/name and signing certificate aligned so Data Layer trust works. Version 1.0.2 uses code 3 on Android and build 3 on iOS. Include `android/wear/build.gradle.kts` and `ios/ModelsMeter.xcodeproj/project.pbxproj` in explicitly requested version bumps.
 
-Run `swift test --package-path ios/CodexMeterCore` and Xcode's app/unit/UI checks for iOS changes. Simulator builds do not require a distribution signing identity. Physical iOS distribution requires the user's Apple provisioning. Do not publish a release tag without an explicit request.
+Run `swift test --package-path ios/ModelsMeterCore` and Xcode's app/unit/UI checks for iOS changes. Simulator builds do not require a distribution signing identity. Physical iOS distribution requires the user's Apple provisioning. Do not publish a release tag without an explicit request.
 
 For translations, edit `localization/fr.json` and run `python3 scripts/generate-localizations.py`. Check French, English and the unsupported-system-language fallback. Internal IDs, stored enum values, API fields and provider/model names must remain untranslated.
+
+### Product identifiers
+
+Android, Wear OS and iOS use Models Meter names throughout their source modules,
+storage keys, widget identifiers and phone/watch capabilities. Android's Java
+namespace matches the application ID: `dev.scorpion7slayer.modelsmeter`.
+
+This development rename does not import data from the previous internal storage
+keys. Reconnect accounts, configure settings and recreate widgets after upgrading;
+update both phone and watch together. Existing exports using the previous transfer
+format ID are not accepted. Historical credits and changelog entries retain the
+original project's name. Provider-specific names such as `CodexModelCatalog`
+still describe OpenAI Codex.

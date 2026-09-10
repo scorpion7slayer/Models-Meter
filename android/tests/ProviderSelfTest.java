@@ -1,4 +1,4 @@
-package dev.bennett.codexmeter;
+package dev.scorpion7slayer.modelsmeter;
 
 import java.util.Locale;
 import org.json.JSONObject;

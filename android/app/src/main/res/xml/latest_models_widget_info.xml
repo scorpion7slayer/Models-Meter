@@ -4,7 +4,7 @@
     android:minWidth="110dp" android:minHeight="40dp"
     android:minResizeWidth="110dp" android:minResizeHeight="40dp"
     android:targetCellWidth="2" android:targetCellHeight="1"
-    android:configure="dev.bennett.codexmeter.ModelsWidgetConfigActivity"
+    android:configure="dev.scorpion7slayer.modelsmeter.ModelsWidgetConfigActivity"
     android:widgetFeatures="reconfigurable"
     android:initialLayout="@layout/widget_latest_models"
     android:previewLayout="@layout/widget_latest_models"

@@ -5,7 +5,7 @@ import CoreGraphics
 import ImageIO
 import UniformTypeIdentifiers
 
-let output = URL(fileURLWithPath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "ios/CodexMeter/Assets.xcassets/AppIcon.appiconset", isDirectory: true)
+let output = URL(fileURLWithPath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "ios/ModelsMeter/Assets.xcassets/AppIcon.appiconset", isDirectory: true)
 let variants: [(String, UInt32, UInt32, UInt32, UInt32)] = [
     ("AppIcon.png", 0xF3F6FA, 0xD3DDE5, 0x007D77, 0x142335),
     ("AppIcon-Dark.png", 0x0D1622, 0x293747, 0x5EE9CD, 0xF1F7FF),

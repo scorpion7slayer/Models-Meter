@@ -1,0 +1,31 @@
+package dev.scorpion7slayer.modelsmeter;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
+/* JADX INFO: loaded from: classes.dex */
+public final class BootReceiver extends BroadcastReceiver {
+    @Override // android.content.BroadcastReceiver
+    public void onReceive(Context context, Intent intent) {
+        String action = intent == null ? null : intent.getAction();
+        if ("android.intent.action.BOOT_COMPLETED".equals(action) || "android.intent.action.MY_PACKAGE_REPLACED".equals(action)) {
+            DiagnosticLog.info(context, "process", "boot_receiver",
+                    "action", action);
+            RefreshScheduler.schedulePeriodic(context);
+            ProviderResetReceiver.scheduleAll(context);
+            ReleaseUpdateScheduler.ensureScheduled(context);
+            ResetAlertScheduler.scheduleFromSnapshot(context, AppPreferences.loadSnapshot(context));
+            ResetCreditExpiryScheduler.scheduleFromSnapshot(context,
+                    AppPreferences.loadResetCredits(context));
+            NowBarManager.restore(context);
+            if ("android.intent.action.MY_PACKAGE_REPLACED".equals(action)) {
+                UpdateNotificationManager.dismiss(context);
+                UpdatePreferences.clearNotifiedVersion(context);
+                WidgetUpgradeRepair.afterPackageReplaced(context);
+            } else {
+                WidgetUpgradeRepair.runIfNeeded(context);
+            }
+        }
+    }
+}

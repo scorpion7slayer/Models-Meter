@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 translations = json.loads((ROOT / 'localization/fr.json').read_text())
 def quoted(value): return json.dumps(value, ensure_ascii=False)
 def xmltext(value): return escape(value).replace("'", "\\'").replace('"', '\\"').replace('\n', '\\n')
-java = '''package dev.bennett.codexmeter;
+java = '''package dev.scorpion7slayer.modelsmeter;
 
 import java.util.Locale;
 import java.util.Map;
@@ -47,7 +47,7 @@ java += '''
     }
 }
 '''
-(ROOT / 'android/shared/src/main/java/dev/bennett/codexmeter/Translations.java').write_text(java)
+(ROOT / 'android/shared/src/main/java/dev/scorpion7slayer/modelsmeter/Translations.java').write_text(java)
 missing = set()
 for module in ['app', 'wear']:
     root = ROOT / f'android/{module}/src/main/res'
@@ -94,7 +94,7 @@ for module in ['app', 'wear']:
                 output += '    </'+element.tag+'>\n'
         (french / source.name).write_text('<?xml version="1.0" encoding="utf-8"?>\n'+output+'</resources>\n')
 # Literal SwiftUI strings are localized by the environment locale and normal String Catalogs.
-for target in ['CodexMeter','CodexMeterWidgets']:
+for target in ['ModelsMeter','ModelsMeterWidgets']:
     path = ROOT / f'ios/{target}/Localizable.xcstrings'
     catalog = json.loads(path.read_text())
     for en, fr in translations.items():

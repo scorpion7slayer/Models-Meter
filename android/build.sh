@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
-VERSION_NAME="1.0.1"
+VERSION_NAME="1.0.2"
 DIST="$ROOT/dist"
 SIGNING_DIR="$ROOT/.local-signing"
 KEYSTORE="$SIGNING_DIR/models-meter-release.p12"

@@ -19,7 +19,7 @@ jobs:
       - name: Test core and signing validation
         run: |
           set -euo pipefail
-          swift test --package-path ios/CodexMeterCore
+          swift test --package-path ios/ModelsMeterCore
           python3 -m unittest discover -s scripts -p 'test_ios_signing.py'
 
       - name: Validate version and prepare signing profiles
@@ -49,7 +49,7 @@ jobs:
       - name: Archive app and widget with manual signing
         run: |
           set -euo pipefail
-          xcodebuild -project ios/CodexMeter.xcodeproj -scheme CodexMeter \
+          xcodebuild -project ios/ModelsMeter.xcodeproj -scheme ModelsMeter \
             -configuration Release -destination 'generic/platform=iOS' \
             -archivePath "$RUNNER_TEMP/ModelsMeter.xcarchive" \
             DEVELOPMENT_TEAM="$IOS_TEAM_ID" CODE_SIGN_STYLE=Manual \
@@ -63,10 +63,10 @@ jobs:
           xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/ModelsMeter.xcarchive" \
             -exportOptionsPlist "$RUNNER_TEMP/models-meter-signing/ExportOptions.plist" \
             -exportPath "$RUNNER_TEMP/models-meter-export"
-          python3 scripts/verify-ios-ipa.py "$RUNNER_TEMP/models-meter-export/CodexMeter.ipa" \
+          python3 scripts/verify-ios-ipa.py "$RUNNER_TEMP/models-meter-export/ModelsMeter.ipa" \
             "$RUNNER_TEMP/models-meter-verified" "$IOS_TEAM_ID" "$IOS_VERSION"
           mkdir -p ios/dist
-          cp "$RUNNER_TEMP/models-meter-export/CodexMeter.ipa" "ios/dist/ModelsMeter-iOS-$IOS_VERSION.ipa"
+          cp "$RUNNER_TEMP/models-meter-export/ModelsMeter.ipa" "ios/dist/ModelsMeter-iOS-$IOS_VERSION.ipa"
           cd ios/dist
           shasum -a 256 "ModelsMeter-iOS-$IOS_VERSION.ipa" > SHA256SUMS-iOS.txt
 

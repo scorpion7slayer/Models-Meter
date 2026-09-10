@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2
+
+- Unify quota cards and animations across providers, simplify account switching, and place language settings under Appearance.
+- Align the models widget with existing widget styling and configuration on Android and iOS, including sizing, colors and background settings.
+- Rename the Xcode project, Swift modules, Java namespaces, build scripts and internal identifiers to Models Meter across Android, Wear OS and iOS. Preserve original-project credits and historical release notes.
+- Upgrade note: reconnect accounts, configure settings and recreate widgets after updating. Data stored under the previous internal keys and previous settings exports are not imported. Update both the phone and Wear OS companion together.
+- Set Android version code and iOS build number to 3, preserving application IDs and release signing identities.
+
 ## 1.0.1
 
 - Restore the original iOS and Wear OS targets with Models Meter branding, light/dark icons, fork credits and latest model names.

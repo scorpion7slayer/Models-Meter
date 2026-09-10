@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.bennett.codexmeter"
+    namespace = "dev.scorpion7slayer.modelsmeter"
     compileSdk {
         version = release(37) {
             minorApiLevel = 0
@@ -14,8 +14,8 @@ android {
         applicationId = "dev.scorpion7slayer.modelsmeter"
         minSdk = 30
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.0.1"
+        versionCode = 3
+        versionName = "1.0.2"
     }
 
     signingConfigs {

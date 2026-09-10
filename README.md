@@ -7,7 +7,9 @@ Models Meter is an independent fork of [Codex Meter](https://github.com/BenItBuh
 
 [Source](https://github.com/scorpion7slayer/Models-Meter) · [Android and Wear OS downloads](https://github.com/scorpion7slayer/Models-Meter/actions/workflows/build-apk.yml) · [iOS builds](https://github.com/scorpion7slayer/Models-Meter/actions/workflows/ios-ci.yml)
 
-## Version 1.0.1
+## Version 1.0.2
+
+This release completes the internal Models Meter rename and improves quota cards and widgets. After upgrading, reconnect accounts, reconfigure settings and recreate widgets; previous internal storage and settings exports are not imported. Update both phone and watch together.
 
 Track subscription usage, quota reset times and model names for **ChatGPT, Anthropic / Claude, Cursor and OpenCode Go**. Android, Wear OS and iOS are included. Each provider keeps its own connection and cache on the device; there is no backend, advertising or analytics.
 
@@ -31,8 +33,8 @@ ChatGPT-specific features remain available: usage history and pace estimates, re
 
 | Platform | Source | Requirements | Artifact |
 | --- | --- | --- | --- |
-| Android phone | `android/app`, `android/shared` | JDK 17+, SDK 36, Build Tools 36 | `android/dist/ModelsMeter-1.0.1.apk` |
-| Wear OS | `android/wear`, `android/shared` | SDK 37.0, paired Android phone, Wear OS API 30+ | `android/dist/ModelsMeter-Wear-1.0.1.apk` |
+| Android phone | `android/app`, `android/shared` | JDK 17+, SDK 36, Build Tools 36 | `android/dist/ModelsMeter-1.0.2.apk` |
+| Wear OS | `android/wear`, `android/shared` | SDK 37.0, paired Android phone, Wear OS API 30+ | `android/dist/ModelsMeter-Wear-1.0.2.apk` |
 | iPhone / iPad | `ios/` | Xcode 26+, iOS 26+ | Xcode app / simulator build |
 
 Phone minimum: Android 8.0 (API 26). Samsung lock-screen and Now Bar features depend on compatible Galaxy firmware. Wear OS and phone builds share the same application ID and signing certificate for Data Layer communication.
@@ -48,18 +50,18 @@ The root wrappers run the Android project and build both APKs. Set `JAVA_HOME` a
 On macOS:
 
 ```sh
-swift test --package-path ios/CodexMeterCore
-xcodebuild -project ios/CodexMeter.xcodeproj -scheme CodexMeter \
+swift test --package-path ios/ModelsMeterCore
+xcodebuild -project ios/ModelsMeter.xcodeproj -scheme ModelsMeter \
   -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
 ```
 
-Open `ios/CodexMeter.xcodeproj` in Xcode, choose an iPhone simulator, then Run. A physical iPhone requires your Apple development team and provisioning; an unsigned simulator artifact cannot install on an iPhone. See [iOS development](ios/README.md).
+Open `ios/ModelsMeter.xcodeproj` in Xcode, choose an iPhone simulator, then Run. A physical iPhone requires your Apple development team and provisioning; an unsigned simulator artifact cannot install on an iPhone. See [iOS development](ios/README.md).
 
-To test Android, start an AVD in Android Studio's Device Manager, build, then install with `adb install -r android/dist/ModelsMeter-1.0.1.apk`. On a phone, download and extract the Actions artifact and open the **phone** APK. Install the separate Wear APK on the watch, not the phone.
+To test Android, start an AVD in Android Studio's Device Manager, build, then install with `adb install -r android/dist/ModelsMeter-1.0.2.apk`. On a phone, download and extract the Actions artifact and open the **phone** APK. Install the separate Wear APK on the watch, not the phone.
 
 ## Distribution and signing
 
-Manually dispatched Android builds use the fork's persistent signing key from Actions secrets. APKs and `SHA256SUMS.txt` are retained for 30 days. Pull-request builds use a disposable test key and cannot update a distributed build. Version 1.0.1 uses Android code **2** and retains the 1.0.0 application ID and certificate for in-place upgrades.
+Manually dispatched Android builds use the fork's persistent signing key from Actions secrets. APKs and `SHA256SUMS.txt` are retained for 30 days. Pull-request builds use a disposable test key and cannot update a distributed build. Version 1.0.2 uses Android code **3** and retains the 1.0.0 application ID and certificate for in-place upgrades.
 
 `dev.scorpion7slayer.modelsmeter` installs alongside the original Codex Meter app. The updater reads [this fork's releases](https://github.com/scorpion7slayer/Models-Meter/releases). Tags matching the Gradle version publish signed releases only when explicitly requested; a workflow artifact alone is not an updater release.
 
