@@ -120,17 +120,23 @@ final class ModelsMeterUITests: XCTestCase {
         frenchSettings.name = "French settings"
         frenchSettings.lifetime = .keepAlways
         add(frenchSettings)
-        XCTAssertTrue(app.navigationBars["Réglages"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["Fournisseurs"].exists)
+        // UIKit can retain the original navigation bar identifier after a locale change.
+        // Verify the visible translated title and account action instead.
+        XCTAssertTrue(app.navigationBars.staticTexts["Réglages"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Gérer les comptes"].exists)
         app.buttons["language-picker"].tap()
         app.buttons["English"].tap()
         XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
         app.buttons["Done"].tap()
+        app.buttons["Account · ChatGPT"].tap()
         app.buttons["provider-picker"].tap()
         app.buttons["Cursor"].tap()
+        app.buttons["Done"].tap()
         XCTAssertTrue(app.buttons["Connect Cursor"].waitForExistence(timeout: 5))
+        app.buttons["Account · Cursor"].tap()
         app.buttons["provider-picker"].tap()
         app.buttons["ChatGPT"].tap()
+        app.buttons["Done"].tap()
         XCTAssertTrue(app.staticTexts["Latest models"].waitForExistence(timeout: 5))
     }
 
